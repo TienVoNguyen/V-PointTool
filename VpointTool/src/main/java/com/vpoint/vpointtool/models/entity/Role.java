@@ -1,20 +1,21 @@
 package com.vpoint.vpointtool.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 @Entity
+@Table(name = "role")
 public class Role extends BaseEntity{
-    @Column(length = 20)
+    @Size(max = 50)
+    @Column(name = "name", length = 50)
     private String name;
+
     @ManyToMany(mappedBy = "roles")
     @JsonIgnore
     private Set<User> users;
