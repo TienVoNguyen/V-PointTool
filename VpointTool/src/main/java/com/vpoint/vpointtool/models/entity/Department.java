@@ -1,5 +1,6 @@
 package com.vpoint.vpointtool.models.entity;
 
+import com.vpoint.vpointtool.models.login.User;
 import lombok.*;
 
 import javax.persistence.Entity;

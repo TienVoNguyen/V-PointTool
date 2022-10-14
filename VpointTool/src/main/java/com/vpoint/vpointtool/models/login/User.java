@@ -1,5 +1,8 @@
-package com.vpoint.vpointtool.models.entity;
+package com.vpoint.vpointtool.models.login;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vpoint.vpointtool.models.entity.BaseEntity;
+import com.vpoint.vpointtool.models.entity.Department;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,7 +18,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-public class User extends BaseEntity{
+public class User extends BaseEntity {
     @NotBlank
     @Column(length = 20, unique = true, nullable = false)
     private String username;
@@ -36,8 +39,8 @@ public class User extends BaseEntity{
     @ManyToOne
     private Department department;
 
-    @ManyToMany
-    @JoinTable(name = "user_role",joinColumns = {@JoinColumn(name = "user_id")},
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = { @JoinColumn(name="role_id")})
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roleSet;
 }

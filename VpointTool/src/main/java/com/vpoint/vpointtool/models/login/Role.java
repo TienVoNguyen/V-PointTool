@@ -1,6 +1,8 @@
-package com.vpoint.vpointtool.models.entity;
+package com.vpoint.vpointtool.models.login;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vpoint.vpointtool.models.entity.BaseEntity;
+import com.vpoint.vpointtool.models.login.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,10 +14,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-public class Role extends BaseEntity{
+public class Role extends BaseEntity {
     @Column(length = 20)
     private String name;
-    @ManyToMany(mappedBy = "roles")
-    @JsonIgnore
-    private Set<User> users;
+
 }
