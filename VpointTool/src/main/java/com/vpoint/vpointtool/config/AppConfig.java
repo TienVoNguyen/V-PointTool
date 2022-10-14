@@ -72,11 +72,11 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
         http.csrf().ignoringAntMatchers("/**");
         http.httpBasic().authenticationEntryPoint(restAuthenticationEntryPoint());
         http.authorizeRequests()
-                .antMatchers("/", "/login", "/getAllRole", "/getAllUser", "/getAllDepartment").permitAll()
+                .antMatchers("/", "/login").permitAll()
                 .and().authorizeRequests().antMatchers("/register").hasAnyRole("ADMIN")
-//                .and().authorizeRequests().antMatchers("/getAllRole").hasAnyRole("ADMIN")
-//                .and().authorizeRequests().antMatchers("/getAllUser").hasAnyRole("ADMIN")
-//                .and().authorizeRequests().antMatchers("/getAllDepartment").hasAnyRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/getAllRole").hasAnyRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/getAllUser").hasAnyRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/getAllDepartment").hasAnyRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/point**").hasAnyRole("USER")
                 .and().authorizeRequests().antMatchers("/repass**").hasAnyRole("USER", "ADMIN")
                 .and().csrf().disable();

@@ -1,5 +1,6 @@
 package com.vpoint.vpointtool.models.login;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vpoint.vpointtool.models.entity.BaseEntity;
 import com.vpoint.vpointtool.models.entity.Department;
@@ -37,10 +38,13 @@ public class User extends BaseEntity {
     private String email;
 
     @ManyToOne
+    @JsonIgnore
     private Department department;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = { @JoinColumn(name="role_id")})
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    @JsonIgnore
     private Set<Role> roleSet;
 }
