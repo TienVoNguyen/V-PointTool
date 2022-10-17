@@ -1,17 +1,22 @@
 package com.vpoint.vpointtool.models.request;
 
 import com.vpoint.vpointtool.models.entity.Department;
+import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.Role;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.List;
 import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class SignUpForm {
-    private String username;
+    private String staffId;
+
+    private String fullname;
 
     private String password;
 
@@ -21,8 +26,6 @@ public class SignUpForm {
 
     private Department department;
 
-    private String fullName;
-
-    private Set<Role> roles;
+    private Set<Role> role;
 
 }

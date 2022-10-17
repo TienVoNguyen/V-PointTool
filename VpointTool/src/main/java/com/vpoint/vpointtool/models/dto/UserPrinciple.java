@@ -38,7 +38,7 @@ public class UserPrinciple implements UserDetails {
 
         return new UserPrinciple(
                 user.getId(),
-                user.getUsername(),
+                user.getStaffId(),
                 user.getPassword(),
                 authorities
         );

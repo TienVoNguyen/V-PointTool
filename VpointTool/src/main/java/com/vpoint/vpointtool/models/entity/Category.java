@@ -2,9 +2,9 @@ package com.vpoint.vpointtool.models.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import java.util.Set;
+import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -12,8 +12,12 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Table(name = "category")
 public class Category extends BaseEntity{
+    @Size(max = 100)
+    @Column(name = "name", length = 100)
     private String name;
+
     @OneToMany(mappedBy = "category")
-    private Set<Categories> categories;
+    private List<Item> items;
 }

@@ -1,5 +1,6 @@
 package com.vpoint.vpointtool.controller;
 
+import com.vpoint.vpointtool.models.dto.ChangePassword;
 import com.vpoint.vpointtool.models.dto.JwtResponse;
 import com.vpoint.vpointtool.models.entity.Department;
 import com.vpoint.vpointtool.models.login.Role;
@@ -20,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -37,13 +39,17 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtService.generateTokenLogin(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        User currentUser = userService.findByName(user.getUsername());
-        return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(),userDetails.getUsername() , userDetails.getAuthorities()));
+        Optional<User> user1 = userService.findByEmail(user.getEmail());
+        if (user1.isPresent()){
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(user1.get().getStaffId(), user.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = jwtService.generateTokenLogin(authentication);
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            User currentUser = userService.findByStaffId1(user1.get().getStaffId()).get();
+            return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(),user1.get().getFullName() , userDetails.getAuthorities()));
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @Autowired
@@ -69,13 +75,23 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<User> register( @RequestBody SignUpForm user) {
+    public ResponseEntity<User> register(@ModelAttribute SignUpForm user) {
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        User user1 = new User(user.getUsername(), user.getPassword(), user.getFullName(), user.getEmail(), user.getDepartment(), user.getRoles());
+        User user1 = new User(user.getStaffId(), user.getFullname(), user.getPassword(), user.getEmail(), user.getDepartment(), user.getRole());
         userService.save(user1);
         return new ResponseEntity<>( HttpStatus.CREATED);
     }
+
+//    @PostMapping("/repass/{id}")
+//    public ResponseEntity<User> changePassword(@PathVariable Long id, @RequestBody ChangePassword changePassword){
+//        Optional<User> user = userService.findById(id);
+//        String newPassword;
+//        String oldPassword = changePassword.getOldPassword();
+//        if (!user.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
 
 }

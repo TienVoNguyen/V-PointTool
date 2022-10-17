@@ -6,8 +6,12 @@ import com.vpoint.vpointtool.services.IGeneralService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 public interface IAppUserService extends IGeneralService<User>, UserDetailsService {
 
-    User findByName(String name);
+    Optional<User> findByEmail(String name);
+
+    Optional<User> findByStaffId1(String name);
 }

@@ -38,16 +38,22 @@ public class AppUserService implements IAppUserService{
     }
 
     @Override
-    public User findByName(String name) {
-        return appUserRepo.findByUsername(name).get();
+    public Optional<User> findByEmail(String name) {
+        return appUserRepo.findByEmail(name);
+    }
+
+    @Override
+    public Optional<User> findByStaffId1(String name) {
+        return appUserRepo.findByStaffId(name);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userOptional = appUserRepo.findByUsername(username);
+        Optional<User> userOptional = appUserRepo.findByStaffId(username);
         if (userOptional.isPresent()){
             return UserPrinciple.build(userOptional.get());
         }
         return null;
     }
+
 }
