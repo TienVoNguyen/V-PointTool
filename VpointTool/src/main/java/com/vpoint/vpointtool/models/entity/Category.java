@@ -14,6 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "category")
 public class Category extends BaseEntity{
+
     @Size(max = 100)
     @Column(name = "name", length = 100)
     private String name;

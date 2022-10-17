@@ -1,6 +1,7 @@
 package com.vpoint.vpointtool.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -9,6 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "symbol")
+@Data
 public class Symbol extends BaseEntity{
     @Size(max = 50)
     @Column(name = "name", length = 50)
@@ -34,7 +36,8 @@ public class Symbol extends BaseEntity{
     @JsonIgnore
     private List<Mark> marks;
 
-    @ManyToMany(mappedBy = "symbols")
+    @ManyToOne
+    @JoinColumn(name = "item_id")
     @JsonIgnore
-    private Set<Item> items;
+    private Item item;
 }

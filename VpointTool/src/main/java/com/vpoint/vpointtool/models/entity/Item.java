@@ -28,9 +28,7 @@ public class Item extends BaseEntity{
     @JsonIgnore
     private List<Mark> marks;
 
-    @ManyToMany
-    @JoinTable(name = "item_symbol", joinColumns = {@JoinColumn(name = "item_id")},
-            inverseJoinColumns = {@JoinColumn(name = "symbol_id")})
+    @OneToMany(mappedBy = "item")
     private Set<Symbol> symbols = new HashSet<>();
 
 }
