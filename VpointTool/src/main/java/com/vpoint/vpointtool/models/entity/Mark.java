@@ -30,4 +30,6 @@ public class Mark extends BaseEntity{
     @Column(name = "date")
     private LocalDate date;
 
+    @Column(name = "sign")
+    private String sign;
 }
