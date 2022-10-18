@@ -30,5 +30,5 @@ public interface MarkRepository extends JpaRepository<Mark, Long> {
             "and m.user = :user " +
             "and year(m.date) = :year " +
             "group by year(m.date)")
-    int getPointImprove(@Param("user") User user, @Param("item") Item item, @Param("year") int year);
+    Integer getPointImprove(@Param("user") User user, @Param("item") Item item, @Param("year") int year);
 }

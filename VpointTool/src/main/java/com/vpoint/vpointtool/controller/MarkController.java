@@ -78,6 +78,7 @@ public class MarkController {
             markResponse.setPointBestDepartmentYear(pointBestDepartment);
         }
         if (markUser.getBcsDepartmentID() != null && markUser.getBcsDepartment() != null) {
+            System.out.println("eehe");
             float pointBCSDepartment = markService.saveBCSDepartment(markUser.getBcsDepartmentID(),
                     markUser.getBcsDepartment(), user, localDate);
             markResponse.setPointBCSDepartment(pointBCSDepartment);
