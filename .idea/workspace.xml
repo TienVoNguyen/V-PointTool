@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="456c6152-36ee-46f1-86fc-c1ac6b93eff5" name="Changes" comment="" />
+    <list default="true" id="456c6152-36ee-46f1-86fc-c1ac6b93eff5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5ca58bd3-5608-4ef0-b017-6b0b5448d389.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5ca58bd3-5608-4ef0-b017-6b0b5448d389.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,6 +32,15 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/consoles/db/5ca58bd3-5608-4ef0-b017-6b0b5448d389/console.sql" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/VpointTool/src/main/java/com/vpoint/vpointtool/controller/UserController.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/VpointTool/src/main/java/com/vpoint/vpointtool/models/entity/Category.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/VpointTool/src/main/java/com/vpoint/vpointtool/models/entity/Department.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/VpointTool/src/main/java/com/vpoint/vpointtool/models/entity/Role.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/VpointTool/src/main/java/com/vpoint/vpointtool/models/entity/User.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/VpointTool/src/main/resources/application.properties" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -38,6 +53,7 @@
     </option>
   </component>
   <component name="ProjectId" id="2G1hOfhpcyrxjSSHZkLpJkgHmIF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -99,6 +115,7 @@
       <workItem from="1665577499580" duration="4842000" />
       <workItem from="1665628447183" duration="9092000" />
       <workItem from="1665668501802" duration="5959000" />
+      <workItem from="1665741357343" duration="292000" />
     </task>
     <servers />
   </component>

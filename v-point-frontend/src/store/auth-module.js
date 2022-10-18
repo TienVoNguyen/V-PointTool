@@ -1,4 +1,5 @@
-import AuthService from '../service/auth.service';
+import AuthService from '../service/auth-service';
+// import Login from "@/views/Login";
 
 const user = JSON.parse(localStorage.getItem('user'));
 const initialState = user
@@ -21,33 +22,9 @@ export const auth = {
                 }
             );
         },
-        autologin({ commit }, param) {
-            return AuthService.autologin(param).then(
-                user => {
-                    commit('loginSuccess', user);
-                    return Promise.resolve(user);
-                },
-                error => {
-                    commit('loginFailure');
-                    return Promise.reject(error);
-                }
-            );
-        },
         logout({ commit }) {
             AuthService.logout();
             commit('logout');
-        },
-        register({ commit }, user) {
-            return AuthService.register(user).then(
-                response => {
-                    commit('registerSuccess');
-                    return Promise.resolve(response.data);
-                },
-                error => {
-                    commit('registerFailure');
-                    return Promise.reject(error);
-                }
-            );
         }
     },
     mutations: {
@@ -68,6 +45,6 @@ export const auth = {
         },
         registerFailure(state) {
             state.status.loggedIn = false;
-        }
+        },
     }
 };
