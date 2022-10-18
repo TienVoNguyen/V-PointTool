@@ -5,6 +5,9 @@ import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
@@ -16,6 +19,9 @@ public interface MarkRepository extends JpaRepository<Mark, Long> {
 
     Mark findByItemAndDateAndUser(Item item, LocalDate date, User user);
 
+
+    @Query(nativeQuery = true, value = "select * from mark where user_id = ?;")
+    List<Mark> getMarkByIdUser(Long idUser);
     Mark findByItemAndDateAndUserAndSignIsNot(Item item, LocalDate date, User user, String sign);
 
     List<Mark> findAllByItemAndDateAndUserAndSignIsNotIgnoreCase(Item item, LocalDate date, User user, String sign);

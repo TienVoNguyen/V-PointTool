@@ -3,14 +3,13 @@ package com.vpoint.vpointtool.controller;
 import com.vpoint.vpointtool.exception.InputException;
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
-import com.vpoint.vpointtool.models.entity.Symbol;
-import com.vpoint.vpointtool.models.entity.User;
+
+import com.vpoint.vpointtool.models.login.User;
 import com.vpoint.vpointtool.payload.request.AddMarkUser;
 import com.vpoint.vpointtool.payload.response.MarkResponse;
 import com.vpoint.vpointtool.payload.response.MessageResponse;
 import com.vpoint.vpointtool.services.IItemService;
 import com.vpoint.vpointtool.services.IMarkService;
-import com.vpoint.vpointtool.services.ISymbolService;
 import com.vpoint.vpointtool.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,11 +20,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/mark")
+@CrossOrigin("*")
 public class MarkController {
 
     @Autowired
@@ -33,9 +32,6 @@ public class MarkController {
 
     @Autowired
     private IItemService itemService;
-
-    @Autowired
-    private ISymbolService symbolService;
 
     @Autowired
     private IMarkService markService;
@@ -131,6 +127,11 @@ public class MarkController {
         }
 
         return new ResponseEntity<>(markResponse, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/myVpoint/{idUser}")
+    public ResponseEntity<List<Mark>> getMarkByIdUser(@PathVariable Long idUser){
+        return new ResponseEntity<>(markService.getMarkByIdUser(idUser), HttpStatus.OK);
     }
 
 }
