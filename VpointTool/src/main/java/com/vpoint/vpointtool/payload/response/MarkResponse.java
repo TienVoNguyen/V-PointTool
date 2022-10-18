@@ -22,11 +22,15 @@ public class MarkResponse {
 
     private float pointTrainVmg;
 
-//    private float pointImprove;
+    private float pointImprove;
 
     private float pointLoveVmg;
 
     private float pointDisciplineBonus;
 
     private float pointDisciplineViolate;
+
+    private float pointExcellentDepartmentMonth;
+
+    private  float pointExcellentDepartmentYear;
 }

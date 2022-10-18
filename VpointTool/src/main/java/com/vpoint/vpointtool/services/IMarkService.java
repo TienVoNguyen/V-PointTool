@@ -31,4 +31,10 @@ public interface IMarkService {
     float saveTrainStaff(long id, float value, User user, LocalDate date);
 
     float saveTrainVmg(long id, float value, User user, LocalDate date);
+
+    float saveImprove(long id, User user, LocalDate date);
+
+    float saveExcellentDepartmentYear(long id, User user, LocalDate date);
+
+    float saveExcellentDepartmentMonth(long id, User user, LocalDate date);
 }

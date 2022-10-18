@@ -59,265 +59,69 @@ public class MarkController {
         User user = userService.findById(id);
         LocalDate localDate = LocalDate.of(markUser.getYear(), markUser.getMonth(), 1);
 
-        if (markUser.getKpiID() != null) {
+        if (markUser.getKpiID() != null && markUser.getKpi() != null) {
             float pointKpi = markService.saveKPI(markUser.getKpiID(), markUser.getKpi(), user, localDate);
             markResponse.setPointKPI(pointKpi);
         }
-        if (markUser.getBestDepartmentID() != null) {
+        if (markUser.getBestDepartmentID() != null && markUser.getBestDepartment() != null) {
             float pointBestDepartment = markService.saveBestDepartment(markUser.getBestDepartmentID(),
                     markUser.getBestDepartment(), user, localDate);
             markResponse.setPointBestDepartment(pointBestDepartment);
         }
-        if (markUser.getBcsDepartmentID() != null) {
+        if (markUser.getBcsDepartmentID() != null && markUser.getBcsDepartment() != null) {
             float pointBCSDepartment = markService.saveBCSDepartment(markUser.getBcsDepartmentID(),
                     markUser.getBcsDepartment(), user, localDate);
             markResponse.setPointBCSDepartment(pointBCSDepartment);
         }
-        if (markUser.getJointActivitiesID() != null) {
+        if (markUser.getJointActivitiesID() != null && markUser.getJointActivities() != null) {
             float pointJoint = markService.saveJointActivities(markUser.getJointActivitiesID(),
                     markUser.getJointActivities(), user, localDate);
             markResponse.setPointJointActivities(pointJoint);
         }
-        if (markUser.getTrainID() != null) {
+        if (markUser.getTrainID() != null && markUser.getTrain() != null) {
             float pointTrain = markService.saveTrain(markUser.getTrainID(), markUser.getTrain(), user, localDate);
             markResponse.setPointTrain(pointTrain);
         }
-        if (markUser.getTrainStaffID() != null) {
+        if (markUser.getTrainStaffID() != null && markUser.getTrainStaff() != null) {
             float pointTrainStaff = markService.saveTrainStaff(markUser.getTrainStaffID(),
                     markUser.getTrainStaff(), user, localDate);
             markResponse.setPointTrainStaff(pointTrainStaff);
         }
-        if (markUser.getTrainVmgID() != null) {
+        if (markUser.getTrainVmgID() != null && markUser.getTrainVmg() != null) {
             float pointTrainVmg = markService.saveTrainVmg(markUser.getTrainVmgID(), markUser.getTrainVmg(), user,
                     localDate);
             markResponse.setPointTrainVmg(pointTrainVmg);
         }
-        if (markUser.getLoveVmgID() != null) {
+        if (markUser.getLoveVmgID() != null && markUser.getLoveVmg() != null) {
             float pointLoveVmg = markService.saveLoveVmg(markUser.getLoveVmgID(), markUser.getLoveVmg(), user, localDate);
             markResponse.setPointLoveVmg(pointLoveVmg);
         }
-        if (markUser.getDisciplineBonusID() != null) {
+        if (markUser.getDisciplineBonusID() != null && markUser.getDisciplineBonus() != null) {
             float pointDisciplineBonus = markService.saveDisciplineBonus(markUser.getDisciplineBonusID(),
                     markUser.getDisciplineBonus(), user, localDate);
             markResponse.setPointDisciplineBonus(pointDisciplineBonus);
         }
-        if (markUser.getDisciplineViolateID() != null) {
+        if (markUser.getDisciplineViolateID() != null && markUser.getDisciplineViolate() != null) {
             float pointDisciplineViolate = markService.saveDisciplineViolate(markUser.getDisciplineViolateID(),
                     markUser.getDisciplineViolate(), user, localDate);
             markResponse.setPointDisciplineViolate(pointDisciplineViolate);
+        }
+        if (markUser.getImproveID() != null && markUser.isImprove()) {
+            float pointImprove = markService.saveImprove(markUser.getImproveID(), user, localDate);
+            markResponse.setPointImprove(pointImprove);
+        }
+        if (markUser.getExcellentDepartmentMonthID() != null && markUser.isExcellentDepartmentMonth()) {
+            float pointExcellentMonth = markService.saveExcellentDepartmentMonth(
+                    markUser.getExcellentDepartmentMonthID(), user, localDate);
+            markResponse.setPointExcellentDepartmentMonth(pointExcellentMonth);
+        }
+        if (markUser.getExcellentDepartmentYearID() != null && markUser.isExcellentDepartmentYear()) {
+            float pointExcellentDepartmentYear = markService.saveExcellentDepartmentYear(
+                    markUser.getExcellentDepartmentYearID() , user, localDate);
+            markResponse.setPointExcellentDepartmentYear(pointExcellentDepartmentYear);
         }
 
         return new ResponseEntity<>(markResponse, HttpStatus.CREATED);
     }
 
-//    private float markDisciplineViolate(long id, float value, User user, LocalDate date) {
-//        Item item = itemService.findById(id);
-//        Mark mark = new Mark();
-//        mark.setItem(item);
-//        mark.setUser(user);
-//        mark.setPoint(value);
-//        mark.setDate(date);
-//        markService.save(mark);
-//        return value;
-//    }
-//
-//    private float markDisciplineBonus(long id, float value, User user, LocalDate date) {
-//        Item item = itemService.findById(id);
-//        Mark mark = new Mark();
-//        mark.setItem(item);
-//        mark.setUser(user);
-//        mark.setPoint(value);
-//        mark.setDate(date);
-//        markService.save(mark);
-//        return value;
-//    }
-//    private float markLoveVmg(long id, float value, User user, LocalDate date) {
-//        Item item = itemService.findById(id);
-//        Mark mark = new Mark();
-//        float point;
-//        if (value > 65 && value <= 75) {
-//            point = 5;
-//        } else if (75 < value && value <= 85) {
-//            point = 10;
-//        } else if (85 < value && value <= 100) {
-//            point = 20;
-//        } else {
-//            point = 0;
-//        }
-//        mark.setPoint(point);
-//        mark.setItem(item);
-//        mark.setUser(user);
-//        mark.setDate(date);
-//        markService.save(mark);
-//        return point;
-//    }
-//
-//    private float markKPI(long id, float value, User user, LocalDate date) {
-//
-//        float pointKPI;
-//        Mark markKPI = new Mark();
-//        Item item = itemService.findById(id);
-//        if ( value < 70 ) {
-//            pointKPI = -25;
-//        } else if (70 <= value && value < 95) {
-//            pointKPI = (value - 70) * -1;
-//        } else if (value == 95) {
-//            pointKPI = 0;
-//        } else if (95 < value && value < 130) {
-//            pointKPI = value - 95;
-//        } else {
-//            pointKPI = 35;
-//        }
-//        markKPI.setUser(user);
-//        markKPI.setItem(item);
-//        markKPI.setDate(date);
-//        markKPI.setPoint(pointKPI);
-//        markService.save(markKPI);
-//        return pointKPI;
-//    }
-//
-//    private float markBestDepartment(long id, String value, User user, LocalDate date) {
-//        return 0;
-////        Item item = itemService.findById(id);
-////        float point = 0;
-////        if (value.equals("T")) {
-////            point = 10;
-////            Mark mark = new Mark();
-////            mark.setUser(user);
-////            mark.setItem(item);
-////            mark.setDate(date);
-////            mark.setKey(value);
-////            mark.setPoint(point);
-////            markService.save(mark);
-////            return point;
-////        } else {
-////            Mark mark = markService.findByItemAndDate(item, date);
-////            if (mark.getUser() == null) {
-////                mark.setUser(user);
-////                mark.setItem(item);
-////                mark.setDate(date);
-////            }
-////            if (value.equals("DCQ") || value.equals("Q") || value.equals("NSQ")) {
-////                if (mark.getKey() != null && (mark.getKey().equals("DCQ") || mark.getKey().equals("Q") || mark.getKey().equals("NSQ"))) {
-////                }
-////            } else if (value.equals("DCN") || value.equals("N") || value.equals("NSN")) {
-////            } else {
-////                throw new InputException("BestDepartment");
-////            }
-////        }
-//
-//
-////        Mark mark = new Mark();
-//
-////        if (value.equals("DCQ")) {
-////            point = 10;
-////        } else if (value.equals("Q")) {
-////            point = 30;
-////        } else if (value.equals("NSQ")) {
-////            point = 40;
-////        } else if (value.equals("DCN")) {
-////            point = 30;
-////        } else if (value.equals("N")) {
-////            point = 30;
-////        } else if (value.equals("NSN")) {
-////            point = 100;
-////        } else {
-////            throw new InputException("BestDepartment");
-////        }
-////
-////        if (mark.getPoint() == null || mark.getPoint() < point ) {
-////            mark.setPoint(point);
-////        }
-////        markService.save(mark);
-////        return point;
-//    }
-//
-//    private float markBCSDepartment(long id, float value, User user, LocalDate date) {
-//        Item item = itemService.findById(id);
-//        Mark mark = new Mark();
-//        System.out.println(value);
-//        float point;
-//        if (value < 100) {
-//            point = 0;
-//        } else if (100 <= value && value < 105) {
-//            point = 2;
-//        } else if (105 <= value && value < 110) {
-//            point = 5;
-//        } else {
-//            point = 10;
-//        }
-//        mark.setItem(item);
-//        mark.setUser(user);
-//        mark.setPoint(point);
-//        mark.setDate(date);
-//        markService.save(mark);
-//        return point;
-//    }
-//
-//    private float markJointActivities(long id, float value, User user, LocalDate date) {
-//        Item item = itemService.findById(id);
-//        Mark mark = new Mark();
-//        mark.setUser(user);
-//        mark.setPoint(value);
-//        mark.setDate(date);
-//        mark.setItem(item);
-//        markService.save(mark);
-//        return mark.getPoint();
-//    }
-//
-//    private float markTrain(long id, float value, User user, LocalDate date) {
-//        Item item = itemService.findById(id);
-//        Mark mark = new Mark();
-//        float point = 0;
-//        if (4 <= value &&
-//            value < 4.5) {
-//            point = 2;
-//        } else if (4.5 <= value &&
-//                value < 5) {
-//            point = 4;
-//        } else {
-//            point = 6;
-//        }
-//        mark.setItem(item);
-//        mark.setPoint(point);
-//        mark.setUser(user);
-//        mark.setDate(date);
-//        markService.save(mark);
-//        return point;
-//    }
-//
-//    private float markTrainStaff(long id, float value, User user, LocalDate date) {
-//        Item item = itemService.findById(id);
-//        Mark mark = new Mark();
-//        float point;
-//        if (value < 90) {
-//            point = -1;
-//        } else if (90 < value && value < 100) {
-//            point = 0;
-//        } else if (100 < value && value <= 103) {
-//            point = 1;
-//        } else if (103 < value && value <= 105) {
-//            point = 1.5f;
-//        } else {
-//            point = 2;
-//        }
-//        mark.setPoint(point);
-//        mark.setUser(user);
-//        mark.setItem(item);
-//        mark.setDate(date);
-//        markService.save(mark);
-//        return point;
-//    }
-//
-//    private float markTrainVmg(long id, float value, User user, LocalDate date) {
-//        float point = value;
-//        Item item = itemService.findById(id);
-//        Mark mark = new Mark();
-//        mark.setItem(item);
-//        mark.setUser(user);
-//        mark.setDate(date);
-//        mark.setPoint(point);
-//        markService.save(mark);
-//        return point;
-//    }
 }

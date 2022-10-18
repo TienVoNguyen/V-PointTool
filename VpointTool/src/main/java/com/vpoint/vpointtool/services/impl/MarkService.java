@@ -104,6 +104,9 @@ public class MarkService implements IMarkService {
     @Override
     public float saveDisciplineViolate(long id, float value, User user, LocalDate date) {
         Item item = itemRepository.findById(id);
+        if (markRepository.findByItemAndDateAndUser(item, date, user) != null) {
+            return 0;
+        }
         Mark mark = new Mark();
         mark.setItem(item);
         mark.setUser(user);
@@ -116,6 +119,9 @@ public class MarkService implements IMarkService {
     @Override
     public float saveDisciplineBonus(long id, float value, User user, LocalDate date) {
         Item item = itemRepository.findById(id);
+        if (markRepository.findByItemAndDateAndUser(item, date, user) != null) {
+            return 0;
+        }
         Mark mark = new Mark();
         mark.setItem(item);
         mark.setUser(user);
@@ -128,6 +134,9 @@ public class MarkService implements IMarkService {
     @Override
     public float saveLoveVmg(long id, float value, User user, LocalDate date) {
         Item item = itemRepository.findById(id);
+        if (markRepository.findByItemAndDateAndUser(item, date, user) != null) {
+            return 0;
+        }
         Mark mark = new Mark();
         float point;
         if (value > 65 && value <= 75) {
@@ -152,6 +161,9 @@ public class MarkService implements IMarkService {
         float pointKPI;
         Mark markKPI = new Mark();
         Item item = itemRepository.findById(id);
+        if (markRepository.findByItemAndDateAndUser(item, date, user) != null) {
+            return 0;
+        }
         if ( value < 70 ) {
             pointKPI = -25;
         } else if (70 <= value && value < 95) {
@@ -175,7 +187,9 @@ public class MarkService implements IMarkService {
     public float saveBCSDepartment(long id, float value, User user, LocalDate date) {
         Item item = itemRepository.findById(id);
         Mark mark = new Mark();
-        System.out.println(value);
+        if (markRepository.findByItemAndDateAndUser(item, date, user) != null) {
+            return 0;
+        }
         float point;
         if (value < 100) {
             point = 0;
@@ -197,6 +211,9 @@ public class MarkService implements IMarkService {
     @Override
     public float saveJointActivities(long id, float value, User user, LocalDate date) {
         Item item = itemRepository.findById(id);
+        if (markRepository.findByItemAndDateAndUser(item, date, user) != null) {
+            return 0;
+        }
         Mark mark = new Mark();
         mark.setUser(user);
         mark.setPoint(value);
@@ -210,6 +227,9 @@ public class MarkService implements IMarkService {
     public float saveTrain(long id, float value, User user, LocalDate date) {
         Item item = itemRepository.findById(id);
         Mark mark = new Mark();
+        if (markRepository.findByItemAndDateAndUser(item, date, user) != null) {
+            return 0;
+        }
         float point = 0;
         if (4 <= value &&
                 value < 4.5) {
@@ -232,6 +252,9 @@ public class MarkService implements IMarkService {
     public float saveTrainStaff(long id, float value, User user, LocalDate date) {
         Item item = itemRepository.findById(id);
         Mark mark = new Mark();
+        if (markRepository.findByItemAndDateAndUser(item, date, user) != null) {
+            return 0;
+        }
         float point;
         if (value < 90) {
             point = -1;
@@ -256,6 +279,9 @@ public class MarkService implements IMarkService {
     public float saveTrainVmg(long id, float value, User user, LocalDate date) {
         float point = value;
         Item item = itemRepository.findById(id);
+        if (markRepository.findByItemAndDateAndUser(item, date, user) != null) {
+            return 0;
+        }
         Mark mark = new Mark();
         mark.setItem(item);
         mark.setUser(user);
@@ -263,6 +289,61 @@ public class MarkService implements IMarkService {
         mark.setPoint(point);
         markRepository.save(mark);
         return point;
+    }
+
+    @Override
+    public float saveImprove(long id, User user, LocalDate date) {
+        Item item = itemRepository.findById(id);
+        Mark mark = new Mark();
+        if (markRepository.findByItemAndDateAndUser(item, date, user) != null) {
+            return 0;
+        }
+        int currentPoint = markRepository.getPointImprove(user, item, date.getYear());
+        float point;
+        if (currentPoint >= 35) {
+            return 0;
+        } else if (currentPoint + 10 >= 35) {
+            point = 35 - currentPoint;
+            mark.setPoint(point);
+        } else {
+            point = 10;
+            mark.setPoint(point);
+        }
+        mark.setItem(item);
+        mark.setUser(user);
+        mark.setDate(date);
+        markRepository.save(mark);
+        return mark.getPoint();
+    }
+
+    @Override
+    public float saveExcellentDepartmentYear(long id, User user, LocalDate date) {
+        Item item = itemRepository.findById(id);
+        Mark mark = new Mark();
+        if (markRepository.findByItemAndDateAndUser(item, date, user) != null) {
+            return 0;
+        }
+        mark.setPoint(20f);
+        mark.setDate(date);
+        mark.setUser(user);
+        mark.setItem(item);
+        markRepository.save(mark);
+        return 20;
+    }
+
+    @Override
+    public float saveExcellentDepartmentMonth(long id, User user, LocalDate date) {
+        Item item = itemRepository.findById(id);
+        Mark mark = new Mark();
+        if (markRepository.findByItemAndDateAndUser(item, date, user) != null) {
+            return 0;
+        }
+        mark.setPoint(10f);
+        mark.setDate(date);
+        mark.setUser(user);
+        mark.setItem(item);
+        markRepository.save(mark);
+        return 10;
     }
 
     private int convertBestDepartment(String value) {
