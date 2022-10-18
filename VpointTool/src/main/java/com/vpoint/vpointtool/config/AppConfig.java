@@ -80,6 +80,11 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/point**").hasAnyRole("USER")
                 .and().authorizeRequests().antMatchers("/repass**").hasAnyRole("USER")
                 .and().authorizeRequests().antMatchers("/repass**").hasAnyRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/list**").hasAnyRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/delete**").hasAnyRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/myVpoint**").hasAnyRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/api/mark**").hasAnyRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/api/mark/myVpoint**").hasAnyRole("USER")
                 .and().csrf().disable();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());

@@ -14,17 +14,24 @@ import java.util.Set;
  */
 @Data
 public class UserDto implements Serializable {
+
     private final Long id;
+
     @NotBlank
     private final String username;
+
     @NotBlank
     private final String password;
+
     @NotBlank
     @Size(max = 30)
     private final String fullName;
+
     @NotBlank
     @Email
     private final String email;
+
     private final Long departmentId;
+
     private final Set<Long> roleIds;
 }

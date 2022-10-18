@@ -5,6 +5,8 @@ import com.vpoint.vpointtool.models.dto.UserPrinciple;
 import com.vpoint.vpointtool.models.login.User;
 import com.vpoint.vpointtool.repositories.IAppUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -46,6 +48,7 @@ public class AppUserService implements IAppUserService{
     public Optional<User> findByStaffId1(String name) {
         return appUserRepo.findByStaffId(name);
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

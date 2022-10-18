@@ -38,8 +38,8 @@ public class User extends BaseEntity {
     private String email;
 
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.EAGER)
     private Department department;
 
 
