@@ -1,5 +1,6 @@
 package com.vpoint.vpointtool.services.impl;
 
+import com.vpoint.vpointtool.exception.InputException;
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.repositories.ItemRepository;
 import com.vpoint.vpointtool.services.IItemService;
@@ -21,6 +22,7 @@ public class ItemService implements IItemService {
 
     @Override
     public Item findById(long id) {
-        return itemRepository.findById(id);
+        return itemRepository.findById(id)
+                .orElseThrow(() -> new InputException("Item id: " + id));
     }
 }

@@ -2,11 +2,8 @@ package com.vpoint.vpointtool.repositories;
 
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
-import com.vpoint.vpointtool.models.entity.User;
+import com.vpoint.vpointtool.models.login.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-
-import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -36,5 +33,5 @@ public interface MarkRepository extends JpaRepository<Mark, Long> {
             "and m.user = :user " +
             "and year(m.date) = :year " +
             "group by year(m.date)")
-    int getPointImprove(@Param("user") User user, @Param("item") Item item, @Param("year") int year);
+    Integer getPointImprove(@Param("user") User user, @Param("item") Item item, @Param("year") int year);
 }
