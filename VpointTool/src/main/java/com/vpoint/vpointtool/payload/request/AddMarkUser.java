@@ -15,8 +15,13 @@ public class AddMarkUser {
     private Float kpi;
     private Long kpiID;
 
-    private String bestDepartment;
     private Long bestDepartmentID;
+
+    private String bestDepartmentMonth;
+
+    private String bestDepartmentQuarter;
+
+    private String bestDepartmentYear;
 
     private Long excellentDepartmentMonthID;
     private boolean excellentDepartmentMonth;

@@ -62,10 +62,20 @@ public class MarkController {
             float pointKpi = markService.saveKPI(markUser.getKpiID(), markUser.getKpi(), user, localDate);
             markResponse.setPointKPI(pointKpi);
         }
-        if (markUser.getBestDepartmentID() != null && markUser.getBestDepartment() != null) {
+        if (markUser.getBestDepartmentID() != null && markUser.getBestDepartmentMonth() != null) {
             float pointBestDepartment = markService.saveBestDepartment(markUser.getBestDepartmentID(),
-                    markUser.getBestDepartment(), user, localDate);
-            markResponse.setPointBestDepartment(pointBestDepartment);
+                    markUser.getBestDepartmentMonth(), user, localDate);
+            markResponse.setPointBestDepartmentMonth(pointBestDepartment);
+        }
+        if (markUser.getBestDepartmentID() != null && markUser.getBestDepartmentQuarter() != null) {
+            float pointBestDepartment = markService.saveBestDepartment(markUser.getBestDepartmentID(),
+                    markUser.getBestDepartmentQuarter(), user, localDate);
+            markResponse.setPointBestDepartmentQuarter(pointBestDepartment);
+        }
+        if (markUser.getBestDepartmentID() != null && markUser.getBestDepartmentYear() != null) {
+            float pointBestDepartment = markService.saveBestDepartment(markUser.getBestDepartmentID(),
+                    markUser.getBestDepartmentYear(), user, localDate);
+            markResponse.setPointBestDepartmentYear(pointBestDepartment);
         }
         if (markUser.getBcsDepartmentID() != null && markUser.getBcsDepartment() != null) {
             float pointBCSDepartment = markService.saveBCSDepartment(markUser.getBcsDepartmentID(),
