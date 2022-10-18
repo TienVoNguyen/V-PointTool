@@ -10,6 +10,8 @@ import javax.validation.constraints.Min;
 @Data
 public class AddMarkUser {
 
+    private String staff_id;
+
     private Float kpi;
     private Long kpiID;
 

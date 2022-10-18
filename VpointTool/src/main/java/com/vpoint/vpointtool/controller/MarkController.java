@@ -45,18 +45,17 @@ public class MarkController {
         return "index";
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/add")
     @Transactional
     public ResponseEntity<?> addMarkUser(@Valid @RequestBody AddMarkUser markUser,
-                                                    BindingResult result,
-                                                    @PathVariable("id") long id) {
+                                                    BindingResult result) {
         if (result.hasErrors()) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Input"));
         }
         MarkResponse markResponse = new MarkResponse();
-        User user = userService.findById(id);
+        User user = userService.findByStaffId(markUser.getStaff_id());
         LocalDate localDate = LocalDate.of(markUser.getYear(), markUser.getMonth(), 1);
 
         if (markUser.getKpiID() != null && markUser.getKpi() != null) {

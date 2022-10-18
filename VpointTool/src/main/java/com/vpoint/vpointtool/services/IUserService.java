@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface IUserService {
 
     User findById(Long id);
+
+    User findByStaffId(String id);
 }
