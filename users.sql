@@ -1,0 +1,1 @@
+INSERT INTO vpoint.users (id, create_by, create_date, modified_by, modified_date, full_name, password, staff_id, department_id) VALUES (1, null, null, null, null, 'Pham Hoang Anh', null, 'VMG_2022', 1);
