@@ -2,11 +2,9 @@ package com.vpoint.vpointtool.services;
 
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
-import com.vpoint.vpointtool.models.entity.User;
+import com.vpoint.vpointtool.models.login.User;
 
 import java.time.LocalDate;
-import java.util.Optional;
-
 import java.util.List;
 
 public interface IMarkService {

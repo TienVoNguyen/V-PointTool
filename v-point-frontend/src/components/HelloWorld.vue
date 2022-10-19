@@ -44,10 +44,14 @@ export default {
               trainID: 5,
               train: row.getCell(16).value,
               stt: row.getCell(17).value,
-              trainVmgID: 7,
-              trainVmg: row.getCell(18).value,
-              bonus: row.getCell(19).value,
-              phat: row.getCell(20).value,
+              trainVmgID: 5,
+              trainVmg: row.getCell(21).value,
+              loveVmgID: 7,
+              loveVmg:row.getCell(18).value,
+              disciplineBonusID: 8,
+              disciplineBonus: row.getCell(19).value,
+              disciplineViolateID: 8,
+              disciplineViolate: row.getCell(20).value,
             }
             console.log(mark)
           }

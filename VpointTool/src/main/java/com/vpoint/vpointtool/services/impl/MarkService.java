@@ -3,14 +3,12 @@ package com.vpoint.vpointtool.services.impl;
 import com.vpoint.vpointtool.exception.InputException;
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
-import com.vpoint.vpointtool.models.entity.User;
+import com.vpoint.vpointtool.models.login.User;
 import com.vpoint.vpointtool.repositories.ItemRepository;
 import com.vpoint.vpointtool.repositories.MarkRepository;
 import com.vpoint.vpointtool.services.IItemService;
 import com.vpoint.vpointtool.services.IMarkService;
-import com.vpoint.vpointtool.services.IMarkService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -20,7 +18,6 @@ import java.util.Optional;
 
 @Service
 public class MarkService implements IMarkService {
-
     @Autowired
     private MarkRepository markRepository;
     

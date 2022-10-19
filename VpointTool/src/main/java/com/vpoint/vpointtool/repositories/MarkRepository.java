@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface MarkRepository extends JpaRepository<Mark, Long> {
     Optional<Mark> findByItemAndDate(Item item, LocalDate date);
 
-    Mark findByItemAndDateAndUser(Item item, LocalDate date, User user);
+    List<Mark> findByItemAndDateAndUser(Item item, LocalDate date, User user);
 
 
     @Query(nativeQuery = true, value = "select * from mark where user_id = ?;")
