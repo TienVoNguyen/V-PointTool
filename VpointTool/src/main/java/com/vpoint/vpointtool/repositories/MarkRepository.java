@@ -14,11 +14,8 @@ import java.util.Optional;
 public interface MarkRepository extends JpaRepository<Mark, Long> {
     Optional<Mark> findByItemAndDate(Item item, LocalDate date);
 
-    List<Mark> findByItemAndDateAndUser(Item item, LocalDate date, User user);
+    Mark findByItemAndDateAndUser(Item item, LocalDate date, User user);
 
-
-    @Query(nativeQuery = true, value = "select * from mark where user_id = ?;")
-    List<Mark> getMarkByIdUser(Long idUser);
     Mark findByItemAndDateAndUserAndSignIsNot(Item item, LocalDate date, User user, String sign);
 
     List<Mark> findAllByItemAndDateAndUserAndSignIsNotIgnoreCase(Item item, LocalDate date, User user, String sign);
@@ -34,4 +31,7 @@ public interface MarkRepository extends JpaRepository<Mark, Long> {
             "and year(m.date) = :year " +
             "group by year(m.date)")
     Integer getPointImprove(@Param("user") User user, @Param("item") Item item, @Param("year") int year);
+
+    @Query(nativeQuery = true, value = "select * from mark where user_id = ?;")
+    List<Mark> getMarkByIdUser(Long idUser);
 }
