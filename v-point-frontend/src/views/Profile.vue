@@ -6,7 +6,7 @@
       <el-table-column
           prop="staffId"
           label="Mã nhân viên"
-          width="180">
+          width="120">
       </el-table-column>
       <el-table-column
           prop="fullName"
@@ -16,11 +16,11 @@
       <el-table-column
           prop="department.name"
           label="Phòng ban"
-          width="180">
+          width="150">
       </el-table-column>
       <el-table-column
           label="Quyền truy cập"
-          width="180">
+          width="125">
         <template v-slot="scope">
           <p height="50px" v-for="(role, index) in scope.row.roleSet" :key="index" >
             {{role.name == 'ROLE_ADMIN'? 'Admin' : 'Người dùng'}}
@@ -29,7 +29,8 @@
       </el-table-column>
       <el-table-column
           prop="address"
-          label="Tổng điểm V-point">
+          width="100"
+          label="V-point">
       </el-table-column>
 
       <el-table-column
@@ -65,6 +66,7 @@
 
 
 import {UserService as userService} from "@/service/user-service";
+import swal from 'sweetalert2'
 // import authService from "@/service/auth-service";
 // import response from "core-js/internals/is-forced";
 
@@ -101,20 +103,53 @@ export default {
     },
 
     deleteUser : async function (userId){
-      try {
-        let response = await userService.deleteUser(userId);
-        if (response){
-          const params = this.getRequestParams(
-              this.page
-          );
-          console.log(params)
-          let response = await userService.getAll(params)
-          this.listUser = response.data.content
-          this.count = response.data.totalPages;
-        }
-      } catch (error){
-        this.errorMessage(error)
-      }
+      swal.fire({
+        title: 'Bạn có chắc muốn xóa người này?',
+        text: 'Thao tác này không thể hoàn tác lại!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Xóa',
+        cancelButtonText: 'Quay lại',
+      }).then(async (result) => {
+            if (result.isConfirmed) {
+              let response = await userService.deleteUser(userId);
+              if (response) {
+                const params = this.getRequestParams(
+                    this.page
+                );
+                console.log(params)
+                let response = await userService.getAll(params)
+                this.listUser = response.data.content
+                this.count = response.data.totalPages;
+              }
+              await swal.fire(
+                  'Đã xóa',
+                  '',
+                  'success'
+              );
+              // this.walletService.delete(this.idUser, this.idWallet).subscribe(() => {
+              //   this.router.navigate(['/wallet/list']);
+            }
+          }
+      );
+
+
+      // try {
+      //   let response = await userService.deleteUser(userId);
+      //   if (response){
+      //     const params = this.getRequestParams(
+      //         this.page
+      //     );
+      //     console.log(params)
+      //     let response = await userService.getAll(params)
+      //     this.listUser = response.data.content
+      //     this.count = response.data.totalPages;
+      //   }
+      // } catch (error){
+      //   this.errorMessage(error)
+      // }
     },
 
     refreshList() {

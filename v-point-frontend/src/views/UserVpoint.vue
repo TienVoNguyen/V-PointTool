@@ -4,7 +4,13 @@
       style="width: 700px; margin-left: auto; margin-right: auto;">
     <el-table-column
         label="date"
-        prop="date">
+
+    >
+      <template v-slot="scope">
+        <p>
+          {{scope.row.date}}
+        </p>
+      </template>
     </el-table-column>
     <el-table-column
         label="Point"
@@ -26,23 +32,6 @@
       </template>
     </el-table-column>
   </el-table>
-<!--  <div class="el-container">-->
-<!--    <el-table-->
-<!--        :data="point"-->
-<!--        style="margin-left: auto; margin-right: auto; width: 100px">-->
-<!--      <el-table-column-->
-<!--          prop="date"-->
-<!--          label="Date"-->
-<!--          >-->
-<!--      </el-table-column>-->
-<!--      <el-table-column-->
-<!--          prop="point"-->
-<!--          label="Point"-->
-<!--          >-->
-<!--      </el-table-column>-->
-
-<!--    </el-table>-->
-<!--  </div>-->
 
 </template>
 
