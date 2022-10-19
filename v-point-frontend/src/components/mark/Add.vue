@@ -11,17 +11,27 @@
           </el-col>
           <el-col :span="4">
             <el-form-item label="Tên nhân viên">
-              <el-input v-model="formLabelAlign.name"></el-input>
+              <el-input ></el-input>
             </el-form-item>    
           </el-col>
           <el-col :span="4">
             <el-form-item label="Bộ phận">
-              <el-input v-model="formLabelAlign.name"></el-input>
+              <el-input ></el-input>
+            </el-form-item>    
+          </el-col>
+          <el-col :span="2">
+            <el-form-item label="Chọn năm">
+              <el-input ></el-input>
+            </el-form-item>    
+          </el-col>
+          <el-col :span="2">
+            <el-form-item label="Chọn tháng">
+              <el-input ></el-input>
             </el-form-item>    
           </el-col>
         </el-row>
       </el-form-item>
-      <h2>Hiệu suất công việc</h2>
+      <h2>Mục I. Hiệu suất công việc</h2>
       <h4>1. KPI cá nhân</h4>
       <el-row>
         <el-col :span="4" :offset="2">
@@ -53,7 +63,7 @@
               <el-col :span="10" :offset="2">
                 <h6>2.2 Nhân viên xuất sắc quý</h6>
                 <el-form-item label="">
-                  <el-input placeholder="" v-model="formLabelAlign.name"></el-input>
+                  <el-input placeholder="Nhân viên xuất sắc quý" ></el-input>
                 </el-form-item>
               </el-col>   
               <el-col :span="10">
@@ -69,28 +79,105 @@
               <el-col :span="10" :offset="2">
                 <h6>2.3 Nhân viên xuất sắc năm</h6>
                 <el-form-item label="">
-                  <el-input placeholder="" v-model="formLabelAlign.name"></el-input>
+                  <el-input placeholder="Nhân viên xuất sắc năm" ></el-input>
                 </el-form-item>
               </el-col>     
             </el-row>
           </el-col>
       </el-row>
-      <h2>Làm việc nhóm</h2>
+      <h2>Mục II. Làm việc nhóm</h2>
       <el-row justify="center">
         <el-col :span="16" :offset="4">
             <el-row justify="center" :gutter="80">
               <el-col :span="10" :offset="2">
                 <h6>3. Điểm BSC bộ phận</h6>
                 <el-form-item label="">
-                  <el-input placeholder="" v-model="formLabelAlign.name"></el-input>
+                  <el-input placeholder="Nhập điểm BSC bộ phận(%) " ></el-input>
                 </el-form-item>
               </el-col>   
               <el-col :span="10">
                 <h6>4. Hoạt động chung</h6>
                 <el-form-item label="">
-                  <el-input placeholder="" v-model="formLabelAlign.name"></el-input>
+                  <el-input placeholder="Nhập điểm hoạt động chung" ></el-input>
                 </el-form-item>
               </el-col>   
+            </el-row>
+          </el-col>
+      </el-row>
+      <h2>Mục III. Đào tạo và phát triển</h2>
+      <h4>5. Đào tạo</h4>
+      <el-row >
+        <el-col :span="16" :offset="4">
+            <el-row justify="center" :gutter="80">
+              <el-col :span="10" :offset="2">
+                <h6>5.1. Người đào tạo</h6>
+                <el-form-item label="">
+                  <el-input placeholder="Nhập điểm DGC" ></el-input>
+                </el-form-item>
+              </el-col>   
+              <el-col :span="10">
+                <h6>5.2. Người tham gia đào tạo</h6>
+                <el-form-item label="">
+                  <el-input placeholder="Nhập điểm đào tạo(%)" ></el-input>
+                </el-form-item>
+              </el-col>   
+            </el-row>
+          </el-col>
+          <el-col :span="16" :offset="4">
+            <el-row justify="center" :gutter="80">
+              <el-col :span="10" :offset="2">
+                <h6>5.3. Chương trình phát triển cùng VMG</h6>
+                <el-form-item label="">
+                  <el-input placeholder="Nhập điểm" ></el-input>
+                </el-form-item>
+              </el-col>    
+            </el-row>
+          </el-col>
+      </el-row>
+      <h2>Mục IV. Sáng tạo</h2>
+      <h4>6. Cải tiến đổi mới</h4>
+      <el-row>
+        <el-col :span="16" :offset="4">
+            <el-row :gutter="80">
+              <el-col :span="10" :offset="2">
+                <el-form-item label="" class="item-left">
+                  <el-checkbox v-model="checked">Nhân sự có ý tưởng cải tiến đổi mới tháng</el-checkbox>
+                </el-form-item>
+              </el-col>   
+            </el-row>
+          </el-col>
+      </el-row>
+      <h2>Mục V. Tuân thủ</h2>
+      <h4>7. Tôi yêu VMG</h4>
+      <el-row >
+        <el-col :span="16" :offset="4">
+            <el-row justify="center" :gutter="80">
+              <el-col :span="10" :offset="2">
+                <el-form-item label="">
+                  <el-input placeholder="Nhập điểm test(%)" ></el-input>
+                </el-form-item>
+              </el-col>   
+              <!-- <el-col :span="10">
+              </el-col>    -->
+            </el-row>
+          </el-col>
+          </el-row>
+          <h4>8. Kỷ luật</h4>
+          <el-row>
+          <el-col :span="16" :offset="4">
+            <el-row justify="center" :gutter="80">
+              <el-col :span="10" :offset="2">
+                <h6>5.3. Chương trình phát triển cùng VMG</h6>
+                <el-form-item label="">
+                  <el-input placeholder="Nhập điểm" ></el-input>
+                </el-form-item>
+              </el-col> 
+              <el-col :span="10">
+                <h6>5.2. Người tham gia đào tạo</h6>
+                <el-form-item label="">
+                  <el-input placeholder="Nhập điểm" ></el-input>
+                </el-form-item>
+              </el-col>     
             </el-row>
           </el-col>
       </el-row>
