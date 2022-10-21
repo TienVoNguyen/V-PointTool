@@ -1,15 +1,23 @@
-<template>
+<template >
   <div id="app">
-    <Navbar/>
-    <div class="row">
-      <div class="col-3">
-        <Sidebar/>
-      </div>
-      <div class="col-9">
-        <router-view/>
+    <div v-if="loggedIn && currentUser.roles.length === 2">
+      <Navbar/>
+      <div class="row" style="width: 100%; height: 100%" >
+        <div class="col-3 div-1" >
+          <Sidebar/>
+        </div>
+        <div class="col-9">
+          <router-view/>
+        </div>
       </div>
     </div>
-
+    <div v-if="!loggedIn">
+      <router-view/>
+    </div>
+    <div v-if="loggedIn && currentUser.roles.length === 1">
+      <Navbar/>
+      <router-view/>
+    </div>
 
   </div>
 </template>
@@ -35,13 +43,25 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
+.div-1 {
+  background-color: #dc3545;
+}
 </style>
 <script>
 
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
+import login from "@/views/Login";
 
 export default {
-  components: {Sidebar, Navbar}
+  components: {Sidebar, Navbar}, login,
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+  },
 }
 </script>

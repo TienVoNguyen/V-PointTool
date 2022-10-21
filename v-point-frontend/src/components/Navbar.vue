@@ -2,14 +2,14 @@
 <div>
   <nav class="navbar navbar-dark bg-danger navbar-expand-sm">
     <div class="container">
-      <router-link to="/blogs" class="navbar-brand"><i class="fa fa-home 2x"></i>VMG Point</router-link>
+      <router-link to="/profile" class="navbar-brand">VMG Point</router-link>
     </div>
-    <div class="text-end" v-if="loggedIn">
-      <button class="btn btn-outline-light me-2" @click="dialogFormVisible = true" v-if="currentUser.roles.length === 2">Đăng kí mới</button>
-    </div> &emsp;
-    <div class="text-end" v-if="loggedIn">
-      <button class="btn btn-outline-light me-2" v-if="loggedIn && currentUser.roles.length === 2" ><router-link to="/profile">V-Point</router-link></button>
-    </div>
+<!--    <div class="text-end" v-if="loggedIn">-->
+<!--      <button class="btn btn-outline-light me-2" @click="dialogFormVisible = true" v-if="currentUser.roles.length === 2">Đăng kí mới</button>-->
+<!--    </div> &emsp;-->
+<!--    <div class="text-end" v-if="loggedIn">-->
+<!--      <button class="btn btn-outline-light me-2" v-if="loggedIn && currentUser.roles.length === 2" ><router-link to="/">V-Point</router-link></button>-->
+<!--    </div>-->
 <!--    <router-link to="/UserVpoint">V-Point</router-link>-->
 <!--    <div class="text-end" v-if="loggedIn">-->
 <!--      <button class="btn btn-outline-light me-2" @click="logOut">Đăng xuất</button>-->
