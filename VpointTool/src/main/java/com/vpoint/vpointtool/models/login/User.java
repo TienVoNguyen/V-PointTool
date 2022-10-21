@@ -37,8 +37,6 @@ public class User extends BaseEntity {
     @Column(name = "email", length = 150)
     private String email;
 
-
-
     @ManyToOne(fetch = FetchType.EAGER)
     private Department department;
 
