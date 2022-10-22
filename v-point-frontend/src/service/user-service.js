@@ -19,9 +19,19 @@ export class UserService {
         return axios.delete(dataURL, { headers: authHeader() })
     }
 
+    static findById(userId){
+        let dataURL = `${this.serverURL}/findByIdUser/${userId}`
+        return axios.get(dataURL, { headers: authHeader() })
+    }
+
     static getVpoint(userId) {
         let dataURL = `${this.serverURL}/api/mark/myVpoint/${userId}`
         return axios.get(dataURL, {headers: authHeader()});
+    }
+
+    static getVpointByTime(userId, params) {
+        let dataURL = `${this.serverURL}/api/mark/${userId}`
+        return axios.get(dataURL, {params, headers: authHeader()});
     }
 
 }

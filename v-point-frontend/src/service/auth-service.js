@@ -41,10 +41,13 @@ class AuthService {
         return true;
     }
     createUser(user){
-        // let userForm = new FormData(user)
-        // console.log(userForm)
         let dataURL = `${API_URL}register`
         return axios.post(dataURL, user, {headers: authHeader()})
+    }
+
+    editUser(userId, user){
+        let dataURL = `${API_URL}update/${userId}`
+        return axios.put(dataURL, user, {headers: authHeader()})
     }
 }
 

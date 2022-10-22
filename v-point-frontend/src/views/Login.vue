@@ -1,43 +1,50 @@
 
 <template>
-  <div class="col-md-12">
-    <div class="card card-container">
-      <img
-          id="profile-img"
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          class="profile-img-card"
-      />
-      <form name="form" @submit.prevent="handleLogin">
-        <div class="form-group">
-          <label for="name">Username</label>
-          <input
-              v-model="user.email"
+  <div>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-7 col-lg-5">
+            <div class="wrap">
+              <div>
+                <img height="200px" v-bind:src="'https://vmgmedia.vn/Content/images/logo/01.png'" />
+              </div>
+              <div class="login-wrap p-4 p-md-5">
+                <div class="d-flex">
+                  <div class="w-100">
+                    <h3 class="mb-4">Sign In</h3>
+                  </div>
+                </div>
+                <form name="form" @submit.prevent="handleLogin">
+                  <small v-if="messageForm" style="color: red">{{messageForm}}</small>
+                  <div class="form-group mt-5">
+                    <label>Email</label>
+                    <input               v-model="user.email"
 
-              type="text"
-              class="form-control"
-              name="email"
-          />
+                                         type="email"
+                                         class="form-control"
+                                         name="email">
+                  </div>
+                  <small v-if="messageEmail" style="color: red">{{messageEmail}}</small>
+                  <div class="form-group">
+                    <label>Password</label>
+                    <input               v-model="user.password"
+                                         type="password"
+                                         class="form-control"
+                                         name="password">
+
+
+                  </div>
+                  <small v-if="messagePass !== null" style="color: red">{{messagePass}}</small>
+                  <div class="form-group">
+                    <button type="submit" class="form-control btn btn-danger rounded submit px-3">Sign In</button>
+                  </div>
+                  <small v-if="message" class="alert alert-danger" role="alert">{{message}}</small>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-              v-model="user.password"
-              type="password"
-              class="form-control"
-              name="password"
-          />
-        </div>
-        <div class="form-group">
-          <button class="btn btn-primary btn-block">
-<!--            <span class="spinner-border spinner-border-sm"></span>-->
-            <span>Login</span>
-          </button>
-        </div>
-        <div class="form-group">
-          <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
-        </div>
-      </form>
-    </div>
+      </div>
   </div>
 </template>
 
@@ -51,7 +58,11 @@ export default {
     return {
       user: new User('', ''),
       message: '',
-      a: ''
+      a: '',
+      check: true,
+      messageEmail:'',
+      messagePass:'',
+      messageForm: ''
     };
   },
   computed: {
@@ -73,21 +84,46 @@ export default {
   },
   methods: {
     handleLogin() {
-      this.$store.dispatch('auth/login', this.user).then(
-          () => {
-            console.log(this.currentUser.roles.length)
-            if (this.loggedIn && this.currentUser.roles.length === 2) {
-              this.$router.push('/profile');
+      if (!this.user.email && !this.user.password){
+        this.messageForm = 'Vui lòng nhập thông tin đăng nhập';
+        this.messageEmail = '';
+        this.messagePass = '';
+        this.message = '';
+        this.check = false
+      }
+      if (!this.user.email && this.user.password){
+        this.messageEmail = 'Vui lòng nhập email';
+        this.messageForm = '';
+        this.message = '';
+        this.check = false
+      }
+      if (!this.user.password && this.user.email){
+        this.messagePass = 'Vui lòng nhập mật khẩu'
+        this.messageForm = '';
+        this.message = '';
+        this.check = false
+      }
+      if(this.user.email && this.user.password){
+        this.check = true;
+      }
+      if (this.check === true) {
+        this.$store.dispatch('auth/login', this.user).then(
+            () => {
+              console.log(this.currentUser.roles.length)
+              if (this.loggedIn && this.currentUser.roles.length === 2) {
+                this.$router.push('/profile');
+              }
+              if (this.loggedIn && this.currentUser.roles.length === 1) {
+                this.$router.push('/UserVpoint');
+              }
+            },
+            error => {
+              this.a = (error.response && error.response.data)
+              this.message = 'Email hoặc mật khẩu không chính xác'
             }
-            if (this.loggedIn && this.currentUser.roles.length === 1) {
-              this.$router.push('/');
-            }
-          },
-          error => {
-            this.a = (error.response && error.response.data)
-            this.message = 'Email hoặc mật khẩu không chính xác'
-          }
-      );
+        );
+      }
+
     }
   }
 };

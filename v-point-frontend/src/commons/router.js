@@ -4,6 +4,7 @@ import UserVpoint from "@/views/UserVpoint";
 import Login from "@/views/Login";
 import Profile from "@/views/Profile";
 import VueRouter from "vue-router";
+import DetailPoint from "@/views/DetailPoint";
 
 Vue.use(Router);
 
@@ -11,7 +12,7 @@ const routes = [
     {
         path: '/',
         name: 'UserVpoint',
-        component: UserVpoint
+        component: Login
     },
     {
         path: '/login',
@@ -27,6 +28,11 @@ const routes = [
         path: '/UserVpoint',
         name: 'UserVpoint',
         component: UserVpoint
+    },
+    {
+        path: '/api/mark/:year/:month',
+        name: 'DetailPoint',
+        component: DetailPoint
     },
     {
         path: '/about',

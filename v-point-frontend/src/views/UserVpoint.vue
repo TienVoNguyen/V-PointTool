@@ -1,34 +1,22 @@
 <template>
-  <el-table
-      :data="point.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-      style="width: 700px; margin-left: auto; margin-right: auto;">
-    <el-table-column
-        label="date"
 
-    >
-      <template v-slot="scope">
-        <p>
-          {{scope.row.date}}
-        </p>
-      </template>
+  <el-table
+      :data="Point"
+      style="width: 100%">
+    <el-table-column
+        prop="date"
+        label="Thời gian"
+        width="120">
     </el-table-column>
     <el-table-column
-        label="Point"
-        prop="point">
+        prop="sum"
+        label="Điểm V-poin"
+        width="180">
     </el-table-column>
     <el-table-column
-        align="right">
-      <template slot="header" slot-scope="scope">
-        <el-input
-            v-model="search"
-            size="mini"
-            @click="handleEdit(scope.$index, scope.row)"
-            placeholder="Type to search"/>
-      </template>
+        label="Operations">
       <template slot-scope="scope">
-        <el-button
-            type="warning"
-            @click="handleDelete(scope.$index, scope.row)">Chi tiết</el-button>
+        <router-link :to="`/api/mark/${formatYear(scope.row.date)}/${formatMonth(scope.row.date)}`" class="btn btn-warning">Xem chi tiết</router-link>
       </template>
     </el-table-column>
   </el-table>
@@ -38,13 +26,14 @@
 <script>
 
 import {UserService as userService} from "@/service/user-service";
+import moment from "moment";
 
 export default {
   name: "UserVpoint",
   data() {
     return {
       idUser : '',
-      point: [],
+      Point: [],
       search: '',
     }
   },
@@ -62,6 +51,17 @@ export default {
   },
 
   methods: {
+    formatYear(value){
+      if (value) {
+        return moment(String(value)).format('YYYY')
+      }
+    },
+
+    formatMonth(value){
+      if (value) {
+        return moment(String(value)).format('MM')
+      }
+    },
 
     async getVPoint() {
       if (this.currentUser != null) {
@@ -69,8 +69,9 @@ export default {
         this.idUser = this.currentUser.id;
       }
       let response = await userService.getVpoint(this.idUser)
-      this.point = response.data
-      console.log(this.point)
+      this.Point = response.data
+      console.log(this.Point)
+
     }
 
   }

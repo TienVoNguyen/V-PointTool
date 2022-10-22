@@ -4,16 +4,7 @@
     <div class="container">
       <router-link to="/profile" class="navbar-brand">VMG Point</router-link>
     </div>
-<!--    <div class="text-end" v-if="loggedIn">-->
-<!--      <button class="btn btn-outline-light me-2" @click="dialogFormVisible = true" v-if="currentUser.roles.length === 2">Đăng kí mới</button>-->
-<!--    </div> &emsp;-->
-<!--    <div class="text-end" v-if="loggedIn">-->
-<!--      <button class="btn btn-outline-light me-2" v-if="loggedIn && currentUser.roles.length === 2" ><router-link to="/">V-Point</router-link></button>-->
-<!--    </div>-->
-<!--    <router-link to="/UserVpoint">V-Point</router-link>-->
-<!--    <div class="text-end" v-if="loggedIn">-->
-<!--      <button class="btn btn-outline-light me-2" @click="logOut">Đăng xuất</button>-->
-<!--    </div>-->
+
     <div>
       <el-dropdown trigger="click"  v-if="loggedIn" >
       <span class="el-dropdown-link">
@@ -21,8 +12,6 @@
       </span>
         <el-dropdown-menu slot="dropdown">
 
-<!--          <el-button type="text" @click="dialogFormVisible1 = true">Đổi mật khẩu</el-button>-->
-<!--          <el-button type="text" @click="logOut">Đăng xuất</el-button>-->
           <el-dropdown-item><el-button type="text" @click="dialogFormVisible1 = true">Đổi mật khẩu</el-button></el-dropdown-item>
           <el-dropdown-item><el-button type="text" @click="logOut">Đăng xuất</el-button></el-dropdown-item>
         </el-dropdown-menu>
@@ -156,7 +145,6 @@ export default {
       this.roles = response1.data;
       let response2 = await authService.getAllDepartment()
       this.department = response2.data;
-      console.log(this.role)
       console.log(this.department)
       console.log(this.currentUser)
     }

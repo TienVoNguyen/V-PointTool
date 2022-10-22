@@ -9,10 +9,11 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
-    "bootstrap": "^4.6.1",
+    "bootstrap": "^5.2.2",
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.8.3",
     "element-ui": "^2.15.10",
+    "moment": "^2.29.4",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.5.2",
     "vue": "^2.6.14",
