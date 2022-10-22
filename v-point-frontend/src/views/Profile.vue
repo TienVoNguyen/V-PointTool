@@ -32,7 +32,7 @@
           label="V-point">
         <template v-slot="scope">
           <p height="50px">
-                  {{scope.row.marks.reduce((total, mark)=>{return total += mark.point},0)}}
+            {{scope.row.marks.reduce((total, mark)=>{return total += mark.point},0)}}
           </p>
         </template>
       </el-table-column>
@@ -90,7 +90,7 @@
                              :key="item.id"
                              :label="item.name"
                              :value="item"
-                             ></el-option>
+                ></el-option>
               </el-select>
               <small v-if="errDpm !== null" style="color: red">{{errDpm}}</small>
             </el-form-item>
@@ -160,14 +160,14 @@ export default {
   name: 'Profile',
   data : function() {
     return {
-          listUser: '',
+      listUser: '',
       listU: '',
       point: [],
-          currentIndex: -1,
-          page: 1,
-          count: 0,
-          itemCount: 6,
-          categoryCode: '',
+      currentIndex: -1,
+      page: 1,
+      count: 0,
+      itemCount: 6,
+      categoryCode: '',
       errorMessage: '',
       curStaffId: '',
       curEmail: '',
@@ -193,11 +193,8 @@ export default {
       checkEmail: true,
     }
   },
-
-
   async created() {
     await this.retrieveUserList()
-
     let response = await authService.getAllUser()
     this.listU = response.data;
     let response1 = await authService.getAllRole()
@@ -208,7 +205,6 @@ export default {
     console.log(this.departments)
     console.log(this.currentUser)
   },
-
   components: login,
   computed: {
     loggedIn() {
@@ -219,15 +215,12 @@ export default {
     },
   },
   methods: {
-
     validEmail: function (email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
-
     removeValidate(check, userId){
       this.findByIdUser(userId)
-
       this.dialogFormVisible = check,
           this.message = '',
           this.errId = '',
@@ -245,7 +238,6 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
-
     async retrieveUserList() {
       const params = this.getRequestParams(
           this.page
@@ -258,7 +250,6 @@ export default {
       console.log(this.count)
       console.log(this.listUser)
     },
-
     findByIdUser : async function (userId) {
       let response = await userService.findById(userId);
       if (response) {
@@ -269,7 +260,6 @@ export default {
         this.selected = this.user.department.id
       }
     },
-
     deleteUser : async function (userId){
       swal.fire({
         title: 'Bạn có chắc muốn xóa người này?',
@@ -301,16 +291,13 @@ export default {
           }
       );
     },
-
     editUser(userId){
-
       if (!this.user.fullName){
         this.errorsName = 'Vui lòng nhập tên nhân viên'
         this.check1 = false;
       } else {
         this.errorsName = ''
       }
-
       for (let i = 0; i < this.listUser.length; i++) {
         if (this.user.staffId === this.listUser[i].staffId && this.user.staffId !== this.curStaffId){
           this.errId = 'Mã nhân sự đã tồn tại'
@@ -323,13 +310,11 @@ export default {
           this.errId = ''
         }
       }
-
       if (!this.user.staffId){
         this.errId = 'Hãy nhập mã nhân sự'
         this.check1 = false;
         this.checkId = false;
       }
-
       for (let i = 0; i < this.listUser.length; i++) {
         if (this.user.email === this.listUser[i].email && this.user.email !== this.curEmail){
           this.errorEmail = 'Email này đã tồn tại trong hệ thống'
@@ -341,7 +326,6 @@ export default {
           this.checkEmail = true;
         }
       }
-
       if (!this.user.email){
         this.errorEmail = 'Vui lòng nhập email nhân viên'
         this.check1 = false;
@@ -353,7 +337,6 @@ export default {
         this.errorEmail = ''
         this.check1 = true;
       }
-
       if (!this.user.department){
         this.check1 = false;
         this.errDpm = 'Hãy chọn phòng ban'
@@ -361,7 +344,6 @@ export default {
         this.errDpm = ''
         this.check1 = true;
       }
-
       if (this.user.role.length === 0){
         this.check1 = false;
         this.errRole = 'Hãy chọn quyền truy cập'
@@ -369,7 +351,6 @@ export default {
         this.errRole = ''
         this.check1 = true;
       }
-
       if (this.check1 === true && this.checkId === true && this.checkEmail === true){
         let form = document.querySelector('#userForm');
         let formdata = new FormData(form);
@@ -382,7 +363,15 @@ export default {
         formdata.append("role", roles)
         authService.editUser(userId, formdata)
             .then(
-                data => {
+                async data => {
+                  const params = this.getRequestParams(
+                      this.page
+                  );
+                  console.log(params)
+                  let response = await authService.getUserPage(params)
+                  console.log(response)
+                  this.listUser = response.data.content
+                  this.count = response.data.totalPages;
                   this.a = data.message,
                       this.dialogFormVisible = false;
                   swal.fire({
@@ -407,12 +396,10 @@ export default {
                 });
       }
     },
-
     refreshList() {
       this.retrieveUserList();
       this.currentIndex = -1;
     },
-
     mounted() {
       this.retrieveUserList();
     },
@@ -433,5 +420,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

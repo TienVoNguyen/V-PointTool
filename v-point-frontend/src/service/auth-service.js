@@ -31,6 +31,11 @@ class AuthService {
         return axios.get(dataURL, { headers: authHeader() })
     }
 
+    getUserPage(params){
+        let dataURL = `${API_URL}list`
+        return axios.get(dataURL, {params, headers: authHeader() })
+    }
+
      getAllUser(){
         let dataURL = `${API_URL}getAllUser`
         return axios.get(dataURL, { headers: authHeader() })

@@ -11,48 +11,48 @@
         <th scope="row" rowspan="2">1</th>
         <td rowspan="2">Hiệu suất công việc</td>
         <td>KPI cá nhân hàng tháng</td>
-        <td></td>
+        <td v-for="(p, index) in Point" :key="index">{{p.item.id===1? p.point : removeEventListener}}</td>
       </tr>
       <tr>
         <td>Nhân viên xuất sắc, bộ phận xuất sắc</td>
-        <td></td>
+        <td v-for="(p, index) in Point" :key="index">{{p.item.id===2? p.point : removeEventListener}}</td>
       </tr>
       <tr>
         <td rowspan="2">02</td>
         <td rowspan="2">Làm việc nhóm</td>
         <td>Điểm bcs bộ phận</td>
-        <td></td>
+        <td v-for="(p, index) in Point" :key="index">{{p.item.id===3? p.point : removeEventListener}}</td>
       </tr>
       <tr>
         <td>Hoạt động chung</td>
-        <td></td>
+        <td v-for="(p, index) in Point" :key="index">{{p.item.id===4? p.point : removeEventListener}}</td>
       </tr>
       <tr>
         <td>03</td>
         <td>Đào tạo và phát triển</td>
         <td>Đào tạo</td>
-        <td></td>
+        <td v-for="(p, index) in Point" :key="index">{{p.item.id===5? p.point : removeEventListener}}</td>
       </tr>
       <tr>
         <td>04</td>
         <td>Sáng tạo</td>
         <td>Cải tiến đổi mới</td>
-        <td></td>
+        <td v-for="(p, index) in Point" :key="index">{{p.item.id===6? p.point : removeEventListener}}</td>
       </tr>
       <tr>
         <td rowspan="2">05</td>
         <td rowspan="2">Tuân thủ</td>
         <td>Tôi yêu VMG</td>
-        <td></td>
+        <td v-for="(p, index) in Point" :key="index">{{p.item.id===7? p.point : removeEventListener}}</td>
       </tr>
       <tr>
         <td>Kỷ luật</td>
-        <td></td>
+        <td v-for="(p, index) in Point" :key="index">{{p.item.id===8? p.point : removeEventListener}}</td>
       </tr>
       <tr >
         <td>06</td>
-        <td colspan="2" style="background-color: #d02f2f"><h4>Tổng điểm</h4></td>
-        <td>80</td>
+        <td colspan="2" style="background-color: #dc3545"><h4>Tổng điểm</h4></td>
+        <td>{{Point.reduce((total, p)=>{return total += p.point},0)}}</td>
       </tr>
     </table>
   </div>

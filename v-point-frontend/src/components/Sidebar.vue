@@ -284,10 +284,6 @@ export default {
         this.check1 = true;
       }
 
-      if (this.userForm1.password !== this.userForm1.confirmPassword){
-        this.errorsPass = 'Mật khẩu không trùng khớp'
-        this.check1 = false;
-      }
 
       if (!this.userForm1.fullname){
         this.errorsName = 'Vui lòng nhập tên nhân viên'
@@ -295,6 +291,13 @@ export default {
       } else {
         this.errorsName = ''
       }
+
+
+      if (this.userForm1.password !== this.userForm1.confirmPassword){
+        this.errorsPass = 'Mật khẩu không trùng khớp'
+        this.check1 = false;
+      }
+
 
       if (!this.userForm1.password && this.userForm1.confirmPassword || !this.userForm1.password && !this.userForm1.confirmPassword){
         this.errP1 = 'Vui lòng nhập mật khẩu'
