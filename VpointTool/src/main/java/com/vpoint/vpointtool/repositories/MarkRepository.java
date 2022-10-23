@@ -2,7 +2,7 @@ package com.vpoint.vpointtool.repositories;
 
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
-import com.vpoint.vpointtool.models.entity.User;
+import com.vpoint.vpointtool.models.login.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface MarkRepository extends JpaRepository<Mark, Long> {
     Optional<Mark> findByItemAndDate(Item item, LocalDate date);
 
-    Mark findByItemAndDateAndUser(Item item, LocalDate date, User user);
+    Optional<Mark> findByItemAndDateAndUser(Item item, LocalDate date, User user);
 
     Mark findByItemAndDateAndUserAndSignIsNot(Item item, LocalDate date, User user, String sign);
 
@@ -31,4 +31,9 @@ public interface MarkRepository extends JpaRepository<Mark, Long> {
             "and year(m.date) = :year " +
             "group by year(m.date)")
     Integer getPointImprove(@Param("user") User user, @Param("item") Item item, @Param("year") int year);
+
+    @Query(nativeQuery = true, value = "select * from mark where user_id = ?;")
+    List<Mark> getMarkByIdUser(Long idUser);
+
+    List<Mark> findMarkByUserAndAndDate(User user, LocalDate date);
 }

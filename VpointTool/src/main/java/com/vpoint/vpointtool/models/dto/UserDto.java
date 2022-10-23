@@ -1,5 +1,6 @@
 package com.vpoint.vpointtool.models.dto;
 
+import com.vpoint.vpointtool.models.login.User;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -9,7 +10,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- * A DTO for the {@link com.vpoint.vpointtool.models.entity.User} entity
+ * A DTO for the {@link User} entity
  */
 @Data
 public class UserDto implements Serializable {

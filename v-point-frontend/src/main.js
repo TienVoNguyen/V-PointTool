@@ -8,7 +8,6 @@ import store from './store'
 import 'element-ui/lib/theme-chalk/index.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(ElementUI, { locale });

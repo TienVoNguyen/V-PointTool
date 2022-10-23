@@ -1,5 +1,6 @@
 package com.vpoint.vpointtool.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,5 +21,6 @@ public class Category extends BaseEntity{
     private String name;
 
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<Item> items;
 }
