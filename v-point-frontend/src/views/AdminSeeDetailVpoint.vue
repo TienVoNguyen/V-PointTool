@@ -56,20 +56,17 @@
       </tr>
     </table>
   </div>
-
-
 </template>
 
 <script>
-
 import {UserService as userService} from "@/service/user-service";
 
 export default {
-  name: "DetailPoint",
+  name: "AdminSeeDetailVpoint",
   data: function (){
     return{
       Point: [],
-      idUser: '',
+      idUser: this.$route.params.idUser,
       year : this.$route.params.year,
       month: this.$route.params.month,
       td1: '',
@@ -98,14 +95,10 @@ export default {
 
 
   methods: {
-
     async getVPoint() {
-
-        console.log(this.currentUser)
-        this.idUser = this.currentUser.id;
-        const params = {};
-        params["year"] = this.year
-        params["month"] = this.month
+      const params = {};
+      params["year"] = this.year
+      params["month"] = this.month
       console.log(params)
       let response = await userService.getVpointByTime(this.idUser, params)
       this.Point = response.data

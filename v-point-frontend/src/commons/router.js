@@ -5,6 +5,8 @@ import Login from "@/views/Login";
 import Profile from "@/views/Profile";
 import VueRouter from "vue-router";
 import DetailPoint from "@/views/DetailPoint";
+import AdminSeeDetail from "@/views/AdminSeeDetail";
+import AdminSeeDetailVpoint from "@/views/AdminSeeDetailVpoint";
 
 Vue.use(Router);
 
@@ -30,9 +32,19 @@ const routes = [
         component: UserVpoint
     },
     {
+        path: '/AdminSeeDetail/:idUser',
+        name: 'AdminSeeDetail',
+        component: AdminSeeDetail
+    },
+    {
         path: '/api/mark/:year/:month',
         name: 'DetailPoint',
         component: DetailPoint
+    },
+    {
+        path: '/AdminSeeDetailVPoint/:year/:month/:idUser',
+        name: 'AdminSeeDetailVpoint',
+        component: AdminSeeDetailVpoint
     },
     {
         path: '/about',

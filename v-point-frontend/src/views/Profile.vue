@@ -36,7 +36,6 @@
           </p>
         </template>
       </el-table-column>
-
       <el-table-column
           align="right">
         <template v-slot="scope">
@@ -47,6 +46,8 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item ><el-button type="text" @click="deleteUser(scope.row.id)">Thêm điểm</el-button></el-dropdown-item>
               <el-dropdown-item ><el-button type="text" @click="removeValidate(true, scope.row.id)">Sửa thông tin</el-button></el-dropdown-item>
+              <el-dropdown-item ><el-button type="text"><router-link :to="`/AdminSeeDetail/${scope.row.id}`">Chi tiết điểm</router-link></el-button></el-dropdown-item>
+              <el-dropdown-item ><el-button type="text" @click="removeValidate1(true, scope.row.id)">Đổi mật khẩu</el-button></el-dropdown-item>
               <el-dropdown-item v-if="currentUser.id !== scope.row.id"><el-button class="w-100 text-start" type="text" @click="deleteUser(scope.row.id)">Xóa</el-button></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -62,6 +63,25 @@
       </el-pagination>
     </el-footer>
 
+
+    <!--     //change pass -->
+
+    <el-dialog title="Đổi mật khẩu" :visible.sync="dialogFormVisible1">
+      <el-form>
+        <el-form-item label="Nhập mật khẩu mới">
+          <el-input v-model="changePass.newPassword" autocomplete="off"></el-input>
+          <small v-if="errP1 != null" style="color: red">{{errP1}}</small>
+        </el-form-item>
+        <el-form-item label="Xác nhận mật khẩu mới">
+          <el-input v-model="changePass.confirmNewPass" autocomplete="off"></el-input>
+          <small v-if="errorsPass != null" style="color: red">{{errorsPass}}</small>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click.prevent="RepassUser(user.id)">Confirm</el-button>
+<!--        <pre>{{changePass}}</pre>-->
+  </span>
+    </el-dialog>
 
 
     <el-dialog  title="Sửa thông tin" :visible.sync="dialogFormVisible" width="70%">
@@ -175,6 +195,8 @@ export default {
       user1: '',
       dialogTableVisible: false,
       dialogFormVisible: false,
+      dialogFormVisible1: false,
+      dialogTableVisible1: false,
       message: '',
       roles: [],
       errId: '',
@@ -191,6 +213,11 @@ export default {
       check1: true,
       checkId: true,
       checkEmail: true,
+
+      changePass: {
+        newPassword: '',
+        confirmNewPass: '',
+      },
     }
   },
   async created() {
@@ -219,6 +246,18 @@ export default {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
+
+    validPass: function (pass) {
+      var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+      return re.test(pass);
+    },
+
+    removeValidate1(check, userId) {
+      this.findByIdUser(userId)
+      this.dialogFormVisible1 = check
+    },
+
+
     removeValidate(check, userId){
       this.findByIdUser(userId)
       this.dialogFormVisible = check,
@@ -254,6 +293,8 @@ export default {
       let response = await userService.findById(userId);
       if (response) {
         this.user = response.data
+        console.log(this.user)
+        console.log(this.UserId)
         this.user1 = response.data
         this.curStaffId = this.user1.staffId;
         this.curEmail = this.user1.email;
@@ -291,6 +332,68 @@ export default {
           }
       );
     },
+
+    RepassUser(userId){
+      if (!this.changePass.newPassword && this.changePass.confirmNewPass || !this.changePass.newPassword && !this.changePass.confirmNewPass){
+        this.errP1 = 'Vui lòng nhập mật khẩu'
+        this.check1 = false;
+      } else if (!this.validPass(this.changePass.newPassword)) {
+        this.errP1 = 'Mật khẩu gồm 8 ký tự trở lên có ít nhất một số và một chữ hoa và chữ thường'
+      } else {
+        this.errP1 = ''
+        this.check1 = true;
+      }
+
+      if (this.changePass.newPassword && !this.changePass.confirmNewPass){
+        this.errorsPass = 'Vui lòng xác nhận mật khẩu'
+        this.check1 = false;
+      } else if (this.changePass.newPassword !== this.changePass.confirmNewPass){
+        this.errorsPass = 'Mật khẩu không trùng khớp'
+        this.check1 = false;
+      } else if (this.changePass.newPassword === this.changePass.confirmNewPass){
+        this.errorsPass = ''
+        this.check1 = true;
+      }
+
+      if (this.check1 === true){
+        authService.adminRepass(userId, this.changePass)
+            .then(
+                async data => {
+                  const params = this.getRequestParams(
+                      this.page
+                  );
+                  console.log(params)
+                  let response = await authService.getUserPage(params)
+                  console.log(response)
+                  this.listUser = response.data.content
+                  this.count = response.data.totalPages;
+                  this.a = data.message,
+                      this.dialogFormVisible1 = false;
+                   await swal.fire({
+                         toast: true,
+                         title: "Xong!",
+                         icon: "success",
+                         position: 'top-end',
+                         showConfirmButton: false,
+                         timer: 3000
+                       }, () => {
+                         this.dialogFormVisible = true;
+                         swal.fire({
+                           toast: true,
+                           title: "Đã có lỗi xảy ra!",
+                           icon: "error",
+                           position: 'top-end',
+                           showConfirmButton: false,
+                           timer: 3000
+                         });
+                       }
+                   )
+                });
+      }
+
+
+    },
+
     editUser(userId){
       if (!this.user.fullName){
         this.errorsName = 'Vui lòng nhập tên nhân viên'
