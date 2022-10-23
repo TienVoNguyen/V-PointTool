@@ -150,9 +150,6 @@ export default {
       this.roles = response1.data;
       let response2 = await authService.getAllDepartment()
       this.department = response2.data;
-      console.log(this.role)
-      console.log(this.department)
-      console.log(this.currentUser)
     }
     catch (error){
       console.log(error)
@@ -170,11 +167,11 @@ export default {
 
 
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+    handleOpen() {
+      
     },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
+    handleClose() {
+      
     },
     handleRegister() {
       let form = document.querySelector('#userForm');

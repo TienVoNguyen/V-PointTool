@@ -156,9 +156,6 @@ export default {
       this.roles = response1.data;
       let response2 = await authService.getAllDepartment()
       this.department = response2.data;
-      console.log(this.role)
-      console.log(this.department)
-      console.log(this.currentUser)
     }
     catch (error){
       console.log(error)
@@ -183,7 +180,6 @@ export default {
       let formdata = new FormData(form);
       formdata.append("department.id", this.userForm1.department)
       formdata.append("role", this.userForm1.role)
-      console.log(formdata);
       authService.createUser(formdata);
     }
 
