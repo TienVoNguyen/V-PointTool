@@ -16,8 +16,10 @@ import java.util.Date;
 @Table(name = "mark")
 @Data
 public class Mark extends BaseEntity{
+
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @ManyToOne
@@ -29,6 +31,9 @@ public class Mark extends BaseEntity{
 
     @Column(name = "date")
     private LocalDate date;
+
+    @Column(name = "value")
+    private String value;
 
     @Column(name = "sign")
     private String sign;

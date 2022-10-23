@@ -6,6 +6,7 @@ import com.vpoint.vpointtool.models.login.User;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface IMarkService {
     Mark save(Mark mark);
@@ -13,6 +14,8 @@ public interface IMarkService {
     List<Mark> getMarkByIdUser(Long idUser);
 
     Mark findByItemAndDate(Item item, LocalDate date);
+
+    List<Mark> findMarkByUserAndDate(User user, LocalDate date);
 
     float saveBestDepartment(long id, String value, User user, LocalDate date);
 
@@ -39,4 +42,8 @@ public interface IMarkService {
     float saveExcellentDepartmentYear(long id, User user, LocalDate date);
 
     float saveExcellentDepartmentMonth(long id, User user, LocalDate date);
+
+    Mark findByItemAndUserAndDate(Item item, User user, LocalDate date);
+
+    String getValue(Long id, User user, LocalDate date);
 }

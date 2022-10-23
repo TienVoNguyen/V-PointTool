@@ -1,6 +1,7 @@
 package com.vpoint.vpointtool.controller;
 
 import com.vpoint.vpointtool.models.login.User;
+import com.vpoint.vpointtool.payload.response.UserResponse;
 import com.vpoint.vpointtool.services.IUserService;
 import com.vpoint.vpointtool.services.appUser.IAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,12 @@ public class UserController {
             appUserService.remove(id);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<UserResponse> getUser(@PathVariable("id") Long id) {
+        User user = userService.findById(id);
+        UserResponse userResponse = new UserResponse(user.getStaffId(), user.getFullName(), user.getDepartment().getName());
+        return new ResponseEntity<>(userResponse,  HttpStatus.OK);
     }
 }
