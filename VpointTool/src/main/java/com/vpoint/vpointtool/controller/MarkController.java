@@ -59,78 +59,78 @@ public class MarkController {
         User user = userService.findByStaffId(markUser.getStaff_id());
         LocalDate localDate = LocalDate.of(markUser.getYear(), markUser.getMonth(), 1);
 
-        if (markUser.getKpiID() != null && markUser.getKpi() != null) {
+        if (markUser.getKpiID() != null) {
+            System.out.println("KPI" + markUser.getKpi());
             float pointKpi = markService.saveKPI(markUser.getKpiID(), markUser.getKpi(), user, localDate);
             markResponse.setPointKPI(pointKpi);
         }
         if (markUser.getBestDepartmentMonthID() != null && markUser.getBestDepartmentMonth() != null) {
-            float pointBestDepartment = markService.saveBestDepartment(markUser.getBestDepartmentMonthID(),
-                    markUser.getBestDepartmentMonth(), user, localDate);
+            float pointBestDepartment = markService.saveBestDepartmentMonth(
+                    markUser.getBestDepartmentMonthID(), markUser.getBestDepartmentMonth(), user, localDate);
             markResponse.setPointBestDepartmentMonth(pointBestDepartment);
         }
         if (markUser.getBestDepartmentQuarter() != null && markUser.getBestDepartmentQuarter() != null) {
-            float pointBestDepartment = markService.saveBestDepartment(markUser.getBestDepartmentQuarterID(),
+            float pointBestDepartment = markService.saveBestDepartmentQuarter(markUser.getBestDepartmentQuarterID(),
                     markUser.getBestDepartmentQuarter(), user, localDate);
             markResponse.setPointBestDepartmentQuarter(pointBestDepartment);
         }
         if (markUser.getBestDepartmentYearID() != null && markUser.getBestDepartmentYear() != null) {
-            float pointBestDepartment = markService.saveBestDepartment(markUser.getBestDepartmentYearID(),
+            float pointBestDepartment = markService.saveBestDepartmentYear(markUser.getBestDepartmentYearID(),
                     markUser.getBestDepartmentYear(), user, localDate);
             markResponse.setPointBestDepartmentYear(pointBestDepartment);
         }
-        if (markUser.getBcsDepartmentID() != null && markUser.getBcsDepartment() != null) {
+        if (markUser.getBcsDepartmentID() != null ) {
             float pointBCSDepartment = markService.saveBCSDepartment(markUser.getBcsDepartmentID(),
                     markUser.getBcsDepartment(), user, localDate);
             markResponse.setPointBCSDepartment(pointBCSDepartment);
         }
-        if (markUser.getJointActivitiesID() != null && markUser.getJointActivities() != null) {
+        if (markUser.getJointActivitiesID() != null ) {
             float pointJoint = markService.saveJointActivities(markUser.getJointActivitiesID(),
                     markUser.getJointActivities(), user, localDate);
             markResponse.setPointJointActivities(pointJoint);
         }
-        if (markUser.getTrainID() != null && markUser.getTrain() != null) {
+        if (markUser.getTrainID() != null ) {
             float pointTrain = markService.saveTrain(markUser.getTrainID(), markUser.getTrain(), user, localDate);
             markResponse.setPointTrain(pointTrain);
         }
-        if (markUser.getTrainStaffID() != null && markUser.getTrainStaff() != null) {
+        if (markUser.getTrainStaffID() != null ) {
             float pointTrainStaff = markService.saveTrainStaff(markUser.getTrainStaffID(),
                     markUser.getTrainStaff(), user, localDate);
             markResponse.setPointTrainStaff(pointTrainStaff);
         }
-        if (markUser.getTrainVmgID() != null && markUser.getTrainVmg() != null) {
+        if (markUser.getTrainVmgID() != null ) {
             float pointTrainVmg = markService.saveTrainVmg(markUser.getTrainVmgID(), markUser.getTrainVmg(), user,
                     localDate);
             markResponse.setPointTrainVmg(pointTrainVmg);
         }
-        if (markUser.getLoveVmgID() != null && markUser.getLoveVmg() != null) {
+        if (markUser.getLoveVmgID() != null ) {
             float pointLoveVmg = markService.saveLoveVmg(markUser.getLoveVmgID(), markUser.getLoveVmg(), user, localDate);
             markResponse.setPointLoveVmg(pointLoveVmg);
         }
-        if (markUser.getDisciplineBonusID() != null && markUser.getDisciplineBonus() != null) {
+        if (markUser.getDisciplineBonusID() != null ) {
             float pointDisciplineBonus = markService.saveDisciplineBonus(markUser.getDisciplineBonusID(),
                     markUser.getDisciplineBonus(), user, localDate);
             markResponse.setPointDisciplineBonus(pointDisciplineBonus);
         }
-        if (markUser.getDisciplineViolateID() != null && markUser.getDisciplineViolate() != null) {
+        if (markUser.getDisciplineViolateID() != null ) {
             float pointDisciplineViolate = markService.saveDisciplineViolate(markUser.getDisciplineViolateID(),
                     markUser.getDisciplineViolate(), user, localDate);
             markResponse.setPointDisciplineViolate(pointDisciplineViolate);
         }
-        if (markUser.getImproveID() != null && markUser.isImprove()) {
-            float pointImprove = markService.saveImprove(markUser.getImproveID(), user, localDate);
+        if (markUser.getImproveID() != null && markUser.getImprove() != null) {
+            float pointImprove = markService.saveImprove(markUser.getImproveID(), markUser.getImprove(),user, localDate);
             markResponse.setPointImprove(pointImprove);
         }
-        if (markUser.getExcellentDepartmentMonthID() != null && markUser.isExcellentDepartmentMonth()) {
+        if (markUser.getExcellentDepartmentMonthID() != null && markUser.getExcellentDepartmentMonth() != null) {
             float pointExcellentMonth = markService.saveExcellentDepartmentMonth(
-                    markUser.getExcellentDepartmentMonthID(), user, localDate);
+                    markUser.getExcellentDepartmentMonthID(), markUser.getExcellentDepartmentMonth(),user, localDate);
             markResponse.setPointExcellentDepartmentMonth(pointExcellentMonth);
         }
-        if (markUser.getExcellentDepartmentYearID() != null && markUser.isExcellentDepartmentYear()) {
+        if (markUser.getExcellentDepartmentYearID() != null && markUser.getExcellentDepartmentYear() != null) {
             float pointExcellentDepartmentYear = markService.saveExcellentDepartmentYear(
-                    markUser.getExcellentDepartmentYearID() , user, localDate);
+                    markUser.getExcellentDepartmentYearID(), markUser.getExcellentDepartmentYear(), user, localDate);
             markResponse.setPointExcellentDepartmentYear(pointExcellentDepartmentYear);
         }
-
         return new ResponseEntity<>(markResponse, HttpStatus.CREATED);
     }
 
@@ -151,10 +151,14 @@ public class MarkController {
     private AddMarkUser setValue(User user, LocalDate date) {
         AddMarkUser markUser = new AddMarkUser();
         String kpi = markService.getValue(markUser.getKpiID(), user, date);
+        markUser.setStaff_id(user.getStaffId());
         if (kpi != null) {
             markUser.setKpi(Float.parseFloat(kpi));
         }
-        markUser.setBestDepartmentMonth(markService.getValue(markUser.getBestDepartmentMonthID(), user, date));
+        String bestDepartment = markService.getValue(markUser.getBestDepartmentMonthID(), user, date);
+        if (bestDepartment != null) {
+            markUser.setBestDepartmentMonth(true);
+        }
         markUser.setBestDepartmentQuarter(markService.getValue(markUser.getBestDepartmentQuarterID(), user, date));
         markUser.setBestDepartmentYear(markService.getValue(markUser.getBestDepartmentYearID(), user, date));
         markUser.setBestDepartmentYear(markService.getValue(markUser.getBestDepartmentYearID(), user, date));

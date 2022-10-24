@@ -15,7 +15,7 @@ public class AddMarkUser {
 
     //    ID: 2
     private Long bestDepartmentMonthID = 2L;
-    private String bestDepartmentMonth;
+    private Boolean bestDepartmentMonth;
 
     //    ID: 16
     private Long bestDepartmentQuarterID = 16L;
@@ -27,11 +27,11 @@ public class AddMarkUser {
 
     //    ID: 9
     private Long excellentDepartmentMonthID = 9L;
-    private boolean excellentDepartmentMonth;
+    private Boolean excellentDepartmentMonth;
 
     //    ID: 10
     private Long excellentDepartmentYearID = 10L;
-    private boolean excellentDepartmentYear;
+    private Boolean excellentDepartmentYear;
 
     //    ID: 3
     private Float bcsDepartment;
@@ -58,7 +58,7 @@ public class AddMarkUser {
     private Long trainVmgID = 12L;
 
     //    ID: 6
-    private boolean improve;
+    private Boolean improve;
     private Long improveID = 6L;
 
     //    ID: 7

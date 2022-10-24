@@ -17,33 +17,40 @@ public interface IMarkService {
 
     List<Mark> findMarkByUserAndDate(User user, LocalDate date);
 
-    float saveBestDepartment(long id, String value, User user, LocalDate date);
+//    float saveBestDepartment(long id, String value, User user, LocalDate date);
 
-    float saveDisciplineViolate(long id, float value, User user, LocalDate date);
+    float saveDisciplineViolate(long id, Float value, User user, LocalDate date);
 
-    float saveDisciplineBonus(long id, float value, User user, LocalDate date);
+    float saveDisciplineBonus(long id, Float value, User user, LocalDate date);
 
-    float saveLoveVmg(long id, float value, User user, LocalDate date);
+    float saveLoveVmg(long id, Float value, User user, LocalDate date);
 
-    float saveKPI(long id, float value, User user, LocalDate date);
+    float saveKPI(long id, Float value, User user, LocalDate date);
 
-    float saveBCSDepartment(long id, float value, User user, LocalDate date);
+    float saveBCSDepartment(long id, Float value, User user, LocalDate date);
 
-    float saveJointActivities(long id, float value, User user, LocalDate date);
+    float saveJointActivities(long id, Float value, User user, LocalDate date);
 
-    float saveTrain(long id, float value, User user, LocalDate date);
+    float saveTrain(long id, Float value, User user, LocalDate date);
 
-    float saveTrainStaff(long id, float value, User user, LocalDate date);
+    float saveTrainStaff(long id, Float value, User user, LocalDate date);
 
-    float saveTrainVmg(long id, float value, User user, LocalDate date);
+    float saveTrainVmg(long id, Float value, User user, LocalDate date);
 
-    float saveImprove(long id, User user, LocalDate date);
+    float saveImprove(long id, Boolean value,User user, LocalDate date);
 
-    float saveExcellentDepartmentYear(long id, User user, LocalDate date);
+    float saveExcellentDepartmentYear(long id, Boolean value,User user, LocalDate date);
 
-    float saveExcellentDepartmentMonth(long id, User user, LocalDate date);
+    float saveExcellentDepartmentMonth(long id, Boolean value,User user, LocalDate date);
 
     Mark findByItemAndUserAndDate(Item item, User user, LocalDate date);
 
     String getValue(Long id, User user, LocalDate date);
+
+    float saveBestDepartmentMonth(long id, Boolean value , User user, LocalDate date);
+
+    float saveBestDepartmentYear(long id, String value , User user, LocalDate date);
+
+    float saveBestDepartmentQuarter(long id, String value , User user, LocalDate date);
+
 }

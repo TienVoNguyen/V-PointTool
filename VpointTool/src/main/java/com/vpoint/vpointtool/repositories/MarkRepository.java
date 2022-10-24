@@ -36,4 +36,8 @@ public interface MarkRepository extends JpaRepository<Mark, Long> {
     List<Mark> getMarkByIdUser(Long idUser);
 
     List<Mark> findMarkByUserAndAndDate(User user, LocalDate date);
+
+    @Query("select m from Mark m where m.item = :item and m.user = :user and year(m.date) = :year")
+    List<Mark> findMarksByUserAndItemInYear(
+            @Param("item") Item item, @Param("user") User user, @Param("year") Integer year);
 }
