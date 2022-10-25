@@ -10,7 +10,11 @@ import lombok.NoArgsConstructor;
 public class MarkResponse {
     private float pointKPI;
 
-    private float pointBestDepartment;
+    private float pointBestDepartmentMonth;
+
+    private float pointBestDepartmentQuarter;
+
+    private float pointBestDepartmentYear;
 
     private float pointBCSDepartment;
 
@@ -22,11 +26,15 @@ public class MarkResponse {
 
     private float pointTrainVmg;
 
-//    private float pointImprove;
+    private float pointImprove;
 
     private float pointLoveVmg;
 
     private float pointDisciplineBonus;
 
     private float pointDisciplineViolate;
+
+    private float pointExcellentDepartmentMonth;
+
+    private  float pointExcellentDepartmentYear;
 }
