@@ -3,6 +3,7 @@ package com.vpoint.vpointtool.models.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vpoint.vpointtool.models.login.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,4 +33,6 @@ public class Mark extends BaseEntity{
     @Column(name = "date")
     private LocalDate date;
 
+    @Column(name = "sign")
+    private String sign;
 }

@@ -10,43 +10,59 @@ import javax.validation.constraints.Min;
 @Data
 public class AddMarkUser {
 
-    private float kpi;
+    private String staff_id;
+
+    private Float kpi;
     private Long kpiID;
 
-    private String bestDepartment;
     private Long bestDepartmentID;
 
-    private float bcsDepartment;
+    private String bestDepartmentMonth;
+
+    private String bestDepartmentQuarter;
+
+    private String bestDepartmentYear;
+
+    private Long excellentDepartmentMonthID;
+    private boolean excellentDepartmentMonth;
+
+    private Long excellentDepartmentYearID;
+    private boolean excellentDepartmentYear;
+
+    private Float bcsDepartment;
     private Long bcsDepartmentID;
 
     @DecimalMin(value = "-0.5")
     @Max(4)
-    private float jointActivities;
+    private Float jointActivities;
     private Long jointActivitiesID;
 
-    private float train;
+    private Float train;
     private Long trainID;
 
-    private float trainStaff;
+    private Float trainStaff;
     private Long trainStaffID;
 
-    private float trainVmg;
+    private Float trainVmg;
     private Long trainVmgID;
 
-//    private float improve;
-//    private Long improveID;
+    private boolean improve;
+    private Long improveID;
 
     @DecimalMin(value = "0")
     @DecimalMax(value = "100")
-    private float loveVmg;
+    private Float loveVmg;
     private Long loveVmgID;
 
-    private float disciplineBonus;
+    private Float disciplineBonus;
     private Long disciplineBonusID;
 
-    private float disciplineViolate;
+    private Float disciplineViolate;
     private Long disciplineViolateID;
 
+    @Min(1)
+    @Max(12)
     private int month;
+
     private int year;
 }

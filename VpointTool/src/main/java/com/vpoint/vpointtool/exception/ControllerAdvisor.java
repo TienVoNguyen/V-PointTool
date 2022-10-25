@@ -22,4 +22,14 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         body.put("Message", ex.getMessage());
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Object> handleUserNotFoundException (
+            UserNotFoundException ex
+    ) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamps", LocalDateTime.now());
+        body.put("Message", ex.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
 }

@@ -1,6 +1,6 @@
 package com.vpoint.vpointtool.services.impl;
 
-
+import com.vpoint.vpointtool.exception.UserNotFoundException;
 import com.vpoint.vpointtool.models.login.User;
 import com.vpoint.vpointtool.repositories.UserRepository;
 import com.vpoint.vpointtool.services.IUserService;
@@ -18,6 +18,12 @@ public class UserService implements IUserService {
     public User findById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found by ID: "+ id));
+    }
+
+    @Override
+    public User findByStaffId(String id) {
+        return userRepository.findUserByStaffId(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @Override

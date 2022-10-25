@@ -3,16 +3,40 @@ package com.vpoint.vpointtool.repositories;
 import com.vpoint.vpointtool.models.dto.ResponseMark;
 import com.vpoint.vpointtool.models.dto.Sum;
 import com.vpoint.vpointtool.models.dto.UserYear;
+import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
+import com.vpoint.vpointtool.models.login.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
+import org.springframework.data.repository.query.Param;
+import java.util.Optional;
 import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 @Repository
-public interface MarkRepository extends JpaRepository<Mark, Long> {
 
+
+public interface MarkRepository extends JpaRepository<Mark, Long> {
+    Optional<Mark> findByItemAndDate(Item item, LocalDate date);
+
+    Mark findByItemAndDateAndUser(Item item, LocalDate date, User user);
+
+    Mark findByItemAndDateAndUserAndSignIsNot(Item item, LocalDate date, User user, String sign);
+
+    List<Mark> findAllByItemAndDateAndUserAndSignIsNotIgnoreCase(Item item, LocalDate date, User user, String sign);
+
+    boolean existsByItemAndDateAndUserAndSign(Item item, LocalDate date, User user, String sign);
+
+    Mark findByItemAndDateAndUserAndSign(Item item, LocalDate date, User user, String sign);
+
+    @Query("select sum(m.point) as point " +
+            "from Mark m " +
+            "where m.item = :item " +
+            "and m.user = :user " +
+            "and year(m.date) = :year " +
+            "group by year(m.date)")
+    Integer getPointImprove(@Param("user") User user, @Param("item") Item item, @Param("year") int year);
 
     @Query(nativeQuery = true, value = "select sum(point) as sum, mark.date as date from mark where user_id = ? and year(date) = (year(current_date)) group by month(date)")
     List<ResponseMark> getMarkByIdUser(Long idUser);

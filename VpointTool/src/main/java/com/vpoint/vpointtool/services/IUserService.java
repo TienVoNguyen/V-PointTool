@@ -9,10 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
 public interface IUserService {
 
     User findById(Long id);
+
+    User findByStaffId(String id);
 
     Page<User> findAll(Pageable pageable);
 }
