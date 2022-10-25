@@ -5,6 +5,7 @@ import com.vpoint.vpointtool.models.login.User;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Entity
 @Table(name = "mark")
 @Data
+@Transactional
 public class Mark extends BaseEntity{
     @JsonIgnore
     @ManyToOne

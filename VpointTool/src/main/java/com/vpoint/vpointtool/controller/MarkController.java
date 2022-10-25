@@ -1,6 +1,7 @@
 package com.vpoint.vpointtool.controller;
 
 import com.vpoint.vpointtool.exception.InputException;
+import com.vpoint.vpointtool.models.dto.ResponseMark;
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/mark")
@@ -294,7 +296,18 @@ public class MarkController {
     }
 
     @GetMapping("/myVpoint/{idUser}")
-    public ResponseEntity<List<Mark>> getMarkByIdUser(@PathVariable Long idUser){
-        return new ResponseEntity<>(markService.getMarkByIdUser(idUser), HttpStatus.OK);
+    public ResponseEntity<List<ResponseMark>> getMarkByIdUser(@PathVariable Long idUser){
+
+
+        List<ResponseMark> responseMark = markService.getMarkByIdUser(idUser);
+        return new ResponseEntity<>(responseMark, HttpStatus.OK);
+    }
+
+    @GetMapping("/{idUser}")
+    public ResponseEntity<List<Mark>> getMarkByTime(@PathVariable Long idUser,
+                                                    @RequestParam("year") int year,
+                                                    @RequestParam("month") int month){
+
+        return new ResponseEntity<>(markService.getMarkByTime(idUser, year, month), HttpStatus.OK);
     }
 }

@@ -1,5 +1,7 @@
 package com.vpoint.vpointtool.services.impl;
 
+import com.vpoint.vpointtool.models.dto.ResponseMark;
+import com.vpoint.vpointtool.models.dto.Sum;
 import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.repositories.MarkRepository;
 import com.vpoint.vpointtool.services.IMarkService;
@@ -20,7 +22,22 @@ public class MarkService implements IMarkService {
     }
 
     @Override
-    public List<Mark> getMarkByIdUser(Long idUser) {
+    public List<ResponseMark> getMarkByIdUser(Long idUser) {
         return markRepository.getMarkByIdUser(idUser);
+    }
+
+    @Override
+    public List<Sum> getSum() {
+        return markRepository.getSum();
+    }
+
+    @Override
+    public List<Mark> getMarkByTime(Long idUser, int Year, int Month) {
+        return markRepository.getMarkByTime(idUser, Year, Month);
+    }
+
+    @Override
+    public List<Integer> getSumByIdUser(Long idUser) {
+        return markRepository.getSumByIdUser(idUser);
     }
 }
