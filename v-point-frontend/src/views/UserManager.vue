@@ -1,6 +1,32 @@
 <template>
   <el-container>
+    <br>
     <h3 style="color: #6c757d" align="center">Quản lý người dùng</h3><br>
+    <br>
+    <div class="row input-group mb-3">
+      <div class="col-6">
+        <div class="text-left input-group-prepend">
+          <h5 style="color: #6c757d"> Nhóm: <span style="">
+        <select class="input-group-text" v-model="CateId" @change="getUser(CateId)" style="width: 300px; display: inherit; align-items: center;" >
+          <option v-for="d in departments" v-bind:value="d.id"  v-bind:key ="d.id" >
+            {{ d.name }}
+          </option>
+        </select>
+      </span>
+
+          </h5>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="text-right input-group-prepend">
+          <h5 style="color: #6c757d"> Nhập để tìm kiếm: <span style="">
+        <input style="width: 300px; display: inherit" class="input-group-text" type="text" v-model="fullName" @change="get(fullName)">
+      </span>
+          </h5>
+        </div>
+      </div>
+    </div>
+
     <br>
     <el-table
         border="1px"
@@ -185,6 +211,8 @@ export default {
   name: 'UserManager',
   data : function() {
     return {
+      CateId: '',
+      fullName: '',
       listUser: '',
       listU: '',
       point: [],
@@ -339,6 +367,53 @@ export default {
           }
       );
     },
+    get(params){
+      if (this.fullName === ''){
+        this.retrieveUserList()
+      }else {
+        this.getUserListByName(params)
+      }
+    },
+
+    getNameParams(fullName) {
+      let params = {};
+      if (fullName) {
+        params["fullName"] = fullName;
+      }
+      return params;
+    },
+
+    async getUserListByName(params) {
+      let param1 = this.getNameParams(params)
+      let response = await userService.getUserByName(param1)
+      this.listUser = response.data;
+      this.count = response.data.totalPages;
+      // console.log(this.point)
+      console.log(this.count)
+      console.log(this.listUser)
+    },
+
+    getUser(params){
+        this.getUserListByDpm(params)
+    },
+
+    getDpmParams(CateId) {
+      let params = {};
+
+        params["CateId"] = CateId;
+
+      return params;
+    },
+
+    async getUserListByDpm(params) {
+      let param1 = this.getDpmParams(params)
+      console.log(param1)
+      let response = await userService.getUserByCateId(param1)
+      this.listUser = response.data;
+      this.count = response.data.totalPages;
+    },
+
+
 
     RepassUser(userId){
       if (!this.changePass.newPassword && this.changePass.confirmNewPass || !this.changePass.newPassword && !this.changePass.confirmNewPass){
