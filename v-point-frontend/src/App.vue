@@ -82,9 +82,11 @@ export default {
       for (let i = 0; i < this.currentUser.roles.length; i++) {
         if (this.currentUser.roles[i].authority === 'ROLE_ADMIN') {
            this.roleId = 'ROLE_ADMIN'
+          break;
         }
         if( this.currentUser.roles[i].authority !== 'ROLE_ADMIN') {
           this.roleId = 'ROLE_USER'
+          break
         }
       }
     }

@@ -1,15 +1,16 @@
 <template>
   <div>
     <div>
-            <el-select filterable placeholder="Select">
-              <el-option
-                  v-for="item in year"
-                  :key="item"
-                  :label="item"
-                  :value="item"
-                  :click="getVpointByYear(item)">
-              </el-option>
-            </el-select>
+<!--            <el-select filterable placeholder="Select">-->
+<!--              <el-option-->
+<!--                  v-for="item in year"-->
+<!--                  :key="item"-->
+<!--                  :label="item"-->
+<!--                  :value="item"-->
+<!--                  :click="get(item)">-->
+<!--              </el-option>-->
+<!--            </el-select>-->
+
     </div>
     <div>
       <el-table
@@ -88,32 +89,33 @@ export default {
       let response = await userService.getVpoint(this.idUser)
       this.Point = response.data
       let response1 = await userService.getYear(this.idUser)
-
       for (let i = 0; i < response1.data.length; i++) {
         this.year.push(this.formatYear(response1.data[i].date))
       }
-
-
     },
 
-    async getVpointByYear(params) {
-      if (this.currentUser != null) {
-        console.log(this.currentUser)
-        this.idUser = this.currentUser.id;
-      }
-      let params1 = this.getRequestParams(params)
-      let response = await userService.getVpointByYear(this.idUser, params1)
-      this.Point = response.data
-      console.log(this.Point)
-    },
-
-    getRequestParams(page) {
-      let params = {};
-      if (page) {
-        params["year"] = page;
-      }
-      return params;
-    },
+    // get(params){
+    //   this.getVpointByYear(params)
+    // },
+    //
+    // async getVpointByYear(params) {
+    //   if (this.currentUser != null) {
+    //     console.log(this.currentUser)
+    //     this.idUser = this.currentUser.id;
+    //   }
+    //   let params1 = this.getRequestParams(params)
+    //   let response = await userService.getVpointByYear(this.idUser, params1)
+    //   this.Point = response.data
+    //   console.log(this.Point)
+    // },
+    //
+    // getRequestParams(page) {
+    //   let params = {};
+    //   if (page) {
+    //     params["year"] = page;
+    //   }
+    //   return params;
+    // },
 
 
   }
