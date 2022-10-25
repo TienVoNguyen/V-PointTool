@@ -34,7 +34,12 @@
         </el-menu-item>
         <el-menu-item index="3">
           <i class="el-icon-check"></i>
-          <span><el-button plain type="text" v-if="loggedIn && currentUser.roles.length === 2" ><router-link to="/UserVpoint">V-Point của tôi</router-link></el-button></span>
+          <span><el-button plain type="text"><router-link to="/UserVpoint">V-Point của tôi</router-link></el-button></span>
+        </el-menu-item>
+
+        <el-menu-item index="4">
+          <i class="el-icon-check"></i>
+          <span><el-button plain type="text"><router-link to="/manager">Quản lý người dùng</router-link></el-button></span>
         </el-menu-item>
       </el-menu>
 
@@ -73,10 +78,10 @@
           <div class="col-3">
             <el-form-item prop="role">
               <label for="">Quyền truy cập</label>
-              <el-select style="width: 100%" v-model="userForm1.role" multiple placeholder="Chọn quyền truy cập" >
+              <el-select style="width: 100%" v-model="userForm1.role" placeholder="Chọn quyền truy cập" >
                 <el-option v-for="item in roles"
                            :key="item.id"
-                           :label="item.name=='ROLE_ADMIN'?'Admin':'Người dùng'"
+                           :label="item.name==='ROLE_ADMIN'?'Admin':'Người dùng'"
                            :value="item.id"></el-option>
               </el-select>
               <small v-if="errRole !== null" style="color: red">{{errRole}}</small>
@@ -140,6 +145,7 @@ export default {
         department: '',
         role: []
       },
+      roleId: '',
       dialogTableVisible: false,
       dialogFormVisible: false,
       user: [],
@@ -166,6 +172,7 @@ export default {
   },
 
   created: async function () {
+    this.getRoleId()
     try {
       let response = await authService.getAllUser()
       this.user = response.data;
@@ -193,6 +200,15 @@ export default {
 
 
   methods: {
+    getRoleId() {
+      for (let i = 0; i < this.currentUser.roles.length; i++) {
+        if (this.currentUser.roles[i].id === 1) {
+          this.roleId = this.currentUser.roles[i].id
+        } else
+          this.roleId = 2
+      }
+    },
+
     validEmail: function (email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);

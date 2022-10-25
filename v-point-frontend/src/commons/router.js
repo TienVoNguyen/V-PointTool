@@ -7,6 +7,7 @@ import VueRouter from "vue-router";
 import DetailPoint from "@/views/DetailPoint";
 import AdminSeeDetail from "@/views/AdminSeeDetail";
 import AdminSeeDetailVpoint from "@/views/AdminSeeDetailVpoint";
+import UserManager from "@/views/UserManager";
 
 Vue.use(Router);
 
@@ -45,6 +46,11 @@ const routes = [
         path: '/AdminSeeDetailVPoint/:year/:month/:idUser',
         name: 'AdminSeeDetailVpoint',
         component: AdminSeeDetailVpoint
+    },
+    {
+        path: '/manager',
+        name: 'UserManager',
+        component: UserManager
     },
     {
         path: '/about',

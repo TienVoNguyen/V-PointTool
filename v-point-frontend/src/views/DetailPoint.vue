@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <table class="table table-bordered" :data="Point">
+  <div class="container">
+    <table class="table table-bordered"  :data="Point">
       <tr >
-        <th scope="col">Stt</th>
-        <th scope="col">Mục</th>
-        <th scope="col">Hạng mục</th>
-        <th scope="col">Điểm V-Point</th>
+        <th >Stt</th>
+        <th >Mục</th>
+        <th >Hạng mục</th>
+        <th >Điểm V-Point</th>
       </tr>
       <tr >
-        <th scope="row" rowspan="2">1</th>
+        <th rowspan="2">1</th>
         <td rowspan="2">Hiệu suất công việc</td>
         <td>KPI cá nhân hàng tháng</td>
         <td>{{td1}}</td>

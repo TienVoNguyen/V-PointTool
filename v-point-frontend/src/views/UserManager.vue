@@ -1,66 +1,64 @@
 <template>
   <el-container>
+    <h3 style="color: #6c757d" align="center">Quản lý người dùng</h3><br>
+    <br>
+    <el-table
+        border="1px"
+        :data="listUser"
+        style="width: 100%">
+      <el-table-column
+          align="center"
+          prop="staffId"
+          label="Mã nhân viên"
+          width="120">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          prop="fullName"
+          label="Họ và tên"
+          width="180">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          prop="email"
+          label="Email"
+          width="250">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          prop="department.name"
+          label="Phòng ban"
+          width="150">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          label="Quyền truy cập"
+          width="125">
+        <template v-slot="scope">
+          <p height="50px" v-for="(role, index) in scope.row.role" :key="index" >
+            {{role.name == 'ROLE_ADMIN'? 'Admin' : 'Người dùng'}}
+          </p>
+        </template>
+      </el-table-column>
+<!--      <el-table-column-->
+<!--          width="100"-->
+<!--          label="V-point">-->
+<!--        <template v-slot="scope">-->
+<!--          <p height="50px">-->
+<!--            {{scope.row.marks.reduce((total, mark)=>{return total += mark.point},0)}}-->
+<!--          </p>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
+      <el-table-column
+          align="center" class="w-100" style="width: 200px">
 
-
-      <el-table border="1px" align="center"
-                :data="listUser"
-                style="width: 100%">
-        <el-table-column align="center"
-            prop="staffId"
-            label="Mã nhân viên"
-            width="200">
-        </el-table-column>
-        <el-table-column align="center"
-            prop="fullName"
-            label="Họ và tên"
-            width="300">
-        </el-table-column>
-        <el-table-column
-            align="center"
-            prop="department.name"
-            label="Phòng ban"
-            width="250">
-        </el-table-column>
-
-        <el-table-column
-            align="center"
-            width="100"
-            label="V-point">
-          <template v-slot="scope">
-            <p height="50px">
-              {{scope.row.marks.reduce((total, mark)=>{return total += mark.point},0)}}
-            </p>
-          </template>
-        </el-table-column>
-        <el-table-column
-            align="center" class="w-100" style="width: 200px" label="Tùy chọn">
-          <template v-slot="scope">
-            <el-button class="btn btn-success" type="text" @click="removeValidate1(true, scope.row.id)"><i size="default" class="el-icon-plus"></i></el-button>
-            <el-button class="btn btn-warning" type="text"><router-link :to="`/AdminSeeDetail/${scope.row.id}`" style="color: white"><i size="default" class="el-icon-view"></i></router-link></el-button>
-
-            <el-button class="btn btn-danger" type="text" @click="deleteUser(scope.row.id)"><i size="default" class="el-icon-delete"></i></el-button>
-          </template>
-        </el-table-column>
-        <!--      <el-table-column-->
-        <!--          align="right">-->
-        <!--        <template v-slot="scope">-->
-        <!--          <el-dropdown trigger="click">-->
-        <!--      <span class="el-dropdown-link">-->
-        <!--        Tùy chọn<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
-        <!--      </span>-->
-        <!--            <el-dropdown-menu slot="dropdown">-->
-        <!--              <el-dropdown-item ><el-button type="text" @click="deleteUser(scope.row.id)">Thêm điểm</el-button></el-dropdown-item>-->
-        <!--              <el-dropdown-item ><el-button type="text" @click="removeValidate(true, scope.row.id)">Sửa thông tin</el-button></el-dropdown-item>-->
-        <!--              <el-dropdown-item ><el-button type="text"><router-link :to="`/AdminSeeDetail/${scope.row.id}`">Chi tiết điểm</router-link></el-button></el-dropdown-item>-->
-        <!--              <el-dropdown-item ><el-button type="text" @click="removeValidate1(true, scope.row.id)">Đổi mật khẩu</el-button></el-dropdown-item>-->
-        <!--              <el-dropdown-item v-if="currentUser.id !== scope.row.id"><el-button class="w-100 text-start" type="text" @click="deleteUser(scope.row.id)">Xóa</el-button></el-dropdown-item>-->
-        <!--            </el-dropdown-menu>-->
-        <!--          </el-dropdown>-->
-        <!--        </template>-->
-        <!--      </el-table-column>-->
-      </el-table>
-
-
+        <template v-slot="scope">
+          <el-button class="btn btn-warning" type="text" @click="removeValidate(true, scope.row.id)"><i size="default" class="el-icon-edit"></i></el-button>
+          <el-button class="btn btn-primary" type="text" @click="removeValidate1(true, scope.row.id)"><i size="default" class="el-icon-key"></i></el-button>
+          <el-button class="btn btn-danger" type="text" @click="deleteUser(scope.row.id)"><i size="default" class="el-icon-delete"></i></el-button>
+        </template>
+      </el-table-column>
+    </el-table>
     <el-footer>
       <el-pagination
           layout="prev, pager, next"
@@ -86,7 +84,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
     <el-button type="primary" @click.prevent="RepassUser(user.id)">Confirm</el-button>
-<!--        <pre>{{changePass}}</pre>-->
+        <!--        <pre>{{changePass}}</pre>-->
   </span>
     </el-dialog>
 
@@ -137,10 +135,10 @@
           <div class="col-6">
             <el-form-item prop="role">
               <label for="">Quyền truy cập</label>
-              <el-select style="width: 100%" v-model="user.role" multiple value-key="id">
+              <el-select style="width: 100%" v-model="user.role" multiple placeholder="" value-key="id">
                 <el-option v-for="item in roles"
                            :key="item.id"
-                           :label="item.name==='ROLE_ADMIN'?'Admin':'Người dùng'"
+                           :label="item.name=='ROLE_ADMIN'?'Admin':'Người dùng'"
                            :value="item"></el-option>
               </el-select>
               <small v-if="errRole !== null" style="color: red">{{errRole}}</small>
@@ -184,7 +182,7 @@ import login from "@/views/Login";
 import authService from "@/service/auth-service";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Profile',
+  name: 'UserManager',
   data : function() {
     return {
       listUser: '',
@@ -205,7 +203,6 @@ export default {
       dialogFormVisible1: false,
       dialogTableVisible1: false,
       message: '',
-      roleId: '',
       roles: [],
       errId: '',
       errP1: '',
@@ -220,7 +217,6 @@ export default {
       selected: '',
       check1: true,
       checkId: true,
-      checkRole: true,
       checkEmail: true,
 
       changePass: {
@@ -230,8 +226,6 @@ export default {
     }
   },
   async created() {
-    this.getRoleId()
-    console.log(this.roleId)
     await this.retrieveUserList()
     let response = await authService.getAllUser()
     this.listU = response.data;
@@ -253,17 +247,6 @@ export default {
     },
   },
   methods: {
-    getRoleId() {
-      for (let i = 0; i < this.currentUser.roles.length; i++) {
-        if (this.currentUser.roles[i].authority === 'ROLE_ADMIN') {
-          this.roleId = 'ROLE_ADMIN'
-        }
-        if( this.currentUser.roles[i].authority !== 'ROLE_ADMIN') {
-          this.roleId = 'ROLE_USER'
-        }
-      }
-    },
-
     validEmail: function (email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
@@ -278,7 +261,7 @@ export default {
       this.findByIdUser(userId)
       this.dialogFormVisible1 = check
       this.errP1 = ''
-          this.errorsPass = ''
+      this.errorsPass = ''
     },
 
 
@@ -396,15 +379,15 @@ export default {
                   this.count = response.data.totalPages;
                   this.a = data.message,
                       this.dialogFormVisible1 = false;
-                   await swal.fire({
-                         toast: true,
-                         title: "Xong!",
-                         icon: "success",
-                         position: 'top-end',
-                         showConfirmButton: false,
-                         timer: 3000
-                       }
-                   )
+                  await swal.fire({
+                        toast: true,
+                        title: "Xong!",
+                        icon: "success",
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000
+                      }
+                  )
                 },  () => {
                   this.dialogFormVisible1 = true;
                   swal.fire({
@@ -440,7 +423,6 @@ export default {
           this.errId = ''
         }
       }
-
       if (!this.user.staffId){
         this.errId = 'Hãy nhập mã nhân sự'
         this.check1 = false;
@@ -476,16 +458,13 @@ export default {
         this.check1 = true;
       }
       if (this.user.role.length === 0){
-        this.checkRole = false;
+        this.check1 = false;
         this.errRole = 'Hãy chọn quyền truy cập'
-      } else if (this.user.role.length > 1){
-        this.checkRole = false;
-        this.errRole = 'Chỉ chọn 1 quyền'
       } else {
         this.errRole = ''
-        this.checkRole = true;
+        this.check1 = true;
       }
-      if (this.check1 === true && this.checkId === true && this.checkEmail === true && this.checkRole === true){
+      if (this.check1 === true && this.checkId === true && this.checkEmail === true){
         let form = document.querySelector('#userForm');
         let formdata = new FormData(form);
         formdata.append("department.id", this.user.department.id)
@@ -509,13 +488,13 @@ export default {
                   this.a = data.message,
                       this.dialogFormVisible = false;
                   swal.fire({
-                        toast: true,
-                        title: "Xong!",
-                        icon: "success",
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 3000
-                      })
+                    toast: true,
+                    title: "Xong!",
+                    icon: "success",
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                  })
                 }, () => {
                   this.dialogFormVisible = true;
                   swal.fire({
@@ -538,6 +517,7 @@ export default {
     },
     handlePageChange(value) {
       this.page = value;
+      console.log(this.page)
       this.retrieveUserList();
     },
     getRequestParams(page) {
@@ -553,3 +533,4 @@ export default {
 
 <style scoped>
 </style>
+

@@ -29,6 +29,16 @@ export class UserService {
         return axios.get(dataURL, {headers: authHeader()});
     }
 
+    static getVpointByYear(userId, params) {
+        let dataURL = `${this.serverURL}/api/mark/myVpointByYear/${userId}`
+        return axios.get(dataURL, {params, headers: authHeader()});
+    }
+
+    static getYear(userId) {
+        let dataURL = `${this.serverURL}/api/mark/getYear/${userId}`
+        return axios.get(dataURL, {headers: authHeader()});
+    }
+
     static getVpointByTime(userId, params) {
         let dataURL = `${this.serverURL}/api/mark/${userId}`
         return axios.get(dataURL, {params, headers: authHeader()});

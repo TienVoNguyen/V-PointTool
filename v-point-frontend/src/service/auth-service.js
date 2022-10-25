@@ -58,6 +58,10 @@ class AuthService {
         let dataURL = `${API_URL}adminChangePassword/${idUser}`
         return axios.post(dataURL, changePass, {headers: authHeader()})
     }
+    userRepass(idUser, changePass){
+        let dataURL = `${API_URL}userChangePassword/${idUser}`
+        return axios.post(dataURL, changePass, {headers: authHeader()})
+    }
 }
 
 export default new AuthService();

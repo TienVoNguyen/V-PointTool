@@ -56,6 +56,7 @@ export default {
   name: 'Login',
   data() {
     return {
+      roleId: '',
       user: new User('', ''),
       message: '',
       a: '',
@@ -75,15 +76,28 @@ export default {
   },
 
   created() {
-    if (this.loggedIn && this.currentUser.roles.length === 2) {
-      this.$router.push('/profile');
-    }
-    if (this.loggedIn && this.currentUser.roles.length === 1) {
-      this.$router.push('/');
-    }
+    this.getRoleId()
+    // if (this.loggedIn && this.roleId === 'ROLE_ADMIN') {
+    //   this.$router.push('/profile');
+    // } else {
+    //   this.$router.push('/');
+    // }
   },
   methods: {
+
+    getRoleId() {
+      console.log(this.currentUser)
+      for (let i = 0; i < this.currentUser.roles.length; i++) {
+        if (this.currentUser.roles[i].authority === 'ROLE_ADMIN') {
+          this.roleId = 'ROLE_ADMIN'
+        } else
+          this.roleId = '2'
+      }
+    },
+
+
     handleLogin() {
+      // this.getRoleId();
       if (!this.user.email && !this.user.password){
         this.messageForm = 'Vui lòng nhập thông tin đăng nhập';
         this.messageEmail = '';
@@ -109,11 +123,11 @@ export default {
       if (this.check === true) {
         this.$store.dispatch('auth/login', this.user).then(
             () => {
-              console.log(this.currentUser.roles.length)
-              if (this.loggedIn && this.currentUser.roles.length === 2) {
+              this.getRoleId()
+              if (this.loggedIn && this.roleId === 'ROLE_ADMIN') {
                 this.$router.push('/profile');
               }
-              if (this.loggedIn && this.currentUser.roles.length === 1) {
+              if (this.loggedIn && this.roleId === '2') {
                 this.$router.push('/UserVpoint');
               }
             },

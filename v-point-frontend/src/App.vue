@@ -1,6 +1,6 @@
 <template >
   <div id="app">
-    <div v-if="loggedIn && currentUser.roles.length === 2">
+    <div v-if="roleId === 'ROLE_ADMIN' && loggedIn">
       <Navbar/>
       <div class="row" style="width: 100%; height: 100%" >
         <div class="col-3 div-1" >
@@ -14,7 +14,7 @@
     <div v-if="!loggedIn">
       <router-view/>
     </div>
-    <div v-if="loggedIn && currentUser.roles.length === 1">
+    <div v-if="roleId === 'ROLE_USER' && loggedIn">
       <Navbar/>
       <router-view/>
     </div>
@@ -37,7 +37,7 @@ nav {
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #ffffff;
 }
 
 nav a.router-link-exact-active {
@@ -54,7 +54,13 @@ import Sidebar from "@/components/Sidebar";
 import login from "@/views/Login";
 
 export default {
+
   components: {Sidebar, Navbar}, login,
+  data: function () {
+    return {
+      roleId: ''
+    }
+  },
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
@@ -62,6 +68,26 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     },
+
   },
+
+  created() {
+    this.getRoleId()
+    console.log(this.roleId)
+  },
+
+  methods: {
+    getRoleId() {
+      console.log(this.currentUser)
+      for (let i = 0; i < this.currentUser.roles.length; i++) {
+        if (this.currentUser.roles[i].authority === 'ROLE_ADMIN') {
+           this.roleId = 'ROLE_ADMIN'
+        }
+        if( this.currentUser.roles[i].authority !== 'ROLE_ADMIN') {
+          this.roleId = 'ROLE_USER'
+        }
+      }
+    }
+  }
 }
 </script>
