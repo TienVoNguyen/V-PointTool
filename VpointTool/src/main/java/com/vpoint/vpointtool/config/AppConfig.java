@@ -96,7 +96,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/userChangePassword/**").hasAnyRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/userChangePassword/**").hasAnyRole("USER")
                 .and().authorizeRequests().antMatchers("/adminChangePassword/**").hasAnyRole("ADMIN")
-                .and().authorizeRequests().antMatchers("/api/mark/**").hasAnyRole("USER")
+                .and().authorizeRequests().antMatchers("/api/mark/**").hasAnyRole("USER", "ADMIN")
                 .and().csrf().disable();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
