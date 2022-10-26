@@ -38,7 +38,7 @@ public interface MarkRepository extends JpaRepository<Mark, Long> {
             "group by year(m.date)")
     Integer getPointImprove(@Param("user") User user, @Param("item") Item item, @Param("year") int year);
 
-    @Query(nativeQuery = true, value = "select * from mark where user_id = ?;")
+    @Query(nativeQuery = true, value = "select sum(point) as sum, mark.date as date from mark where user_id = ? and year(date) = (year(current_date)) group by month(date);")
     List<ResponseMark> getMarkByIdUser(Long idUser);
 
     List<Mark> findMarkByUserAndAndDate(User user, LocalDate date);
@@ -47,7 +47,7 @@ public interface MarkRepository extends JpaRepository<Mark, Long> {
     List<Mark> findMarksByUserAndItemInYear(
             @Param("item") Item item, @Param("user") User user, @Param("year") Integer year);
 
-    @Query(nativeQuery = true, value = "select sum(point) as sum, mark.date as date from mark where user_id = ? and year(date) = ? group by month(date)")
+    @Query(nativeQuery = true, value = "select sum(point) as sum, mark.date as date from mark where user_id = ?1 and year(date) = ?2 group by month(date)")
     List<ResponseMark> getMarkByIdUserAndYear(Long idUser, int year);
 
     @Query(nativeQuery = true, value = "select date from mark where user_id = ? group by year(date) order by date;")
