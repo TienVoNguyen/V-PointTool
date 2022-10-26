@@ -14,6 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 public class SignUpForm {
+
     private String staffId;
 
     private String fullname;

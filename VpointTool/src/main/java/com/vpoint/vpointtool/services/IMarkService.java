@@ -1,5 +1,8 @@
 package com.vpoint.vpointtool.services;
 
+import com.vpoint.vpointtool.models.dto.ResponseMark;
+import com.vpoint.vpointtool.models.dto.Sum;
+import com.vpoint.vpointtool.models.dto.UserYear;
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.User;
@@ -11,7 +14,7 @@ import java.util.Optional;
 public interface IMarkService {
     Mark save(Mark mark);
 
-    List<Mark> getMarkByIdUser(Long idUser);
+    List<ResponseMark> getMarkByIdUser(Long idUser);
 
     Mark findByItemAndDate(Item item, LocalDate date);
 
@@ -53,4 +56,13 @@ public interface IMarkService {
 
     float saveBestDepartmentQuarter(long id, String value , User user, LocalDate date);
 
+    List<UserYear> getDate(Long id);
+
+    List<ResponseMark> getMarkByIdUserAndYear(Long idUser, int year);
+
+    List<Sum> getSum();
+
+    List<Mark> getMarkByTime(Long idUser, int Year, int Month);
+
+    List<Integer> getSumByIdUser(Long idUser);
 }

@@ -1,6 +1,9 @@
 package com.vpoint.vpointtool.services.impl;
 
 import com.vpoint.vpointtool.exception.DataNotFoundException;
+import com.vpoint.vpointtool.models.dto.ResponseMark;
+import com.vpoint.vpointtool.models.dto.Sum;
+import com.vpoint.vpointtool.models.dto.UserYear;
 import com.vpoint.vpointtool.exception.InputException;
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
@@ -24,7 +27,7 @@ public class MarkService implements IMarkService {
 
     @Autowired
     private IItemService itemService;
-    
+
     @Autowired
     private ItemRepository itemRepository;
 
@@ -88,6 +91,7 @@ public class MarkService implements IMarkService {
         float point = bestDepartmentQuarter(value);
         return bestDepartmentYearAndQuarter(item, point, value, user, date);
     }
+
 
     private float bestDepartmentYearAndQuarter(Item item, float point, String value, User user, LocalDate date) {
         Optional<Mark> mark = markRepository.findByItemAndDateAndUser(item, date, user);
@@ -613,7 +617,32 @@ public class MarkService implements IMarkService {
     }
 
     @Override
-    public List<Mark> getMarkByIdUser(Long idUser) {
+    public List<UserYear> getDate(Long id) {
+        return markRepository.getDate(id);
+    }
+
+    @Override
+    public List<ResponseMark> getMarkByIdUser(Long idUser) {
         return markRepository.getMarkByIdUser(idUser);
+    }
+
+    @Override
+    public List<ResponseMark> getMarkByIdUserAndYear(Long idUser, int year) {
+        return markRepository.getMarkByIdUserAndYear(idUser, year);
+    }
+
+    @Override
+    public List<Sum> getSum() {
+        return markRepository.getSum();
+    }
+
+    @Override
+    public List<Mark> getMarkByTime(Long idUser, int Year, int Month) {
+        return markRepository.getMarkByTime(idUser, Year, Month);
+    }
+
+    @Override
+    public List<Integer> getSumByIdUser(Long idUser) {
+        return markRepository.getSumByIdUser(idUser);
     }
 }
