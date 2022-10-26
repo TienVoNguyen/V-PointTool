@@ -8,6 +8,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MarkResponse {
+    private String staff_id;
+
+    private String department;
+
+    private String fullName;
+
     private float pointKPI;
 
     private float pointBestDepartmentMonth;
