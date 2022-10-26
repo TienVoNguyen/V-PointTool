@@ -19,53 +19,62 @@
               <el-input v-model="user.department" :disabled="true" ></el-input>
             </el-form-item>    
           </el-col>
-          <el-col :span="4">
-            <el-form-item label="Ngày">
+        </el-row>
+        <el-row >
+          <el-col :span="4" :offset="10">
+            <el-form-item label="Ngày" class="date-input">
               <el-date-picker
                 type="month"
                 v-model="date"
                 @change="handleData"
                 placeholder="Chọn ngày"
                 required
+                style="width: 100%"
                 >
               </el-date-picker>
             </el-form-item>    
           </el-col>
         </el-row>
       </el-form-item>
-      <h2>Mục I. Hiệu suất công việc</h2>
-      <h4>1. KPI cá nhân</h4>
       <el-row>
-        <el-col :span="4" :offset="2">
-            <el-form-item prop="kpi">
-              <el-input placeholder="Nhập KPI(%)" type="number" v-model="mark.kpi"></el-input>
-            </el-form-item>    
-          </el-col>
+        <el-col :offset="2">
+          <p class="text-header">Mục I. Hiệu suất công việc</p>
+        </el-col>
       </el-row>
-      <h4>2. Nhân viên xuất sắc & Bộ phận xuất sắc</h4>
-      <el-row >
-          <el-col :span="16" :offset="4">
-            <el-row :gutter="80">
-              <el-col :span="10" :offset="2">
-                <h6>2.1 Nhân viên xuất sắc tháng</h6>
-                <el-form-item label="" class="item-left">
-                  <el-checkbox v-model="mark.bestDepartmentMonth">Nhân viên xuất sắc tháng</el-checkbox>
+      <el-row>
+        <el-col :span="6" :offset="4">
+          <el-form-item prop="kpi" >
+            <p class="text-content">1. KPI cá nhân</p>
+            <el-input placeholder="Nhập KPI(%)" type="number" v-model="mark.kpi" ></el-input>
+          </el-form-item>    
+        </el-col>
+      </el-row>
+      <el-row justify="space-around">
+          <el-col >
+            <el-row >
+              <el-col :offset="4">
+                <p class="text-content">2. Nhân viên xuất sắc & Bộ phận xuất sắc</p>
+              </el-col>
+              <el-col :span="6" :offset="4">
+                <el-form-item >
+                  <h6>2.1 Nhân viên xuất sắc tháng</h6>
+                  <el-checkbox v-model="mark.bestDepartmentMonth" class="checkbox-form">Nhân viên xuất sắc tháng</el-checkbox>
                 </el-form-item>
               </el-col>   
-              <el-col :span="10">
-                <h6>3.1 Bộ phận xuất sắc quý</h6>
-                <el-form-item label="" class="item-left">
-                  <el-checkbox v-model="mark.excellentDepartmentMonth">Bộ phận xuất sắc quý</el-checkbox>
+              <el-col :span="6" :offset="6">
+                <el-form-item >
+                  <h6>3.1 Bộ phận xuất sắc quý</h6>
+                  <el-checkbox v-model="mark.excellentDepartmentMonth" class="checkbox-form">Bộ phận xuất sắc quý</el-checkbox>
                 </el-form-item>
               </el-col>   
             </el-row>
           </el-col>
-          <el-col :span="16" :offset="4">
-            <el-row justify="center" :gutter="80">
-              <el-col :span="10" :offset="2">
-                <h6>2.2 Nhân viên xuất sắc quý</h6>
-                <el-form-item>
-                  <el-select v-model="mark.bestDepartmentQuarter" placeholder="Nhân viên xuất sắc" class="select-item">
+          <el-col>
+            <el-row  >
+              <el-col :span="6" :offset="4">
+                <el-form-item >
+                  <h6>2.2 Nhân viên xuất sắc quý</h6>
+                  <el-select v-model="mark.bestDepartmentQuarter" clearable placeholder="Nhân viên xuất sắc" class="select-item">
                   <el-option
                     v-for="item in bestDepartmentMonth"
                     :key="item.value"
@@ -75,120 +84,132 @@
                 </el-select>
                 </el-form-item>
               </el-col>   
-              <el-col :span="10">
-                <h6>3.2 Bộ phận xuất sắc năm</h6>
-                <el-form-item label="" class="item-left">
-                  <el-checkbox v-model="mark.excellentDepartmentYear">Bộ phận xuất sắc năm</el-checkbox>
+              <el-col :span="6" :offset="6">
+                <el-form-item >
+                  <h6>3.2 Bộ phận xuất sắc năm</h6>
+                  <el-checkbox v-model="mark.excellentDepartmentYear" class="checkbox-form">Bộ phận xuất sắc năm</el-checkbox>
                 </el-form-item>
-              </el-col>   
-            </el-row>
-          </el-col>
-          <el-col :span="16" :offset="4">
-            <el-row justify="center" :gutter="80">
-              <el-col :span="10" :offset="2">
-                <h6>2.3 Nhân viên xuất sắc năm</h6>
-                <el-form-item label="">
-                  <el-select v-model="mark.bestDepartmentYear" placeholder="Nhân viên xuất sắc" class="select-item">
-                  <el-option
-                    v-for="item in bestDepartmentYear"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                  </el-option>
-                </el-select>
+              </el-col>
+              <el-col :span="6" :offset="4">
+                <el-form-item >
+                  <h6>2.3 Nhân viên xuất sắc năm</h6>
+                  <el-select v-model="mark.bestDepartmentYear" clearable placeholder="Nhân viên xuất sắc" class="select-item">
+                    <el-option
+                      v-for="item in bestDepartmentYear"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
                 </el-form-item>
               </el-col>     
             </el-row>
           </el-col>
       </el-row>
-      <h2>Mục II. Làm việc nhóm</h2>
-      <el-row justify="center">
-        <el-col :span="16" :offset="4">
-            <el-row justify="center" :gutter="80">
-              <el-col :span="10" :offset="2">
-                <h6>3. Điểm BSC bộ phận</h6>
-                <el-form-item prop="bcsDepartment">
+      <el-row>
+        <el-col :offset="2">
+          <p class="text-header">Mục II. Làm việc nhóm</p>
+        </el-col>
+      </el-row>
+      <el-row justify="space-around">
+        <el-col>
+            <el-row>
+              <el-col :span="6" :offset="4">
+                <el-form-item prop="bcsDepartment"  >
+                  <p class="text-content">3. Điểm BSC bộ phận</p>
                   <el-input placeholder="Nhập điểm BSC bộ phận(%)" v-model.number="mark.bcsDepartment"></el-input>
                 </el-form-item>
               </el-col>   
-              <el-col :span="10">
-                <h6>4. Hoạt động chung</h6>
-                <el-form-item prop="jointActivities">
+              <el-col :span="6" :offset="6">
+                <p class="text-content">4. Hoạt động chung</p>
+                <el-form-item prop="jointActivities" >
                   <el-input placeholder="Nhập điểm hoạt động chung" type="number" v-model="mark.jointActivities"></el-input>
                 </el-form-item>
               </el-col>   
             </el-row>
           </el-col>
       </el-row>
-      <h2>Mục III. Đào tạo và phát triển</h2>
-      <h4>5. Đào tạo</h4>
-      <el-row >
-        <el-col :span="16" :offset="4">
-            <el-row justify="center" :gutter="80">
-              <el-col :span="10" :offset="2">
-                <h6>5.1. Người đào tạo</h6>
+      <el-row>
+        <el-col :offset="2">
+          <p class="text-header">Mục III. Đào tạo và phát triển</p>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+            <el-row >
+              <el-col :offset="4">
+                <p class="text-content">5. Đào tạo</p>
+              </el-col>
+              <el-col :span="6" :offset="4">
                 <el-form-item >
+                  <h6>5.1. Người đào tạo</h6>
                   <el-input placeholder="Nhập điểm DGC" type="number" v-model="mark.train"></el-input>
                 </el-form-item>
               </el-col>   
-              <el-col :span="10">
-                <h6>5.2. Người tham gia đào tạo</h6>
-                <el-form-item prop="trainStaff">
+              <el-col :span="6" :offset="6">
+                <el-form-item prop="trainStaff" >
+                  <h6>5.2. Người tham gia đào tạo</h6>
                   <el-input placeholder="Nhập điểm đào tạo(%)" type="number" v-model="mark.trainStaff"></el-input>
                 </el-form-item>
               </el-col>   
-            </el-row>
-          </el-col>
-          <el-col :span="16" :offset="4">
-            <el-row justify="center" :gutter="80">
-              <el-col :span="10" :offset="2">
+              <el-col :span="6" :offset="4">
                 <h6>5.3. Chương trình phát triển cùng VMG</h6>
-                <el-form-item prop="trainVmg">
+                <el-form-item prop="trainVmg" >
                   <el-input placeholder="Nhập điểm" type="number" v-model="mark.trainVmg"></el-input>
                 </el-form-item>
               </el-col>    
             </el-row>
           </el-col>
       </el-row>
-      <h2>Mục IV. Sáng tạo</h2>
-      <h4>6. Cải tiến đổi mới</h4>
       <el-row>
-        <el-col :span="16" :offset="4">
-            <el-row :gutter="80">
-              <el-col :span="10" :offset="2">
-                <el-form-item  class="item-left">
+        <el-col :offset="2">
+          <p class="text-header">Mục IV. Sáng tạo</p>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+            <el-row>
+              <el-col :span="6" :offset="4">
+                <el-form-item  >
+                  <p class="text-content">6. Cải tiến đổi mới</p>
                   <el-checkbox v-model="mark.improve">Nhân sự có ý tưởng cải tiến đổi mới tháng</el-checkbox>
                 </el-form-item>
               </el-col>   
             </el-row>
           </el-col>
       </el-row>
-      <h2>Mục V. Tuân thủ</h2>
-      <h4>7. Tôi yêu VMG</h4>
-      <el-row >
-        <el-col :span="16" :offset="4">
-          <el-row justify="center" :gutter="80">
-            <el-col :span="10" :offset="2">
-              <el-form-item prop="loveVmg">
+      <el-row>
+        <el-col :offset="2">
+          <p class="text-header">Mục V. Tuân thủ</p>
+        </el-col>
+      </el-row>
+      <el-row justify="space-around">
+        <el-col>
+          <el-row >
+            <el-col :span="6" :offset="4">
+              <el-form-item prop="loveVmg" >
+                <p class="text-content">7. Tôi yêu VMG</p>
                 <el-input type="number" v-model="mark.loveVmg" placeholder="Nhập điểm test(%)" ></el-input>
               </el-form-item>
             </el-col>   
           </el-row>
         </el-col>
       </el-row>
-        <h4>8. Kỷ luật</h4>
-        <el-row>
-          <el-col :span="16" :offset="4">
-            <el-row justify="center" :gutter="80">
-              <el-col :span="10" :offset="2">
-                <h6>8.1. Vi phạm kỷ luật</h6>
-                <el-form-item prop="disciplineViolate">
+        <el-row justify="space-around">
+          <el-col>
+            <el-row>
+              <el-col :offset="4">
+                <p class="text-content">8. Kỷ luật</p>
+              </el-col>
+              <el-col :span="6" :offset="4">
+                <el-form-item prop="disciplineViolate" >
+                  <h6>8.1. Vi phạm kỷ luật</h6>
                   <el-input type="number" v-model="mark.disciplineViolate" placeholder="Nhập điểm"></el-input>
                 </el-form-item>
               </el-col> 
-            <el-col :span="10">
-              <h6>8.2. Điểm thưởng</h6>
-              <el-form-item prop="disciplineBonus">
+            <el-col :span="6" :offset="6">
+              <el-form-item prop="disciplineBonus" >
+                <h6>8.2. Điểm thưởng</h6>
                 <el-input placeholder="Nhập điểm thưởng" type="number" v-model="mark.disciplineBonus"></el-input>
               </el-form-item>    
             </el-col>     
@@ -211,7 +232,6 @@ import  {UserService as userService} from '../../service/user-service';
     name: 'add-mark',
     data() {
       var checkPercent = (rule, value, callback) => {
-        console.log(value);
         value = Number(value);
         setTimeout(() => {
           if (value < 0) {
@@ -219,7 +239,7 @@ import  {UserService as userService} from '../../service/user-service';
           } else {
             callback();
           }
-        }, 1000);
+        }, 500);
       };
       var checkJointActivities = (rule, value, callback) => {
         value = Number(value);
@@ -229,16 +249,27 @@ import  {UserService as userService} from '../../service/user-service';
           } else {
             callback();
           }
-        }, 1000)
+        }, 500)
       };
       var checkNumber = (rule, value, callback) => {
+        // value = Number(value);
         setTimeout(() => {
           if ( value && !Number.isInteger(value)) {
             callback(new Error('Hãy nhập số'));
           } else {
             callback();
           }
-        }, 1000);
+        }, 500);
+      };
+      var checkTrainVmg = (rule, value, callback) => {
+        value = Number(value);
+        setTimeout(() => {
+          if( value < 0 || value > 50) {
+            callback(new Error('Giá trị phải từ 0 - 50'));
+          } else {
+            callback();
+          }
+        }, 500)
       };
       return {
         labelPosition: 'top',
@@ -259,7 +290,7 @@ import  {UserService as userService} from '../../service/user-service';
             {validator: checkPercent, trigger: 'blur' }
           ],
           trainVmg: [
-            {validator: checkPercent, trigger: 'blur' }
+            {validator: checkTrainVmg, trigger: 'blur' }
           ],
           loveVmg: [
             {validator: checkPercent, trigger: 'blur' }
@@ -283,8 +314,12 @@ import  {UserService as userService} from '../../service/user-service';
           kpiID: 1,
           kpi: null,
           disciplineBonus: null,
-          bestDepartmentID: 2,
-          bestDepartmentMonth: '',
+          bestDepartmentMonthID: 2,
+          bestDepartmentMonth: false,
+          bestDepartmentQuarterID: 16,
+          bestDepartmentQuarter: null,
+          bestDepartmentYearID: 17,
+          bestDepartmentYear: null,
           jointActivitiesID: 4,
           jointActivities: null,
           bcsDepartmentID: 3,
@@ -297,8 +332,6 @@ import  {UserService as userService} from '../../service/user-service';
           loveVmg: null,
           trainStaffID: 11,
           trainStaff: null,
-          bestDepartmentQuarter: null,
-          bestDepartmentYear: null,
           excellentDepartmentMonthID: 9,
           excellentDepartmentMonth: false,
           excellentDepartmentYearID: 10,
@@ -345,7 +378,6 @@ import  {UserService as userService} from '../../service/user-service';
       onSubmit(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.mark.bestDepartmentMonth = this.mark.bestDepartmentMonth ? "T" : '';
             if (this.date === null) {
               let nowDate = Date.now();
               this.mark.year = nowDate.getFullYear();
@@ -381,12 +413,9 @@ import  {UserService as userService} from '../../service/user-service';
           })
       },
       handleData(data) {
-        console.log("heehehe");
         data = new Date(data)
-        this.mark.month = data.getMonth() + 1;
+        this.mark.month = data.getMonth();
         this.mark.year = data.getFullYear();
-        console.log("UserId: " + this.user.id);
-        console.log(this.user.id);
         let dataReq = {
           userId: this.user.id,
           month: this.mark.month,
@@ -402,8 +431,7 @@ import  {UserService as userService} from '../../service/user-service';
             console.log(error);
           })
       },
-      handleInput(value) {
-        console.log(value);
+      handleInput() {
       }
     },
     mounted() {
@@ -417,19 +445,55 @@ import  {UserService as userService} from '../../service/user-service';
   }
 </script>
 <style scoped>
-  h2, h4, h6 {
+  p {
     text-align: left;
   }
-  h2{
-    margin-left: 50px;
+
+  .text-header{
+    /* margin-left: 50px; */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-size: 25px;
+    line-height: 29px;
+    font-weight: 600;
+
+    /* đỏ */
+
+    color: #ED1C24;
   }
-  h4 {
-    margin-left: 60px;
+
+  .text-content {
+    font-family: 'Inter';
+    font-style: normal;
+    font-size: 23px;
+    line-height: 28px;
+    color: #000;
+    padding-top: 15px;
+    font-weight: 550;
   }
   .item-left{
     display: flex;
   }
   .select-item {
     width: 100%;
+  }
+
+  .text-title {
+    padding-left: 90px;
+  }
+
+  .checkbox-form {
+    left: -25px;
+    color: #000;
+  }
+  h6 {
+    text-align: start;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+
+    color: #000000;
   }
 </style>
