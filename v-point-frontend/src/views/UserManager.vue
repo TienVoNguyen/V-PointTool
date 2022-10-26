@@ -8,6 +8,7 @@
         <div class="text-left input-group-prepend">
           <h5 style="color: #6c757d"> Nhóm: <span style="">
         <select class="input-group-text" v-model="CateId" @change="getUser(CateId)" style="width: 300px; display: inherit; align-items: center;" >
+          <option v-bind:value="CateId">Tất cả nhân sự</option>
           <option v-for="d in departments" v-bind:value="d.id"  v-bind:key ="d.id" >
             {{ d.name }}
           </option>
@@ -20,7 +21,7 @@
       <div class="col-6">
         <div class="text-right input-group-prepend">
           <h5 style="color: #6c757d"> Nhập để tìm kiếm: <span style="">
-        <input style="width: 300px; display: inherit" class="input-group-text" type="text" v-model="fullName" @change="get(fullName)">
+        <input style="width: 300px; display: inherit" class="input-group-text" type="text" v-model="fullName" @keyup="get(fullName)">
       </span>
           </h5>
         </div>
@@ -81,7 +82,7 @@
         <template v-slot="scope">
           <el-button class="btn btn-warning" type="text" @click="removeValidate(true, scope.row.id)"><i size="default" class="el-icon-edit"></i></el-button>
           <el-button class="btn btn-primary" type="text" @click="removeValidate1(true, scope.row.id)"><i size="default" class="el-icon-key"></i></el-button>
-          <el-button class="btn btn-danger" type="text" @click="deleteUser(scope.row.id)"><i size="default" class="el-icon-delete"></i></el-button>
+          <el-button v-if="currentUser.id !== scope.row.id" class="btn btn-danger" type="text" @click="deleteUser(scope.row.id)"><i size="default" class="el-icon-delete"></i></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -246,6 +247,8 @@ export default {
       check1: true,
       checkId: true,
       checkEmail: true,
+      checkDpm: true,
+      checkRole: true,
 
       changePass: {
         newPassword: '',
@@ -286,6 +289,8 @@ export default {
     },
 
     removeValidate1(check, userId) {
+      this.changePass.newPassword = '';
+      this.changePass.confirmNewPass = '';
       this.findByIdUser(userId)
       this.dialogFormVisible1 = check
       this.errP1 = ''
@@ -394,7 +399,12 @@ export default {
     },
 
     getUser(params){
+      console.log(params)
+      if (params === ''){
+        this.retrieveUserList()
+      }else {
         this.getUserListByDpm(params)
+      }
     },
 
     getDpmParams(CateId) {
@@ -407,7 +417,6 @@ export default {
 
     async getUserListByDpm(params) {
       let param1 = this.getDpmParams(params)
-      console.log(param1)
       let response = await userService.getUserByCateId(param1)
       this.listUser = response.data;
       this.count = response.data.totalPages;
@@ -432,7 +441,7 @@ export default {
       } else if (this.changePass.newPassword !== this.changePass.confirmNewPass){
         this.errorsPass = 'Mật khẩu không trùng khớp'
         this.check1 = false;
-      } else if (this.changePass.newPassword === this.changePass.confirmNewPass){
+      } else if (this.changePass.newPassword === this.changePass.confirmNewPass && this.validPass(this.changePass.newPassword)){
         this.errorsPass = ''
         this.check1 = true;
       }
@@ -479,67 +488,72 @@ export default {
 
     },
 
-    editUser(userId){
-      if (!this.user.fullName){
+    async editUser(userId) {
+      let response = await authService.getAllUser()
+      this.listU = response.data;
+      console.log(this.listU)
+      if (!this.user.fullName) {
         this.errorsName = 'Vui lòng nhập tên nhân viên'
         this.check1 = false;
       } else {
+        this.check1 = true;
         this.errorsName = ''
       }
-      for (let i = 0; i < this.listUser.length; i++) {
-        if (this.user.staffId === this.listUser[i].staffId && this.user.staffId !== this.curStaffId){
+      for (let i = 0; i < this.listU.length; i++) {
+        if (this.user.staffId === this.listU[i].staffId && this.user.staffId !== this.curStaffId) {
           this.errId = 'Mã nhân sự đã tồn tại'
-          this.check1 = false;
           this.checkId = false;
           break
         } else {
           this.checkId = true;
-          this.check1 = true;
           this.errId = ''
         }
       }
-      if (!this.user.staffId){
+      if (!this.user.staffId) {
         this.errId = 'Hãy nhập mã nhân sự'
-        this.check1 = false;
         this.checkId = false;
       }
-      for (let i = 0; i < this.listUser.length; i++) {
-        if (this.user.email === this.listUser[i].email && this.user.email !== this.curEmail){
-          this.errorEmail = 'Email này đã tồn tại trong hệ thống'
-          this.check1 = false;
-          this.checkEmail = false;
-          break
-        } else {
-          this.check1 = true;
-          this.checkEmail = true;
-        }
-      }
-      if (!this.user.email){
+
+      if (!this.user.email) {
         this.errorEmail = 'Vui lòng nhập email nhân viên'
-        this.check1 = false;
         this.checkEmail = false;
       } else if (!this.validEmail(this.user.email)) {
         this.errorEmail = 'Vui lòng nhập đúng định dạng email'
         this.checkEmail = false;
-      } else if (this.validEmail(this.user.email) && this.user.email && this.checkEmail === true){
-        this.errorEmail = ''
-        this.check1 = true;
       }
-      if (!this.user.department){
-        this.check1 = false;
+
+      for (let i = 0; i < this.listU.length; i++) {
+        if (this.user.email === this.listU[i].email && this.user.email !== this.curEmail) {
+          this.errorEmail = 'Email này đã tồn tại trong hệ thống'
+          this.checkEmail = false;
+          break
+        } else {
+          this.checkEmail = true;
+        }
+      }
+
+      if (this.validEmail(this.user.email) && this.checkEmail === true) {
+        this.errorEmail = ''
+      }
+
+      if (!this.user.department) {
+        this.checkDpm = false;
         this.errDpm = 'Hãy chọn phòng ban'
       } else {
         this.errDpm = ''
-        this.check1 = true;
+        this.checkDpm = true;
       }
-      if (this.user.role.length === 0){
-        this.check1 = false;
+      if (this.user.role.length === 0) {
+        this.checkRole = false;
         this.errRole = 'Hãy chọn quyền truy cập'
+      } else if (this.user.role.length > 1) {
+        this.checkRole = false;
+        this.errRole = 'Chỉ chọn 1 quyền'
       } else {
         this.errRole = ''
-        this.check1 = true;
+        this.checkRole = true;
       }
-      if (this.check1 === true && this.checkId === true && this.checkEmail === true){
+      if (this.check1 === true && this.checkId === true && this.checkEmail === true && this.checkDpm === true && this.checkRole === true) {
         let form = document.querySelector('#userForm');
         let formdata = new FormData(form);
         formdata.append("department.id", this.user.department.id)

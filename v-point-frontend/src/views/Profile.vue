@@ -421,15 +421,17 @@ export default {
 
     },
 
-    editUser(userId){
-      if (!this.user.fullName){
+    async editUser(userId) {
+      let response = await authService.getAllUser()
+      this.listUser = response.data;
+      if (!this.user.fullName) {
         this.errorsName = 'Vui lòng nhập tên nhân viên'
         this.check1 = false;
       } else {
         this.errorsName = ''
       }
       for (let i = 0; i < this.listUser.length; i++) {
-        if (this.user.staffId === this.listUser[i].staffId && this.user.staffId !== this.curStaffId){
+        if (this.user.staffId === this.listUser[i].staffId && this.user.staffId !== this.curStaffId) {
           this.errId = 'Mã nhân sự đã tồn tại'
           this.check1 = false;
           this.checkId = false;
@@ -441,13 +443,13 @@ export default {
         }
       }
 
-      if (!this.user.staffId){
+      if (!this.user.staffId) {
         this.errId = 'Hãy nhập mã nhân sự'
         this.check1 = false;
         this.checkId = false;
       }
       for (let i = 0; i < this.listUser.length; i++) {
-        if (this.user.email === this.listUser[i].email && this.user.email !== this.curEmail){
+        if (this.user.email === this.listUser[i].email && this.user.email !== this.curEmail) {
           this.errorEmail = 'Email này đã tồn tại trong hệ thống'
           this.check1 = false;
           this.checkEmail = false;
@@ -457,35 +459,35 @@ export default {
           this.checkEmail = true;
         }
       }
-      if (!this.user.email){
+      if (!this.user.email) {
         this.errorEmail = 'Vui lòng nhập email nhân viên'
         this.check1 = false;
         this.checkEmail = false;
       } else if (!this.validEmail(this.user.email)) {
         this.errorEmail = 'Vui lòng nhập đúng định dạng email'
         this.checkEmail = false;
-      } else if (this.validEmail(this.user.email) && this.user.email && this.checkEmail === true){
+      } else if (this.validEmail(this.user.email) && this.user.email && this.checkEmail === true) {
         this.errorEmail = ''
         this.check1 = true;
       }
-      if (!this.user.department){
+      if (!this.user.department) {
         this.check1 = false;
         this.errDpm = 'Hãy chọn phòng ban'
       } else {
         this.errDpm = ''
         this.check1 = true;
       }
-      if (this.user.role.length === 0){
+      if (this.user.role.length === 0) {
         this.checkRole = false;
         this.errRole = 'Hãy chọn quyền truy cập'
-      } else if (this.user.role.length > 1){
+      } else if (this.user.role.length > 1) {
         this.checkRole = false;
         this.errRole = 'Chỉ chọn 1 quyền'
       } else {
         this.errRole = ''
         this.checkRole = true;
       }
-      if (this.check1 === true && this.checkId === true && this.checkEmail === true && this.checkRole === true){
+      if (this.check1 === true && this.checkId === true && this.checkEmail === true && this.checkRole === true) {
         let form = document.querySelector('#userForm');
         let formdata = new FormData(form);
         formdata.append("department.id", this.user.department.id)
@@ -509,13 +511,13 @@ export default {
                   this.a = data.message,
                       this.dialogFormVisible = false;
                   swal.fire({
-                        toast: true,
-                        title: "Xong!",
-                        icon: "success",
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 3000
-                      })
+                    toast: true,
+                    title: "Xong!",
+                    icon: "success",
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                  })
                 }, () => {
                   this.dialogFormVisible = true;
                   swal.fire({

@@ -166,6 +166,10 @@ export default {
       check1: true,
       checkId: true,
       checkEmail: true,
+      checkName: true,
+      checkDpm: true,
+      checkRole: true,
+      checkPass: true,
       formLabelWidth: '120px',
 
     };
@@ -221,6 +225,13 @@ export default {
 
     removeValidate(check){
       this.dialogFormVisible = check,
+          this.check1= false,
+          this.checkId= false,
+          this.checkEmail= false,
+          this.checkName= false,
+          this.checkDpm= false,
+          this.checkRole= false,
+          this.checkPass= false,
           this.message = '',
           this.errId = '',
           this.errP1 = '',
@@ -237,107 +248,111 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
-    handleRegister() {
+    async handleRegister() {
+      let response = await authService.getAllUser()
+      this.user = response.data;
 
       for (let i = 0; i < this.user.length; i++) {
-        if (this.userForm1.staffId === this.user[i].staffId){
+        if (this.userForm1.staffId === this.user[i].staffId) {
           this.errId = 'Mã nhân sự đã tồn tại'
-          this.check1 = false;
           this.checkId = false;
           break
         } else {
           this.checkId = true;
-          this.check1 = true;
         }
       }
 
-      if (!this.userForm1.staffId){
+      if (!this.userForm1.staffId) {
         this.errId = 'Hãy nhập mã nhân sự'
-        this.check1 = false;
+
         this.checkId = false;
       }
 
       if (this.userForm1.staffId && this.checkId === true) {
         this.errId = ''
-        this.check1 = true;
+
       }
 
-      if (!this.userForm1.department){
-        this.check1 = false;
+      if (!this.userForm1.department) {
+        this.checkDpm = false;
         this.errDpm = 'Hãy chọn phòng ban'
       } else {
         this.errDpm = ''
+        this.checkDpm = true
       }
 
-      if (this.userForm1.role.length === 0){
-        this.check1 = false;
+      if (this.userForm1.role.length === 0) {
+        this.checkRole = false;
         this.errRole = 'Hãy chọn quyền truy cập'
       } else {
+        this.checkRole = true;
         this.errRole = ''
       }
 
       for (let i = 0; i < this.user.length; i++) {
-        if (this.userForm1.email === this.user[i].email){
+        if (this.userForm1.email === this.user[i].email) {
           this.errorEmail = 'Email này đã tồn tại trong hệ thống'
-          this.check1 = false;
+
           this.checkEmail = false;
           break
         } else {
-          this.check1 = true;
+
           this.checkEmail = true;
         }
       }
 
-      if (!this.userForm1.email){
+      if (!this.userForm1.email) {
         this.errorEmail = 'Vui lòng nhập email nhân viên'
-        this.check1 = false;
+
         this.checkEmail = false;
       } else if (!this.validEmail(this.userForm1.email)) {
         this.errorEmail = 'Vui lòng nhập đúng định dạng email'
         this.checkEmail = false;
-      } else if (this.validEmail(this.userForm1.email) && this.userForm1.email && this.checkEmail === true){
+      } else if (this.validEmail(this.userForm1.email) && this.userForm1.email && this.checkEmail === true) {
         this.errorEmail = ''
-        this.check1 = true;
+        this.checkEmail = true
       }
 
 
-      if (!this.userForm1.fullname){
+      if (!this.userForm1.fullname) {
         this.errorsName = 'Vui lòng nhập tên nhân viên'
         this.check1 = false;
       } else {
         this.errorsName = ''
+        this.check1 = true;
       }
 
 
-      if (this.userForm1.password !== this.userForm1.confirmPassword){
+      if (this.userForm1.password !== this.userForm1.confirmPassword) {
         this.errorsPass = 'Mật khẩu không trùng khớp'
-        this.check1 = false;
+        this.checkPass = false
       }
 
 
-      if (!this.userForm1.password && this.userForm1.confirmPassword || !this.userForm1.password && !this.userForm1.confirmPassword){
+      if (!this.userForm1.password && this.userForm1.confirmPassword || !this.userForm1.password && !this.userForm1.confirmPassword) {
         this.errP1 = 'Vui lòng nhập mật khẩu'
-        this.check1 = false;
+        this.checkPass = false;
       } else if (!this.validPass(this.userForm1.password)) {
         this.errP1 = 'Mật khẩu gồm 8 ký tự trở lên có ít nhất một số và một chữ hoa và chữ thường'
+        this.checkPass = false;
       } else {
         this.errP1 = ''
-        this.check1 = true;
+        this.checkPass = true;
       }
 
-      if (this.userForm1.password && !this.userForm1.confirmPassword){
+      if (this.userForm1.password && !this.userForm1.confirmPassword) {
         this.errorsPass = 'Vui lòng xác nhận mật khẩu'
-        this.check1 = false;
-      } else if (this.userForm1.password !== this.userForm1.confirmPassword){
+        this.checkPass = false;
+      } else if (this.userForm1.password !== this.userForm1.confirmPassword) {
         this.errorsPass = 'Mật khẩu không trùng khớp'
-        this.check1 = false;
-      } else if (this.userForm1.password === this.userForm1.confirmPassword){
+        this.checkPass = false;
+      } else if (this.userForm1.password === this.userForm1.confirmPassword) {
         this.errorsPass = ''
-        this.check1 = true;
+        this.checkPass = true;
       }
 
 
-      if (this.check1 === true && this.checkId === true && this.checkEmail === true){
+      if (this.check1 === true && this.checkId === true && this.checkEmail === true && this.checkDpm === true && this.checkPass === true && this.checkRole === true) {
         let form = document.querySelector('#userForm');
         let formdata = new FormData(form);
         formdata.append("department.id", this.userForm1.department)
@@ -345,29 +360,33 @@ export default {
         console.log(formdata);
         authService.createUser(formdata)
             .then(
-            data => {
-              this.a = data.message,
+                data => {
+                  this.a = data.message;
+                  // let response = authService.getAllUser()
+                  // this.user = response.data;
                   this.dialogFormVisible = false;
-              swal.fire({
+                  this.checkId = false;
+                  this.checkEmail = false;
+                  swal.fire({
+                        toast: true,
+                        title: "Xong!",
+                        icon: "success",
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000
+                      }
+                  )
+                }, () => {
+                  this.dialogFormVisible = true;
+                  swal.fire({
                     toast: true,
-                    title: "Xong!",
-                    icon: "success",
+                    title: "Đã có lỗi xảy ra!",
+                    icon: "error",
                     position: 'top-end',
                     showConfirmButton: false,
                     timer: 3000
-                  }, () => {
-                    this.dialogFormVisible = true;
-                    swal.fire({
-                      toast: true,
-                      title: "Đã có lỗi xảy ra!",
-                      icon: "error",
-                      position: 'top-end',
-                      showConfirmButton: false,
-                      timer: 3000
-                    });
-                  }
-              )
-            });
+                  });
+                });
       } else {
         this.message = 'Vui lòng điền đầy đủ thông tin'
       }
