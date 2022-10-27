@@ -51,7 +51,7 @@
       </tr>
       <tr >
         <td>06</td>
-        <td colspan="2" style="background-color: #dc3545"><h4>Tổng điểm</h4></td>
+        <td colspan="2" ><h4>Tổng điểm</h4></td>
         <td>{{Point.reduce((total, p)=>{return total += p.point},0)}}</td>
       </tr>
     </table>
@@ -70,7 +70,7 @@ export default {
       year : this.$route.params.year,
       month: this.$route.params.month,
       td1: '',
-      td2: '',
+      td2: null,
       td3: '',
       td4: '',
       td5: '',
@@ -108,7 +108,13 @@ export default {
           this.td1 = this.Point[i].point
         }
         if (this.Point[i].item.id === 2){
-          this.td2 = this.Point[i].point
+          this.td2 = this.td2 + this.Point[i].point
+        }
+        if (this.Point[i].item.id === 16){
+          this.td2 = this.td2 + this.Point[i].point
+        }
+        if (this.Point[i].item.id === 17){
+          this.td2 = this.td2 + this.Point[i].point
         }
         if (this.Point[i].item.id === 3){
           this.td3 = this.Point[i].point
