@@ -72,10 +72,10 @@ export default {
   },
   created() {
     if (this.loggedIn && this.currentUser.roles.length === 2) {
-      this.$router.push('/profile');
+      this.$router.push('/admin/home');
     }
     if (this.loggedIn && this.currentUser.roles.length === 1) {
-      this.$router.push('/');
+      this.$router.push('/user/home');
     }
   },
   methods: {

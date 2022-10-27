@@ -13,6 +13,10 @@ const router = new Router({
             component: () => import("@/components/auth/Login"),
         },
         {
+            path: '/',
+            redirect: '/login'
+        },
+        {
             path: '/admin',
             redirect: 'home',
             component: AdminLayout,
