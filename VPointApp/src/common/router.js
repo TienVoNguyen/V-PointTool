@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import AdminLayout from "@/components/admin/layout/AdminLayout";
 import UserLayout from "@/components/user/layout/UserLayout";
+import AddMark from "@/components/admin/Add";
 
 Vue.use(Router);
 
@@ -45,6 +46,16 @@ const router = new Router({
                     path: 'manager',
                     name: 'UserManager',
                     component: () => import("@/components/admin/UserManager")
+                },
+                {
+                    path: 'mark/:id',
+                    name: 'addMark',
+                    component: AddMark
+                },
+                {
+                    path: 'addstaff',
+                    name: 'addStaff',
+                    component: () => import("@/components/admin/AddStaff")
                 }
             ]
         },

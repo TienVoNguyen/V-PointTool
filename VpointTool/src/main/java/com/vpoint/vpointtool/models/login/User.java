@@ -51,8 +51,6 @@ public class User extends BaseEntity {
     @NotBlank
     private String email;
 
-
-
     @ManyToOne(fetch = FetchType.EAGER)
     private Department department;
 

@@ -1,0 +1,13 @@
+INSERT INTO vpoint.item (id, create_by, create_date, modified_by, modified_date, name, category_id) VALUES (1, null, null, null, null, 'KPI cá nhân hàng tháng', 1);
+INSERT INTO vpoint.item (id, create_by, create_date, modified_by, modified_date, name, category_id) VALUES (2, null, null, null, null, 'Nhân viên xuất sắc', 1);
+INSERT INTO vpoint.item (id, create_by, create_date, modified_by, modified_date, name, category_id) VALUES (3, null, null, null, null, 'Điểm BSC bộ phận', 2);
+INSERT INTO vpoint.item (id, create_by, create_date, modified_by, modified_date, name, category_id) VALUES (4, null, null, null, null, 'Hoạt động chung', 2);
+INSERT INTO vpoint.item (id, create_by, create_date, modified_by, modified_date, name, category_id) VALUES (5, null, null, null, null, 'Đào tạo', 3);
+INSERT INTO vpoint.item (id, create_by, create_date, modified_by, modified_date, name, category_id) VALUES (6, null, null, null, null, 'Cải tiến đổi mới', 4);
+INSERT INTO vpoint.item (id, create_by, create_date, modified_by, modified_date, name, category_id) VALUES (7, null, null, null, null, 'Tôi yêu VMG', 5);
+INSERT INTO vpoint.item (id, create_by, create_date, modified_by, modified_date, name, category_id) VALUES (8, null, null, null, null, 'Kỷ luật', 5);
+INSERT INTO vpoint.item (id, create_by, create_date, modified_by, modified_date, name, category_id) VALUES (9, null, null, null, null, 'Bộ phận xuất sắc tháng', 1);
+INSERT INTO vpoint.item (id, create_by, create_date, modified_by, modified_date, name, category_id) VALUES (10, null, null, null, null, 'Bộ phận xuất sắc năm', 1);
+INSERT INTO vpoint.item (id, create_by, create_date, modified_by, modified_date, name, category_id) VALUES (11, null, null, null, null, 'Tham gia đào tạo', 3);
+INSERT INTO vpoint.item (id, create_by, create_date, modified_by, modified_date, name, category_id) VALUES (12, null, null, null, null, 'Phát triển cùng VMG', 3);
+INSERT INTO vpoint.item (id, create_by, create_date, modified_by, modified_date, name, category_id) VALUES (13, null, null, null, null, 'Khen thưởng nóng', 5);

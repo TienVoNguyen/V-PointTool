@@ -4,6 +4,7 @@ import UserVpoint from "@/views/UserVpoint";
 import Login from "@/views/Login";
 import Profile from "@/views/Profile";
 import VueRouter from "vue-router";
+import AddMark from '../components/mark/Add.vue';
 
 Vue.use(Router);
 
@@ -44,6 +45,11 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import('../components/ImportExcel')
+    },
+    {
+        path: '/mark/add/:id',
+        name: 'AddMark',
+        component: AddMark
     }
 ]
 

@@ -81,15 +81,15 @@
     <el-dialog title="Đổi mật khẩu" :visible.sync="dialogFormVisible1">
       <el-form>
         <el-form-item label="Nhập mật cũ">
-          <el-input v-model="changePass.oldPassword" autocomplete="off"></el-input>
+          <el-input v-model="changePass.oldPassword" type="password" autocomplete="off"></el-input>
           <small v-if="oldPass != null" style="color: red">{{oldPass}}</small>
         </el-form-item>
         <el-form-item label="Nhập mật khẩu mới">
-          <el-input v-model="changePass.newPassword" autocomplete="off"></el-input>
+          <el-input v-model="changePass.newPassword" type="password" autocomplete="off"></el-input>
           <small v-if="errP1 != null" style="color: red">{{errP1}}</small>
         </el-form-item>
         <el-form-item label="Xác nhận mật khẩu mới">
-          <el-input v-model="changePass.confirmNewPassword" autocomplete="off"></el-input>
+          <el-input v-model="changePass.confirmNewPassword" type="password" autocomplete="off"></el-input>
           <small v-if="errorsPass != null" style="color: red">{{errorsPass}}</small>
         </el-form-item>
       </el-form>

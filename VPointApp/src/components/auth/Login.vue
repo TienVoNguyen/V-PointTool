@@ -1,5 +1,5 @@
 <template>
-  <div class="login-bg">
+  <div class="login-bg ">
     <div class="row justify-content-center">
       <div class="col-md-7 col-lg-5">
         <div class="wrap">
@@ -71,10 +71,12 @@ export default {
     },
   },
   created() {
+
     if (this.loggedIn && this.currentUser.roles.length === 2) {
       this.$router.push('/admin/home');
     }
     if (this.loggedIn && this.currentUser.roles.length === 1) {
+
       this.$router.push('/user/home');
     }
   },
@@ -106,10 +108,10 @@ export default {
         this.$store.dispatch('auth/login', this.user).then(
             () => {
               console.log(this.currentUser.roles.length)
-              if (this.loggedIn && this.currentUser.roles.length === 2) {
+              if (this.loggedIn && this.currentUser.roles[0].authority === "ROLE_ADMIN") {
                 this.$router.push('/admin/home');
               }
-              if (this.loggedIn && this.currentUser.roles.length === 1) {
+              if (this.loggedIn && this.currentUser.roles[0].authority === "ROLE_USER") {
                 this.$router.push('/user/home');
               }
             },
@@ -126,7 +128,8 @@ export default {
 
 <style scoped>
 .login-bg {
-  background-image: url("http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg");
+  height: 860px;
+  background-image: url("http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg") ;
 }
 .login-wrap {
   background-color: #FFFFFF;

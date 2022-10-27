@@ -37,14 +37,16 @@
           <span>Trang chủ</span>
         </el-menu-item>
         </router-link>
-        <el-menu-item index="2">
-          <i class="el-icon-plus"></i>
-          <span>Thêm điểm</span>
-        </el-menu-item>
         <router-link to="/admin/importexcel" style="text-decoration: none;">
-          <el-menu-item index="3">
+          <el-menu-item index="2">
             <i class="el-icon-folder-add"></i>
             <span>Import File</span>
+          </el-menu-item>
+        </router-link>
+        <router-link to="/admin/addstaff" style="text-decoration: none;">
+          <el-menu-item index="3">
+            <i class="el-icon-folder-add"></i>
+            <span>Thêm nhân viên</span>
           </el-menu-item>
         </router-link>
         <router-link to="/admin/manager" style="text-decoration: none;">

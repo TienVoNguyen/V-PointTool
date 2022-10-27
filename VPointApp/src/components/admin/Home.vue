@@ -8,12 +8,12 @@
       <el-table-column align="center"
                        prop="staffId"
                        label="Mã nhân viên"
-                       width="120">
+                       width="320">
       </el-table-column>
       <el-table-column align="center"
                        prop="fullName"
                        label="Họ và tên"
-                       width="250">
+                       width="350">
       </el-table-column>
       <el-table-column
           align="center"
@@ -24,7 +24,7 @@
 
       <el-table-column
           align="center"
-          width="100"
+          width="150"
           label="V-point">
         <template v-slot="scope">
           <p height="50px">
@@ -35,7 +35,7 @@
       <el-table-column
           label="Tùy chọn">
         <template v-slot="scope">
-          <el-button class="btn btn-success" type="text" @click="removeValidate1(true, scope.row.id)"><i size="default" class="el-icon-plus"></i></el-button>
+          <el-button class="btn btn-success" type="text" @click="removeValidate1(scope.row.id)"><i size="default" class="el-icon-plus"></i></el-button>
           <el-button class="btn btn-warning" type="text"><router-link :to="`detail/${scope.row.id}`" style="color: white"><i size="default" class="el-icon-view"></i></router-link></el-button>
 
           <el-button class="btn btn-danger" type="text" @click="deleteUser(scope.row.id)"><i size="default" class="el-icon-delete"></i></el-button>
@@ -256,11 +256,12 @@ export default {
       return re.test(pass);
     },
 
-    removeValidate1(check, userId) {
-      this.findByIdUser(userId)
-      this.dialogFormVisible1 = check
-      this.errP1 = ''
-      this.errorsPass = ''
+    removeValidate1(userId) {
+      // this.findByIdUser(userId)
+      // this.dialogFormVisible1 = check
+      // this.errP1 = ''
+      // this.errorsPass = ''
+      this.$router.push(`mark/${userId}`); 
     },
 
 
