@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -62,5 +63,21 @@ public class UserController {
         User user = userService.findById(id);
         UserResponse userResponse = new UserResponse(user.getStaffId(), user.getFullName(), user.getDepartment().getName());
         return new ResponseEntity<>(userResponse,  HttpStatus.OK);
+    }
+
+    @GetMapping("/getUserByName")
+    public ResponseEntity<List<User>> listBlogByName(@RequestParam("fullName") String fullName){
+
+        List<User> userList = userService.listUser(fullName);
+
+        return new ResponseEntity<>(userList, HttpStatus.OK);
+    }
+
+    @GetMapping("/getUserByCate")
+    public ResponseEntity<List<User>> listBlogByCateId(@RequestParam("CateId") int CateId){
+
+        List<User> userList = userService.listUserByCate(CateId);
+
+        return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 }
