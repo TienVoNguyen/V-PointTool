@@ -78,9 +78,9 @@ export default {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
-    currentUser() {
-      return this.$store.state.auth.user;
-    },
+    // currentUser() {
+    //   return this.$store.state.auth.user;
+    // },
   },
   created() {
     this.getVPoint()
@@ -119,10 +119,10 @@ export default {
     },
 
     async getVpointByYear(params) {
-      if (this.currentUser != null) {
-        console.log(this.currentUser)
-        this.idUser = this.currentUser.id;
-      }
+      // if (this.currentUser != null) {
+      //   console.log(this.currentUser)
+      //   this.idUser = this.currentUser.id;
+      // }
       let params1 = this.getRequestParams(params)
       let response = await userService.getVpointByYear(this.idUser, params1)
       this.Point = response.data

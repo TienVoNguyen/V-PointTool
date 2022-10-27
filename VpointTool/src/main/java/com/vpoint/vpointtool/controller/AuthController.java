@@ -1,12 +1,15 @@
 package com.vpoint.vpointtool.controller;
 
+import com.vpoint.vpointtool.models.dto.AdminChangePass;
 import com.vpoint.vpointtool.models.dto.ChangePassword;
 import com.vpoint.vpointtool.models.dto.JwtResponse;
 import com.vpoint.vpointtool.models.entity.Department;
+import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.Role;
 import com.vpoint.vpointtool.models.login.User;
 import com.vpoint.vpointtool.models.request.SignUpForm;
 import com.vpoint.vpointtool.services.appRole.IAppRoleService;
+import com.vpoint.vpointtool.services.appUser.AppUserService;
 import com.vpoint.vpointtool.services.appUser.IAppUserService;
 import com.vpoint.vpointtool.services.department.IDepartmentService;
 import com.vpoint.vpointtool.services.jwt.JwtService;
@@ -18,9 +21,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -33,9 +41,11 @@ public class AuthController {
     @Autowired
     private JwtService jwtService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private IAppUserService userService;
+    private AppUserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
@@ -49,7 +59,7 @@ public class AuthController {
             User currentUser = userService.findByStaffId1(user1.get().getStaffId()).get();
             return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(),user1.get().getFullName() , userDetails.getAuthorities()));
         }
-        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Autowired
@@ -75,23 +85,86 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@ModelAttribute SignUpForm user) {
+    public ResponseEntity<User> register(@Valid @ModelAttribute SignUpForm user, BindingResult result) {
+        if (result.hasErrors()) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         User user1 = new User(user.getStaffId(), user.getFullname(), user.getPassword(), user.getEmail(), user.getDepartment(), user.getRole());
+        List<Mark> listMark = new ArrayList<>();
+        user1.setMarks(listMark);
         userService.save(user1);
         return new ResponseEntity<>( HttpStatus.CREATED);
     }
 
-//    @PostMapping("/repass/{id}")
-//    public ResponseEntity<User> changePassword(@PathVariable Long id, @RequestBody ChangePassword changePassword){
-//        Optional<User> user = userService.findById(id);
-//        String newPassword;
-//        String oldPassword = changePassword.getOldPassword();
-//        if (!user.isPresent()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @GetMapping("/findByIdUser/{userId}")
+    public ResponseEntity<User> findByIdUser(@PathVariable Long userId){
+        Optional<User> user = userService.findById(userId);
+        if (!user.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(user.get(), HttpStatus.OK);
+    }
+
+    @PutMapping("/update/{userId}")
+    public ResponseEntity<User> updateProfile(@Valid @PathVariable Long userId, @ModelAttribute SignUpForm signUpForm
+            , BindingResult result) {
+        Optional<User> user = userService.findById(userId);
+        if (!user.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (result.hasErrors()) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        user.get().setId(userId);
+        user.get().setStaffId(signUpForm.getStaffId());
+        user.get().setFullName(signUpForm.getFullname());
+        user.get().setEmail(signUpForm.getEmail());
+        user.get().setDepartment(signUpForm.getDepartment());
+        user.get().setRole(signUpForm.getRole());
+        userService.saveForm(user.get());
+        return new ResponseEntity<>(user.get(), HttpStatus.OK);
+    }
+
+    @PostMapping("/userChangePassword/{id}")
+    public ResponseEntity<User> changePassword(@PathVariable Long id, @RequestBody ChangePassword changePassword) {
+        Optional<User> user = this.userService.findById(id);
+        String newPassword;
+        String oldPassword = changePassword.getOldPassword();
+        if (!user.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            if (passwordEncoder.matches(oldPassword, user.get().getPassword())) {
+                if (changePassword.getNewPassword().equals(changePassword.getConfirmNewPassword())) {
+                    newPassword = changePassword.getNewPassword();
+                } else {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }
+        user.get().setPassword(newPassword);
+        user.get().setId(id);
+        this.userService.save(user.get());
+        return new ResponseEntity<>(user.get(), HttpStatus.OK);
+    }
+
+    @PostMapping("/adminChangePassword/{id}")
+    public ResponseEntity<User> AdminChangePassword(@PathVariable Long id, @RequestBody AdminChangePass changePassword) {
+        Optional<User> user = this.userService.findById(id);
+        if (!user.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (!Objects.equals(changePassword.getNewPassword(), changePassword.getConfirmNewPass())){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        user.get().setPassword(changePassword.getNewPassword());
+        user.get().setId(id);
+        this.userService.save(user.get());
+        return new ResponseEntity<>(user.get(), HttpStatus.OK);
+    }
 
 }

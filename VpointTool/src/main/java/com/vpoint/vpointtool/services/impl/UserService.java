@@ -22,6 +22,7 @@ public class UserService implements IUserService {
 
     @Override
     public User findByStaffId(String id) {
+        System.out.println(id);
         return userRepository.findUserByStaffId(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
     }

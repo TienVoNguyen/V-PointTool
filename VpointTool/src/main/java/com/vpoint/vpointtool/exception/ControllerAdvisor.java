@@ -15,8 +15,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(InputException.class)
     public ResponseEntity<Object> handleInputException (
-            InputException ex
-    ) {
+            InputException ex) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamps", LocalDateTime.now());
         body.put("Message", ex.getMessage());
@@ -25,8 +24,16 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<Object> handleUserNotFoundException (
-            UserNotFoundException ex
-    ) {
+            UserNotFoundException ex) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamps", LocalDateTime.now());
+        body.put("Message", ex.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DataNotFoundException.class)
+    public ResponseEntity<Object> handleDataNotFound (
+            UserNotFoundException ex) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamps", LocalDateTime.now());
         body.put("Message", ex.getMessage());

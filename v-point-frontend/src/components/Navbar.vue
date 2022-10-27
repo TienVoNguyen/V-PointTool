@@ -147,20 +147,6 @@ export default {
                 () => {
                   this.oldPass = 'Mật khẩu cũ không chính xác'
                   this.dialogFormVisible = true;
-                  // const h = this.$createElement;
-                  //
-                  // this.$notify({
-                  //   title: 'Title',
-                  //   message: h('i', {style: 'color: teal'}, 'This is a reminder')
-                  // })
-                  // swal.fire({
-                  //   toast: true,
-                  //   title: "Đã có lỗi xảy ra!",
-                  //   icon: "error",
-                  //   position: 'top-end',
-                  //   showConfirmButton: false,
-                  //   timer: 3000
-                  // });
                 } );
       }
 

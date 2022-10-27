@@ -4,10 +4,12 @@ package com.vpoint.vpointtool.config;
 import com.vpoint.vpointtool.config.custom.CustomAccessDeniedHandler;
 import com.vpoint.vpointtool.config.custom.JwtAuthenticationFilter;
 import com.vpoint.vpointtool.config.custom.RestAuthenticationEntryPoint;
+import com.vpoint.vpointtool.services.appUser.AppUserService;
 import com.vpoint.vpointtool.services.appUser.IAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -26,8 +28,13 @@ import org.springframework.transaction.annotation.Transactional;
 @EnableWebSecurity
 public class AppConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
+
     private IAppUserService appUserService;
+
+    @Autowired
+    public void CircularDependencyA(@Lazy AppUserService appUserService) {
+        this.appUserService = appUserService;
+    }
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -46,11 +53,11 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        //lấy user từ DB
-//        auth.userDetailsService(appUserService).passwordEncoder(passwordEncoder());
-//    }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        //lấy user từ DB
+        auth.userDetailsService(appUserService).passwordEncoder(passwordEncoder());
+    }
 
     @Bean
     public RestAuthenticationEntryPoint restAuthenticationEntryPoint() {
@@ -74,17 +81,23 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .and().authorizeRequests().antMatchers("/register").hasAnyRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/api/mark/**").permitAll()
                 .and().authorizeRequests().antMatchers("/getAllRole").hasAnyRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/getAllUser").hasAnyRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/getAllDepartment").hasAnyRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/update/**").hasAnyRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/findByIdUser/**").hasAnyRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/point**").hasAnyRole("USER")
                 .and().authorizeRequests().antMatchers("/repass**").hasAnyRole("USER")
                 .and().authorizeRequests().antMatchers("/repass**").hasAnyRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/list**").hasAnyRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/delete**").hasAnyRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/myVpoint**").hasAnyRole("ADMIN")
-                .and().authorizeRequests().antMatchers("/api/mark**").hasAnyRole("ADMIN")
-                .and().authorizeRequests().antMatchers("/api/mark/myVpoint**").hasAnyRole("USER")
+                .and().authorizeRequests().antMatchers("/api/mark/**").hasAnyRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/userChangePassword/**").hasAnyRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/userChangePassword/**").hasAnyRole("USER")
+                .and().authorizeRequests().antMatchers("/adminChangePassword/**").hasAnyRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/api/mark/**").hasAnyRole("USER", "ADMIN")
                 .and().csrf().disable();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
