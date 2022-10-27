@@ -1,7 +1,9 @@
 package com.vpoint.vpointtool.services.impl;
 
 import com.vpoint.vpointtool.exception.UserNotFoundException;
+import com.vpoint.vpointtool.models.dto.ResponseUser;
 import com.vpoint.vpointtool.models.login.User;
+import com.vpoint.vpointtool.payload.response.UserResponse;
 import com.vpoint.vpointtool.repositories.UserRepository;
 import com.vpoint.vpointtool.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,4 +45,9 @@ public class UserService implements IUserService {
     public List<User> listUserByCate(int idCate) {
         return userRepository.listUserByCate(idCate);
     }
+
+    @Override
+    public Page<ResponseUser> listUserByYear(int year, Pageable pageable){
+        return userRepository.listUserByYear(year, pageable);
+    };
 }
