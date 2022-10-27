@@ -33,7 +33,7 @@
           class="el-menu-vertical-demo"
           @open="handleOpen"
           @close="handleClose">
-        <router-link to="home" style="text-decoration: none;">
+        <router-link to="/user/home" style="text-decoration: none;">
         <el-menu-item index="1">
           <i class="el-icon-s-home"></i>
           <span>Trang chủ</span>

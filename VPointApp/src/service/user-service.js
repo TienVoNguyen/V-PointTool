@@ -44,4 +44,9 @@ export class UserService {
         return axios.get(dataURL, {params, headers: authHeader()});
     }
 
+    static getUserById(id) {
+        let dataURL = `${this.serverURL}/user/${id}`;
+        return axios.get(dataURL, {headers: authHeader()});
+    }
+
 }

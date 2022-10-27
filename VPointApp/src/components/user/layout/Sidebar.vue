@@ -56,7 +56,7 @@
             <img class="user-avatar rounded-circle mr-2" src="@/assets/images/avatar.png" alt="User Avatar">
             <el-dropdown trigger="click">
             <span class="el-dropdown-link">
-            Nguyen Tien Vo<i class="el-icon-arrow-down el-icon--right"></i>
+              {{ currentUser.name }}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>
