@@ -37,6 +37,11 @@ public class MarkService implements IMarkService {
     }
 
     @Override
+    public void remove(Long id) {
+        markRepository.deleteById(id);
+    }
+
+    @Override
     public String getValue(Long id, User user, LocalDate date) {
         Item item = itemService.findById(id);
         Optional<Mark> mark = markRepository.findByItemAndDateAndUser(item, date, user);

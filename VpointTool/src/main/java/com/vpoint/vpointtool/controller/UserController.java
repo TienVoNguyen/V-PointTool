@@ -1,5 +1,6 @@
 package com.vpoint.vpointtool.controller;
 
+import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.User;
 import com.vpoint.vpointtool.payload.response.UserResponse;
 import com.vpoint.vpointtool.services.IUserService;
@@ -42,11 +43,15 @@ public class UserController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<User> deleteBlog(@PathVariable Long id){
-        Optional<User> blogOptional = appUserService.findById(id);
-        if (!blogOptional.isPresent()){
+        Optional<User> user = appUserService.findById(id);
+        if (!user.isPresent()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         else {
+            Mark[] marks = user.get().getMarks().toArray(new Mark[0]);
+            for (int i = 0; i < marks.length; i++) {
+                markService.remove(marks[i].getId());
+            }
             appUserService.remove(id);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }

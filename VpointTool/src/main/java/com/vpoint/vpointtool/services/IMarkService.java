@@ -14,6 +14,8 @@ import java.util.Optional;
 public interface IMarkService {
     Mark save(Mark mark);
 
+    void remove(Long id);
+
     List<ResponseMark> getMarkByIdUser(Long idUser);
 
     Mark findByItemAndDate(Item item, LocalDate date);
