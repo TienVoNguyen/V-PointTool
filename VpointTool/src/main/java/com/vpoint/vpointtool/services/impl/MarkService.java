@@ -1,10 +1,7 @@
 package com.vpoint.vpointtool.services.impl;
 
 import com.vpoint.vpointtool.exception.DataNotFoundException;
-import com.vpoint.vpointtool.models.dto.PointSum;
-import com.vpoint.vpointtool.models.dto.ResponseMark;
-import com.vpoint.vpointtool.models.dto.Year;
-import com.vpoint.vpointtool.models.dto.UserYear;
+import com.vpoint.vpointtool.models.dto.*;
 import com.vpoint.vpointtool.exception.InputException;
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
@@ -648,8 +645,8 @@ public class MarkService implements IMarkService {
     }
 
     @Override
-    public List<Year> getSum() {
-        return markRepository.getSum();
+    public List<Sum> getSum(int year) {
+        return markRepository.getSum(year);
     }
 
     @Override

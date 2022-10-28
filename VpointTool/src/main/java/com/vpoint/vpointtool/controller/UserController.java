@@ -2,6 +2,7 @@ package com.vpoint.vpointtool.controller;
 
 import com.vpoint.vpointtool.models.dto.PointSum;
 import com.vpoint.vpointtool.models.dto.ResponseUser;
+import com.vpoint.vpointtool.models.dto.Sum;
 import com.vpoint.vpointtool.models.dto.Year;
 import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.User;
@@ -45,10 +46,9 @@ public class UserController {
     }
 
     @GetMapping("/listByYear")
-    public ResponseEntity<Page<ResponseUser>> listByYear(@RequestParam("p") Optional<Integer> p, @RequestParam("year") int year){
-        Pageable pageable = PageRequest.of(p.orElse(0), 10);
-        Page<ResponseUser> userResponses = userService.listUserByYear(year, pageable);
-        return new ResponseEntity<>(userResponses, HttpStatus.OK);
+    public ResponseEntity<List<Sum>> listByYear(@RequestParam("year") int year){
+
+        return new ResponseEntity<>(markService.getSum(year), HttpStatus.OK);
     }
 
     @GetMapping("/adminGetYear")
