@@ -1,11 +1,13 @@
 package com.vpoint.vpointtool.controller;
 
+import com.vpoint.vpointtool.models.login.Gender;
+
 import com.vpoint.vpointtool.models.dto.PointSum;
 import com.vpoint.vpointtool.models.dto.ResponseUser;
 import com.vpoint.vpointtool.models.dto.Sum;
 import com.vpoint.vpointtool.models.dto.Year;
 import com.vpoint.vpointtool.models.entity.Mark;
-import com.vpoint.vpointtool.models.login.Gender;
+
 import com.vpoint.vpointtool.models.login.User;
 import com.vpoint.vpointtool.payload.response.UserResponse;
 import com.vpoint.vpointtool.services.IUserService;
@@ -97,6 +99,7 @@ public class UserController {
 
         return new ResponseEntity<>(userList, HttpStatus.OK);
     }
+
     @GetMapping(value = "/user/profile/{id}")
     public ResponseEntity<?> profileUser(@PathVariable("id") Long id) {
         User user = userService.getUserProfile(id);
@@ -111,6 +114,21 @@ public class UserController {
                 gender,
                 user.getPhone());
         return new ResponseEntity<>(userProfile, HttpStatus.OK);
+
+    @GetMapping("/getUserByName")
+    public ResponseEntity<List<User>> listBlogByName(@RequestParam("fullName") String fullName){
+
+        List<User> userList = userService.listUser(fullName);
+
+        return new ResponseEntity<>(userList, HttpStatus.OK);
+    }
+
+    @GetMapping("/getUserByCate")
+    public ResponseEntity<List<User>> listBlogByCateId(@RequestParam("CateId") int CateId){
+
+        List<User> userList = userService.listUserByCate(CateId);
+
+        return new ResponseEntity<>(userList, HttpStatus.OK);
 
     }
 }
