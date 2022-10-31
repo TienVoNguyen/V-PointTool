@@ -1,6 +1,7 @@
 package com.vpoint.vpointtool.controller;
 
 import com.vpoint.vpointtool.models.login.User;
+import com.vpoint.vpointtool.payload.response.UserProfile;
 import com.vpoint.vpointtool.payload.response.UserResponse;
 import com.vpoint.vpointtool.services.IUserService;
 import com.vpoint.vpointtool.services.appUser.IAppUserService;
@@ -57,5 +58,21 @@ public class UserController {
         User user = userService.findById(id);
         UserResponse userResponse = new UserResponse(user.getStaffId(), user.getFullName(), user.getDepartment().getName());
         return new ResponseEntity<>(userResponse,  HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/user/profile/{id}")
+    public ResponseEntity<?> profileUser(@PathVariable("id") Long id) {
+        User user = userService.getUserProfile(id);
+        String gender = user.getGender() != null ? user.getGender().name() : null;
+        UserProfile userProfile = new UserProfile(
+                user.getId(),
+                user.getDepartment().getName(),
+                user.getFullName(),
+                user.getStaffId(),
+                user.getBirthday(),
+                user.getEmail(),
+                gender,
+                user.getPhone());
+        return new ResponseEntity<>(userProfile, HttpStatus.OK);
     }
 }
