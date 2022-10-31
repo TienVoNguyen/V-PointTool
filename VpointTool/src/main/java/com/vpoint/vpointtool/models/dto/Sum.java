@@ -1,7 +1,7 @@
 package com.vpoint.vpointtool.models.dto;
 
 public interface Sum {
-    String getStaffId();
+    Long getId();
 
     int getSum();
 }
