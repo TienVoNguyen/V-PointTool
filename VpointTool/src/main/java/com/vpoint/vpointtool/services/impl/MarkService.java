@@ -1,7 +1,9 @@
 package com.vpoint.vpointtool.services.impl;
 
 import com.vpoint.vpointtool.exception.DataNotFoundException;
-import com.vpoint.vpointtool.models.dto.*;
+import com.vpoint.vpointtool.models.dto.ResponseMark;
+import com.vpoint.vpointtool.models.dto.Sum;
+import com.vpoint.vpointtool.models.dto.UserYear;
 import com.vpoint.vpointtool.exception.InputException;
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
@@ -32,21 +34,6 @@ public class MarkService implements IMarkService {
     @Override
     public Mark save(Mark mark) {
         return markRepository.save(mark);
-    }
-
-    @Override
-    public void remove(Long id) {
-        markRepository.deleteById(id);
-    }
-
-    @Override
-    public List<PointSum> getPointSum(int year) {
-        return markRepository.getPointSum(year);
-    }
-
-    @Override
-    public List<Year> getYear() {
-        return markRepository.getYear();
     }
 
     @Override
@@ -645,8 +632,8 @@ public class MarkService implements IMarkService {
     }
 
     @Override
-    public List<Sum> getSum(int year) {
-        return markRepository.getSum(year);
+    public List<Sum> getSum() {
+        return markRepository.getSum();
     }
 
     @Override
