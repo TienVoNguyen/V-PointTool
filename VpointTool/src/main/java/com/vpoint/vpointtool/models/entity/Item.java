@@ -21,16 +21,13 @@ public class Item extends BaseEntity{
     @Column(name = "name", length = 100)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne
     private Category category;
 
     @OneToMany(mappedBy = "item")
     @JsonIgnore
     private List<Mark> marks;
 
-    @ManyToMany
-    @JoinTable(name = "item_symbol", joinColumns = {@JoinColumn(name = "item_id")},
-            inverseJoinColumns = {@JoinColumn(name = "symbol_id")})
-    private Set<Symbol> symbols = new HashSet<>();
 
 }
