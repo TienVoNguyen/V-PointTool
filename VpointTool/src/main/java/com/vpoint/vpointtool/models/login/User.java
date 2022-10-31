@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-//@Builder
+@Builder
 @Getter
 @Setter
 @Entity
@@ -64,10 +64,6 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Mark> marks;
 
-    private String phone;
-
-    private Gender gender;
-
     public User(String staffId, String fullName, String password, String email, Department department, Set<Role> role) {
         this.staffId = staffId;
         this.fullName = fullName;
@@ -109,53 +105,5 @@ public class User extends BaseEntity {
         this.department = department;
         this.role = role;
         this.marks = marks;
-    }
-
-    public User(Long id, String createBy, String createDate, Date modifiedDate, String modifiedBy, String staffId, String fullName, String password, String email, Department department, Set<Role> role, List<Mark> marks, String phone, Gender gender) {
-        super(id, createBy, createDate, modifiedDate, modifiedBy);
-        this.staffId = staffId;
-        this.fullName = fullName;
-        this.password = password;
-        this.email = email;
-        this.department = department;
-        this.role = role;
-        this.marks = marks;
-        this.phone = phone;
-        this.gender = gender;
-    }
-
-    public User(String staffId, String fullName, String password, String email, Department department, Set<Role> role, List<Mark> marks, String phone, Gender gender) {
-        this.staffId = staffId;
-        this.fullName = fullName;
-        this.password = password;
-        this.email = email;
-        this.department = department;
-        this.role = role;
-        this.marks = marks;
-        this.phone = phone;
-        this.gender = gender;
-    }
-
-    public User(Long id, String createBy, String createDate, Date modifiedDate, String modifiedBy, String staffId, String fullName, String password, String email, Department department, Set<Role> role, String phone, Gender gender) {
-        super(id, createBy, createDate, modifiedDate, modifiedBy);
-        this.staffId = staffId;
-        this.fullName = fullName;
-        this.password = password;
-        this.email = email;
-        this.department = department;
-        this.role = role;
-        this.phone = phone;
-        this.gender = gender;
-    }
-
-    public User(String staffId, String fullName, String password, String email, Department department, Set<Role> role, String phone, Gender gender) {
-        this.staffId = staffId;
-        this.fullName = fullName;
-        this.password = password;
-        this.email = email;
-        this.department = department;
-        this.role = role;
-        this.phone = phone;
-        this.gender = gender;
     }
 }

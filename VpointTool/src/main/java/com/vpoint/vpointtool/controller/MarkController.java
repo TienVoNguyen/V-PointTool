@@ -141,7 +141,7 @@ public class MarkController {
     }
 
     @GetMapping("/myVpoint/{idUser}")
-    public ResponseEntity<List<ResponseMark>> getMarkByIdUser(@PathVariable Long idUser){
+    public ResponseEntity<List<ResponseMark>> getMarkByIdUser(@PathVariable Long idUser, @RequestParam("year") int year){
         List<ResponseMark> responseMark = markService.getMarkByIdUser(idUser);
         return new ResponseEntity<>(responseMark, HttpStatus.OK);
     }
