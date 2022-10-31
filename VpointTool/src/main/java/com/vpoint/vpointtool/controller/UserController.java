@@ -69,7 +69,6 @@ public class UserController {
                 user.getDepartment().getName(),
                 user.getFullName(),
                 user.getStaffId(),
-                user.getBirthday(),
                 user.getEmail(),
                 gender,
                 user.getPhone());

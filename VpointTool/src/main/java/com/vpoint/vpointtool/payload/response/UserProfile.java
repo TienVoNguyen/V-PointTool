@@ -13,7 +13,6 @@ public class UserProfile {
     private String department;
     private String name;
     private String staff_id;
-    private Date date;
     private String mail;
     private String gender;
     private String phone;
