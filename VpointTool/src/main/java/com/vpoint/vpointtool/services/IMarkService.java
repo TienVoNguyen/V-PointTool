@@ -1,8 +1,6 @@
 package com.vpoint.vpointtool.services;
 
-import com.vpoint.vpointtool.models.dto.ResponseMark;
-import com.vpoint.vpointtool.models.dto.Sum;
-import com.vpoint.vpointtool.models.dto.UserYear;
+import com.vpoint.vpointtool.models.dto.*;
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.User;
@@ -13,6 +11,12 @@ import java.util.Optional;
 
 public interface IMarkService {
     Mark save(Mark mark);
+
+    void remove(Long id);
+
+    List<PointSum> getPointSum(int year);
+
+    List<Year> getYear();
 
     List<ResponseMark> getMarkByIdUser(Long idUser);
 
@@ -60,7 +64,7 @@ public interface IMarkService {
 
     List<ResponseMark> getMarkByIdUserAndYear(Long idUser, int year);
 
-    List<Sum> getSum();
+    List<Sum> getSum(int year);
 
     List<Mark> getMarkByTime(Long idUser, int Year, int Month);
 

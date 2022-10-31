@@ -1,8 +1,10 @@
 package com.vpoint.vpointtool.services.impl;
 
 import com.vpoint.vpointtool.exception.UserNotFoundException;
+import com.vpoint.vpointtool.models.dto.ResponseUser;
 import com.vpoint.vpointtool.models.login.Gender;
 import com.vpoint.vpointtool.models.login.User;
+import com.vpoint.vpointtool.payload.response.UserResponse;
 import com.vpoint.vpointtool.payload.response.UserProfile;
 import com.vpoint.vpointtool.repositories.UserRepository;
 import com.vpoint.vpointtool.services.IUserService;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,6 +38,21 @@ public class UserService implements IUserService {
     public Page<User> findAll(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
+
+    @Override
+    public List<User> listUser(String fullName) {
+        return userRepository.listUser(fullName);
+    }
+
+    @Override
+    public List<User> listUserByCate(int idCate) {
+        return userRepository.listUserByCate(idCate);
+    }
+
+    @Override
+    public Page<ResponseUser> listUserByYear(int year, Pageable pageable){
+        return userRepository.listUserByYear(year, pageable);
+    };
 
     @Override
     public User getUserProfile(Long id) {
