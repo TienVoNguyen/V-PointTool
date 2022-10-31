@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-//@Builder
+@Builder
 @Getter
 @Setter
 @Entity
@@ -63,12 +63,6 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Mark> marks;
-
-    private Date birthday;
-
-    private String phone;
-
-    private Gender gender;
 
     public User(String staffId, String fullName, String password, String email, Department department, Set<Role> role) {
         this.staffId = staffId;
