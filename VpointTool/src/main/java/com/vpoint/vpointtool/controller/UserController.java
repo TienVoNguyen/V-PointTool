@@ -6,6 +6,7 @@ import com.vpoint.vpointtool.models.dto.Sum;
 import com.vpoint.vpointtool.models.dto.Year;
 import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.User;
+import com.vpoint.vpointtool.payload.response.UserProfile;
 import com.vpoint.vpointtool.payload.response.UserResponse;
 import com.vpoint.vpointtool.services.IUserService;
 import com.vpoint.vpointtool.services.appUser.IAppUserService;
@@ -95,5 +96,21 @@ public class UserController {
         List<User> userList = userService.listUserByCate(CateId);
 
         return new ResponseEntity<>(userList, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/user/profile/{id}")
+    public ResponseEntity<?> profileUser(@PathVariable("id") Long id) {
+        User user = userService.getUserProfile(id);
+        String gender = user.getGender() != null ? user.getGender().name() : null;
+        UserProfile userProfile = new UserProfile(
+                user.getId(),
+                user.getDepartment().getName(),
+                user.getFullName(),
+                user.getStaffId(),
+                user.getBirthday(),
+                user.getEmail(),
+                gender,
+                user.getPhone());
+        return new ResponseEntity<>(userProfile, HttpStatus.OK);
     }
 }
