@@ -6,6 +6,7 @@ import com.vpoint.vpointtool.models.dto.ResponseUser;
 import com.vpoint.vpointtool.models.dto.Sum;
 import com.vpoint.vpointtool.models.dto.Year;
 import com.vpoint.vpointtool.models.entity.Mark;
+
 import com.vpoint.vpointtool.models.login.User;
 import com.vpoint.vpointtool.payload.response.UserProfile;
 import com.vpoint.vpointtool.payload.response.UserResponse;
@@ -97,7 +98,7 @@ public class UserController {
                 gender,
                 user.getPhone());
         return new ResponseEntity<>(userProfile, HttpStatus.OK);
-    }
+       }
 
     @GetMapping("/getUserByName")
     public ResponseEntity<List<User>> listBlogByName(@RequestParam("fullName") String fullName){
@@ -113,5 +114,6 @@ public class UserController {
         List<User> userList = userService.listUserByCate(CateId);
 
         return new ResponseEntity<>(userList, HttpStatus.OK);
+
     }
 }
