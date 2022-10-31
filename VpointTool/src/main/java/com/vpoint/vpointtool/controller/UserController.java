@@ -1,5 +1,6 @@
 package com.vpoint.vpointtool.controller;
 
+import com.vpoint.vpointtool.models.login.Gender;
 import com.vpoint.vpointtool.models.login.User;
 import com.vpoint.vpointtool.payload.response.UserProfile;
 import com.vpoint.vpointtool.payload.response.UserResponse;
@@ -64,6 +65,7 @@ public class UserController {
     public ResponseEntity<?> profileUser(@PathVariable("id") Long id) {
         User user = userService.getUserProfile(id);
         String gender = user.getGender() != null ? user.getGender().name() : null;
+        user.setGender(Gender.MALE);
         UserProfile userProfile = new UserProfile(
                 user.getId(),
                 user.getDepartment().getName(),
