@@ -64,8 +64,6 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Mark> marks;
 
-    private Date birthday;
-
     private String phone;
 
     private Gender gender;
@@ -90,6 +88,29 @@ public class User extends BaseEntity {
     }
 
     public User() {
+    }
+
+    public User(Long id, String createBy, String createDate, Date modifiedDate, String modifiedBy, String staffId, String fullName, String password, String email, Department department, Set<Role> role, String phone, Gender gender) {
+        super(id, createBy, createDate, modifiedDate, modifiedBy);
+        this.staffId = staffId;
+        this.fullName = fullName;
+        this.password = password;
+        this.email = email;
+        this.department = department;
+        this.role = role;
+        this.phone = phone;
+        this.gender = gender;
+    }
+
+    public User(String staffId, String fullName, String password, String email, Department department, Set<Role> role, String phone, Gender gender) {
+        this.staffId = staffId;
+        this.fullName = fullName;
+        this.password = password;
+        this.email = email;
+        this.department = department;
+        this.role = role;
+        this.phone = phone;
+        this.gender = gender;
     }
 
     public User(Long id, String createBy, String createDate, Date modifiedDate, String modifiedBy, String staffId, String fullName, String password, String email, Department department, Set<Role> roleSet, List<Mark> marks) {
