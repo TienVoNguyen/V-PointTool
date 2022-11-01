@@ -84,25 +84,7 @@ public class UserController {
         return new ResponseEntity<>(userResponse,  HttpStatus.OK);
     }
 
-<<<<<<< HEAD
-    @GetMapping("/getUserByName")
-    public ResponseEntity<List<User>> listBlogByName(@RequestParam("fullName") String fullName){
 
-        List<User> userList = userService.listUser(fullName);
-
-        return new ResponseEntity<>(userList, HttpStatus.OK);
-    }
-
-    @GetMapping("/getUserByCate")
-    public ResponseEntity<List<User>> listBlogByCateId(@RequestParam("CateId") int CateId) {
-
-        List<User> userList = userService.listUserByCate(CateId);
-
-        return new ResponseEntity<>(userList, HttpStatus.OK);
-    }
-
-=======
->>>>>>> 42e19127102163c8e45aa25e8203793abdbc8b94
     @GetMapping(value = "/user/profile/{id}")
     public ResponseEntity<?> profileUser(@PathVariable("id") Long id) {
         User user = userService.getUserProfile(id);
