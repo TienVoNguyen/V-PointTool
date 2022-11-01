@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.repository.query.Param;
 import java.util.Optional;
+import java.util.Date;
 import java.time.LocalDate;
 import java.util.List;
 @Repository
