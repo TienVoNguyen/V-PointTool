@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@CrossOrigin
+@CrossOrigin("*")
 public class UserController {
 
     @Autowired
@@ -40,9 +40,9 @@ public class UserController {
     private MarkService markService;
 
     @GetMapping("/list")
-    public ResponseEntity<Page<User>> listBlog(@RequestParam("p") Optional<Integer> p){
+    public ResponseEntity<Page<User>> listBlog(@RequestParam("p") Optional<Integer> p, @RequestParam("size" ) int size){
         Sort sort = Sort.by("full_name").descending();
-        Pageable pageable = PageRequest.of(p.orElse(0), 10);
+        Pageable pageable = PageRequest.of(p.orElse(0), size);
         Page<User> userList = userService.findAll(pageable);
 
         return new ResponseEntity<>(userList, HttpStatus.OK);
