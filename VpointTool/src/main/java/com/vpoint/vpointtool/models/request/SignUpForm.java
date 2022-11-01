@@ -2,6 +2,7 @@ package com.vpoint.vpointtool.models.request;
 
 import com.vpoint.vpointtool.models.entity.Department;
 import com.vpoint.vpointtool.models.entity.Mark;
+import com.vpoint.vpointtool.models.login.Gender;
 import com.vpoint.vpointtool.models.login.Role;
 import lombok.*;
 
@@ -28,5 +29,9 @@ public class SignUpForm {
     private Department department;
 
     private Set<Role> role;
+
+    private String phone;
+
+    private Gender gender;
 
 }
