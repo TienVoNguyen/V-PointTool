@@ -86,7 +86,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/getAllUser").hasAnyRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/getAllDepartment").hasAnyRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/update/**").hasAnyRole("ADMIN")
-                .and().authorizeRequests().antMatchers("/findByIdUser/**").hasAnyRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/findByIdUser/**").permitAll()
                 .and().authorizeRequests().antMatchers("/point**").hasAnyRole("USER")
                 .and().authorizeRequests().antMatchers("/repass**").hasAnyRole("USER")
                 .and().authorizeRequests().antMatchers("/repass**").hasAnyRole("ADMIN")
