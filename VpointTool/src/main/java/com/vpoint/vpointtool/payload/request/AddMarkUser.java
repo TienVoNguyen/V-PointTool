@@ -9,6 +9,10 @@ public class AddMarkUser {
 
     private String staff_id;
 
+    private String department;
+
+    private String fullName;
+
     //    ID: 1
     private Float kpi;
     private Long kpiID = 1L;

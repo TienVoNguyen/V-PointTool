@@ -62,6 +62,11 @@ public class MarkController {
         }
         MarkResponse markResponse = new MarkResponse();
         User user = userService.findByStaffId(markUser.getStaff_id());
+        markResponse.setStaff_id(user.getStaffId());
+        markResponse.setDepartment(user.getDepartment().getName());
+        markResponse.setFullName(user.getFullName());
+        markResponse.setId(user.getId());
+
         LocalDate localDate = LocalDate.of(markUser.getYear(), markUser.getMonth(), 1);
 
         if (markUser.getKpiID() != null) {
