@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MarkResponse {
+    private Long id;
+
     private String staff_id;
 
     private String department;

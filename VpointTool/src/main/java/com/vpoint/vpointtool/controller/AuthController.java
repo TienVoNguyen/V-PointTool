@@ -92,7 +92,7 @@ public class AuthController {
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        User user1 = new User(user.getStaffId(), user.getFullname(), user.getPassword(), user.getEmail(), user.getDepartment(), user.getRole());
+        User user1 = new User(user.getStaffId(), user.getFullname(), user.getPassword(), user.getEmail(), user.getDepartment(), user.getRole(), user.getPhone(), user.getGender());
         List<Mark> listMark = new ArrayList<>();
         user1.setMarks(listMark);
         userService.save(user1);
@@ -122,6 +122,7 @@ public class AuthController {
         user.get().setStaffId(signUpForm.getStaffId());
         user.get().setFullName(signUpForm.getFullname());
         user.get().setEmail(signUpForm.getEmail());
+        user.get().setPhone(signUpForm.getPhone());
         user.get().setDepartment(signUpForm.getDepartment());
         user.get().setRole(signUpForm.getRole());
         userService.saveForm(user.get());
