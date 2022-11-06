@@ -5,9 +5,11 @@ import com.vpoint.vpointtool.models.login.User;
 import com.vpoint.vpointtool.services.IExcelService;
 import com.vpoint.vpointtool.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,7 +20,7 @@ public class ExcelService implements IExcelService {
 
     @Override
     public ByteArrayInputStream exportUser() {
-        List<User> users = userService.getAllUser();
+        List<User> users = new ArrayList<>();
 
         ByteArrayInputStream in = ExcelHelper.UsersToExcel(users);
         return in;

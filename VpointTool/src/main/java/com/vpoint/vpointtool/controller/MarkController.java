@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -38,9 +39,6 @@ public class MarkController {
     private IUserService userService;
 
     @Autowired
-    private IItemService itemService;
-
-    @Autowired
     private IMarkService markService;
 
     @Autowired
@@ -52,6 +50,7 @@ public class MarkController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @Transactional
     public ResponseEntity<?> addMarkUser(@Valid @RequestBody AddMarkUser markUser,
                                                     BindingResult result) {
@@ -246,7 +245,6 @@ public class MarkController {
     public ResponseEntity<List<Mark>> getMarkByTime(@PathVariable Long idUser,
                                                     @RequestParam("year") int year,
                                                     @RequestParam("month") int month){
-
         return new ResponseEntity<>(markService.getMarkByTime(idUser, year, month), HttpStatus.OK);
     }
 }
