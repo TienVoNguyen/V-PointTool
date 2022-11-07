@@ -6,6 +6,7 @@ import com.vpoint.vpointtool.exception.InputException;
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.User;
+import com.vpoint.vpointtool.payload.response.ReportResponse;
 import com.vpoint.vpointtool.repositories.ItemRepository;
 import com.vpoint.vpointtool.repositories.MarkRepository;
 import com.vpoint.vpointtool.services.IItemService;
@@ -657,5 +658,10 @@ public class MarkService implements IMarkService {
     @Override
     public List<Integer> getSumByIdUser(Long idUser) {
         return markRepository.getSumByIdUser(idUser);
+    }
+
+    @Override
+    public List<ReportResponse> reportMark(int month, int year) {
+        return markRepository.reportMark(month,year);
     }
 }

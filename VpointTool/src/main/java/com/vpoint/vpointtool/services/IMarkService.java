@@ -4,6 +4,7 @@ import com.vpoint.vpointtool.models.dto.*;
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.User;
+import com.vpoint.vpointtool.payload.response.ReportResponse;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -69,4 +70,6 @@ public interface IMarkService {
     List<Mark> getMarkByTime(Long idUser, int Year, int Month);
 
     List<Integer> getSumByIdUser(Long idUser);
+
+    List<ReportResponse> reportMark(int month, int year);
 }

@@ -11,6 +11,7 @@ import com.vpoint.vpointtool.payload.request.AddMarkUser;
 import com.vpoint.vpointtool.payload.request.MarkUserDate;
 import com.vpoint.vpointtool.payload.response.MarkResponse;
 import com.vpoint.vpointtool.payload.response.MessageResponse;
+import com.vpoint.vpointtool.payload.response.ReportResponse;
 import com.vpoint.vpointtool.services.IItemService;
 import com.vpoint.vpointtool.services.IMarkService;
 import com.vpoint.vpointtool.services.IUserService;
@@ -248,5 +249,10 @@ public class MarkController {
                                                     @RequestParam("month") int month){
 
         return new ResponseEntity<>(markService.getMarkByTime(idUser, year, month), HttpStatus.OK);
+    }
+
+    @GetMapping("reportmark")
+    public ResponseEntity<?> getReportMark() {
+        return new ResponseEntity<>(markService.reportMark(10, 2022), HttpStatus.OK);
     }
 }
