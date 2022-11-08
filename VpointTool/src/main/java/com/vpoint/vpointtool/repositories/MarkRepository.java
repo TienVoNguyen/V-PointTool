@@ -4,6 +4,7 @@ import com.vpoint.vpointtool.models.dto.*;
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.User;
+import com.vpoint.vpointtool.payload.response.ReportResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -67,5 +68,14 @@ public interface MarkRepository extends JpaRepository<Mark, Long> {
     @Query(nativeQuery = true, value = "select date from mark group by year(date);")
     List<Year> getYear();
 
+    @Query(value = "select u.staff_id as staffId, u.full_name as fullName, d.name as department, year(m.date) as year, month(m.date) as month, sum(m.point) as total\n" +
+            "from user u join department d on d.id = u.department_id left join mark m on u.id = m.user_id\n" +
+            "where month(m.date)=:month and year(m.date)=:year and d.name like %:department% group by u.staff_id, u.full_name, d.name, year(m.date), month(m.date);", nativeQuery = true)
+    List<ReportResponse> reportMark(@Param("month") int month, @Param("year") int year, @Param("department") String department);
 
+    @Query(value = "select * from mark where user_id = :userId and year(mark.date) = :year and month(mark.date) = :month", nativeQuery = true)
+    List<Mark> findMarkByUserIdAndYearAndMonth(@Param("userId") Long userId, @Param("year") Integer month, @Param("month") Integer year);
+
+    @Query(value = "select year(date) as year from mark group by year", nativeQuery = true)
+    List<Integer> findAllYear();
 }

@@ -34,5 +34,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "year(date) = ?1 or m.date IS NULL group by full_name order by  full_name) where year(date) = ?1")
     Page<ResponseUser> listUserByYear(int year, Pageable pageable);
 
-
+    @Query(value = "select * from user join department d on d.id = user.department_id where d.name like %:department%", nativeQuery = true)
+    List<User> findAllByDepartment_NameAnd(String department);
 }

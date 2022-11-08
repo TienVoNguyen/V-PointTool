@@ -11,11 +11,13 @@ import com.vpoint.vpointtool.payload.request.AddMarkUser;
 import com.vpoint.vpointtool.payload.request.MarkUserDate;
 import com.vpoint.vpointtool.payload.response.MarkResponse;
 import com.vpoint.vpointtool.payload.response.MessageResponse;
+import com.vpoint.vpointtool.payload.response.ReportResponse;
 import com.vpoint.vpointtool.services.IItemService;
 import com.vpoint.vpointtool.services.IMarkService;
 import com.vpoint.vpointtool.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,9 +28,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "/api/mark")
@@ -246,5 +246,22 @@ public class MarkController {
                                                     @RequestParam("year") int year,
                                                     @RequestParam("month") int month){
         return new ResponseEntity<>(markService.getMarkByTime(idUser, year, month), HttpStatus.OK);
+    }
+
+    @GetMapping("reportmark")
+    public ResponseEntity<?> getReportMark(@RequestParam("month") Optional<Integer> month, @RequestParam("year") Optional<Integer> year
+            , @RequestParam("department") Optional<String> department) {
+        if (month.isPresent() && year.isPresent() ) {
+            return new ResponseEntity<>(markService.reportMark(month.get(), year.get(), department.get()), HttpStatus.OK);
+        }else {
+            int year1 = Calendar.getInstance().get(Calendar.YEAR);
+            int month1 = Calendar.getInstance().get(Calendar.MONTH);
+            return new ResponseEntity<>(markService.reportMark(month1, year1, ""), HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("getallyear")
+    public ResponseEntity<?> getAllYear() {
+        return new ResponseEntity<>(markService.findAllYear(), HttpStatus.OK);
     }
 }
