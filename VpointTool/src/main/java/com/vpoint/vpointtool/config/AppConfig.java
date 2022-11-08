@@ -95,8 +95,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/myVpoint**").hasAnyRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/api/mark/myVpointByYear**").hasAnyRole("USER")
                 .and().authorizeRequests().antMatchers("/api/mark/**").hasAnyRole("ADMIN")
-                .and().authorizeRequests().antMatchers("/userChangePassword/**").hasAnyRole("ADMIN")
-                .and().authorizeRequests().antMatchers("/userChangePassword/**").hasAnyRole("USER")
+                .and().authorizeRequests().antMatchers("/userChangePassword/**").hasAnyRole("ADMIN", "USER")
                 .and().authorizeRequests().antMatchers("/adminChangePassword/**").hasAnyRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/api/mark/**").hasAnyRole("USER", "ADMIN")
                 .and().csrf().disable();
