@@ -84,7 +84,6 @@ public class UserController {
         return new ResponseEntity<>(userResponse,  HttpStatus.OK);
     }
 
-
     @GetMapping(value = "/user/profile/{id}")
     public ResponseEntity<?> profileUser(@PathVariable("id") Long id) {
         User user = userService.getUserProfile(id);

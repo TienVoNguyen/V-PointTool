@@ -6,7 +6,7 @@ public interface ReportResponse {
     String getFullName();
     String getDepartment();
     String getStaffId();
-    int getYear();
-    int getMonth();
-    float getTotal();
+    Integer getYear();
+    Integer getMonth();
+    Float getTotal();
 }
