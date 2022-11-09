@@ -26,10 +26,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -86,6 +84,24 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@Valid @ModelAttribute SignUpForm user, BindingResult result) {
+        User[] users = appUserService.findAll().toArray(new User[0]);
+        boolean checkStaff = true;
+        boolean checkEmail = true;
+        for (int i = 0; i < users.length; i++) {
+            if (users[i].getStaffId().equals(user.getStaffId())){
+                checkStaff = false;
+                break;
+            }
+        }
+        for (int i = 0; i < users.length; i++) {
+            if (users[i].getEmail().equals(user.getEmail())){
+                checkEmail = false;
+                break;
+            }
+        }
+        if (!checkEmail || !checkStaff) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
         if (result.hasErrors()) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
@@ -102,16 +118,30 @@ public class AuthController {
     @GetMapping("/findByIdUser/{userId}")
     public ResponseEntity<User> findByIdUser(@PathVariable Long userId){
         Optional<User> user = userService.findById(userId);
+        List<Role> roleSet = user.get().getRole().stream().toList();
+        String name = null;
+        for (int i = 0; i < roleSet.size(); i++) {
+            if (roleSet.get(0).getName().equals("ROLE_ADMIN")){
+                name = "Admin";
+            }  else {
+                name = "Người dùng";
+            }
+        }
+        user.get().setCreateBy(name);
         if (!user.isPresent()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(user.get(), HttpStatus.OK);
     }
 
+    @Autowired
+    private IAppUserService appUserService;
+
     @PutMapping("/update/{userId}")
     public ResponseEntity<User> updateProfile(@Valid @PathVariable Long userId, @ModelAttribute SignUpForm signUpForm
             , BindingResult result) {
         Optional<User> user = userService.findById(userId);
+
         if (!user.isPresent()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
