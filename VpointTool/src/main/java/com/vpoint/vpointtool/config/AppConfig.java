@@ -81,6 +81,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .and().authorizeRequests().antMatchers("/register").hasAnyRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/**").hasAnyRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/api/mark/**").authenticated()
                 .and().authorizeRequests().antMatchers("/getAllRole").hasAnyRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/getAllUser").hasAnyRole("ADMIN")
