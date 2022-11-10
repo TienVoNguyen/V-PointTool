@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface ResponseMark {
-    int getSum();
+    double getSum();
 
     Date getDate();
 
