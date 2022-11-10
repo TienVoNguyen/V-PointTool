@@ -15,6 +15,8 @@ import java.util.Optional;
 
 public interface IUserService {
 
+    List<User> userList(int idCate, String name);
+
     User findById(Long id);
 
     User findByStaffId(String id);

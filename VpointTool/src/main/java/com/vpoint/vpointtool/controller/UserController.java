@@ -108,6 +108,16 @@ public class UserController {
         return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 
+    @GetMapping("/getUserByCateAndName")
+    public ResponseEntity<List<User>> listUserByCateIdAndName(@RequestParam("CateId") int CateId,
+                                                              @RequestParam("fullName") String fullName){
+
+        List<User> userList = userService.userList(CateId, fullName);
+
+        return new ResponseEntity<>(userList, HttpStatus.OK);
+
+    }
+
     @GetMapping("/getUserByCate")
     public ResponseEntity<List<User>> listBlogByCateId(@RequestParam("CateId") int CateId){
 
