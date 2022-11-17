@@ -118,7 +118,7 @@ public class AuthController {
     @GetMapping("/findByIdUser/{userId}")
     public ResponseEntity<User> findByIdUser(@PathVariable Long userId){
         Optional<User> user = userService.findById(userId);
-        List<Role> roleSet = user.get().getRole().stream().toList();
+        List<Role> roleSet = user.get().getRole().stream().collect(Collectors.toList());
         String name = null;
         for (int i = 0; i < roleSet.size(); i++) {
             if (roleSet.get(0).getName().equals("ROLE_ADMIN")){
