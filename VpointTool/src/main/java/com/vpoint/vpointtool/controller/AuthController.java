@@ -26,7 +26,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
 import java.util.*;
+
 import java.util.stream.Collectors;
 
 
@@ -118,7 +124,7 @@ public class AuthController {
     @GetMapping("/findByIdUser/{userId}")
     public ResponseEntity<User> findByIdUser(@PathVariable Long userId){
         Optional<User> user = userService.findById(userId);
-        List<Role> roleSet = user.get().getRole().stream().toList();
+        List<Role> roleSet = new ArrayList<>(user.get().getRole());
         String name = null;
         for (int i = 0; i < roleSet.size(); i++) {
             if (roleSet.get(0).getName().equals("ROLE_ADMIN")){
