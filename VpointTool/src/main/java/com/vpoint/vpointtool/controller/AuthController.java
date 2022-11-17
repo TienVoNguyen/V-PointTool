@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -102,6 +103,16 @@ public class AuthController {
     @GetMapping("/findByIdUser/{userId}")
     public ResponseEntity<User> findByIdUser(@PathVariable Long userId){
         Optional<User> user = userService.findById(userId);
+        List<Role> roleSet = new ArrayList<>(user.get().getRole());
+        String name = null;
+        for (int i = 0; i < roleSet.size(); i++) {
+            if (roleSet.get(0).getName().equals("ROLE_ADMIN")){
+                name = "Admin";
+            }  else {
+                name = "Người dùng";
+            }
+        }
+        user.get().setCreateBy(name);
         if (!user.isPresent()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
