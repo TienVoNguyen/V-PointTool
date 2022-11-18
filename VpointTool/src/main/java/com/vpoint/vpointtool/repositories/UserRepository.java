@@ -20,6 +20,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAll(Pageable pageable);
 
+    @Query(nativeQuery = true, value = "select * from user where user.department_id = ? and full_name like '%'  ?  '%' order by full_name;")
+    List<User> userList(int idCate, String name);
+
     @Query(nativeQuery = true, value = "select * from user where full_name like '%'  ?  '%' order by full_name;")
     List<User> listUser(String fullName);
 
@@ -34,5 +37,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "year(date) = ?1 or m.date IS NULL group by full_name order by  full_name) where year(date) = ?1")
     Page<ResponseUser> listUserByYear(int year, Pageable pageable);
 
-
+    @Query(value = "select * from user join department d on d.id = user.department_id where d.name like %:department%", nativeQuery = true)
+    List<User> findAllByDepartment_NameAnd(String department);
 }
