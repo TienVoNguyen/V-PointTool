@@ -239,8 +239,6 @@ public class MarkController {
         return messageResponses;
     }
 
-
-
     @GetMapping("/{idUser}")
     public ResponseEntity<List<Mark>> getMarkByTime(@PathVariable Long idUser,
                                                     @RequestParam("year") int year,
