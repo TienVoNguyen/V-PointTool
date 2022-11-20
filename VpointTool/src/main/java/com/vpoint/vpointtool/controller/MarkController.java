@@ -15,6 +15,7 @@ import com.vpoint.vpointtool.payload.response.ReportResponse;
 import com.vpoint.vpointtool.services.IItemService;
 import com.vpoint.vpointtool.services.IMarkService;
 import com.vpoint.vpointtool.services.IUserService;
+import com.vpoint.vpointtool.services.impl.MarkV2Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.repository.query.Param;
@@ -44,13 +45,16 @@ public class MarkController {
     @Autowired
     private MessageSource messageSource;
 
+    @Autowired
+    private MarkV2Service markV2Service;
+
     @GetMapping("/test")
     public String index() {
         return "index";
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasAuthority('ADMIN')")
+//    @PreAuthorize("hasAuthority('ADMIN')")
     @Transactional
     public ResponseEntity<?> addMarkUser(@Valid @RequestBody AddMarkUser markUser,
                                                     BindingResult result) {
@@ -70,7 +74,10 @@ public class MarkController {
 
         if (markUser.getKpiID() != null) {
             System.out.println("KPI" + markUser.getKpi());
-            float pointKpi = markService.saveKPI(markUser.getKpiID(), markUser.getKpi(), user, localDate);
+//            float pointKpi = markService.saveKPI(markUser.getKpiID(), markUser.getKpi(), user, localDate);
+//
+            float pointKpi = markV2Service.saveDecimal(markUser.getKpiID(),markUser.getKpi(), user , localDate);
+            System.out.println("hehehehe: " + pointKpi);
             markResponse.setPointKPI(pointKpi);
         }
         if (markUser.getBestDepartmentMonthID() != null && markUser.getBestDepartmentMonth() != null) {
@@ -89,7 +96,7 @@ public class MarkController {
             markResponse.setPointBestDepartmentYear(pointBestDepartment);
         }
         if (markUser.getBcsDepartmentID() != null ) {
-            float pointBCSDepartment = markService.saveBCSDepartment(markUser.getBcsDepartmentID(),
+            float pointBCSDepartment = markV2Service.saveDecimalBSC(markUser.getBcsDepartmentID(),
                     markUser.getBcsDepartment(), user, localDate);
             markResponse.setPointBCSDepartment(pointBCSDepartment);
         }
@@ -99,7 +106,7 @@ public class MarkController {
             markResponse.setPointJointActivities(pointJoint);
         }
         if (markUser.getTrainID() != null ) {
-            float pointTrain = markService.saveTrain(markUser.getTrainID(), markUser.getTrain(), user, localDate);
+            float pointTrain = markV2Service.saveDecimalBSC(markUser.getTrainID(), markUser.getTrain(), user, localDate);
             markResponse.setPointTrain(pointTrain);
         }
         if (markUser.getTrainStaffID() != null ) {

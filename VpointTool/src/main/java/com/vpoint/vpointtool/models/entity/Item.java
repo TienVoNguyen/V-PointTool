@@ -21,7 +21,6 @@ public class Item extends BaseEntity{
     @Column(name = "name", length = 100)
     private String name;
 
-
     @ManyToOne
     private Category category;
 
@@ -29,5 +28,10 @@ public class Item extends BaseEntity{
     @JsonIgnore
     private List<Mark> marks;
 
+    private Type type;
 
+    @OneToMany(mappedBy = "item")
+    private Set<Symbol> symbols;
+
+    private Double pointRule;
 }
