@@ -22,6 +22,7 @@ public class Item extends BaseEntity{
     private String name;
 
     @ManyToOne
+    @JsonIgnore
     private Category category;
 
     @OneToMany(mappedBy = "item")
@@ -31,6 +32,7 @@ public class Item extends BaseEntity{
     private Type type;
 
     @OneToMany(mappedBy = "item")
+    @JsonIgnore
     private Set<Symbol> symbols;
 
     private PointRule pointRule;

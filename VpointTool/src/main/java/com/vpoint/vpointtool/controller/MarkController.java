@@ -15,6 +15,7 @@ import com.vpoint.vpointtool.payload.response.ReportResponse;
 import com.vpoint.vpointtool.services.IItemService;
 import com.vpoint.vpointtool.services.IMarkService;
 import com.vpoint.vpointtool.services.IUserService;
+import com.vpoint.vpointtool.services.impl.ItemService;
 import com.vpoint.vpointtool.services.impl.MarkV2Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -47,6 +48,9 @@ public class MarkController {
 
     @Autowired
     private MarkV2Service markV2Service;
+
+    @Autowired
+    private ItemService itemService;
 
     @GetMapping("/test")
     public String index() {
@@ -269,5 +273,10 @@ public class MarkController {
     @GetMapping("getallyear")
     public ResponseEntity<?> getAllYear() {
         return new ResponseEntity<>(markService.findAllYear(), HttpStatus.OK);
+    }
+
+    @GetMapping("/getRules")
+    public ResponseEntity<?> getRules() {
+        return new ResponseEntity<>(itemService.getAllRule(), HttpStatus.OK);
     }
 }
