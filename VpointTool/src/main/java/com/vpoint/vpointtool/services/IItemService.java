@@ -8,4 +8,6 @@ public interface IItemService {
     List<Item> getAll();
 
     Item findById(long id);
+
+    Item save(Item item);
 }

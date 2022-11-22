@@ -35,7 +35,7 @@ public interface MarkRepository extends JpaRepository<Mark, Long> {
             "and m.user = :user " +
             "and year(m.date) = :year " +
             "group by year(m.date)")
-    Integer getPointImprove(@Param("user") User user, @Param("item") Item item, @Param("year") int year);
+    Float getPointImproveYear(@Param("user") User user, @Param("item") Item item, @Param("year") int year);
 
     @Query(nativeQuery = true, value = "select sum(point) as sum, mark.date as date from mark where user_id = ? and year(date) = (year(current_date)) group by month(date);")
     List<ResponseMark> getMarkByIdUser(Long idUser);

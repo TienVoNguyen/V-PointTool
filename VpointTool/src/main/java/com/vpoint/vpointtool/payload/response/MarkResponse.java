@@ -45,4 +45,6 @@ public class MarkResponse {
     private float pointExcellentDepartmentMonth;
 
     private  float pointExcellentDepartmentYear;
+
+    private float pointImproveYear;
 }
