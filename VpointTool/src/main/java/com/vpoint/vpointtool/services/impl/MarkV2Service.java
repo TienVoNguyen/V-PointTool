@@ -100,6 +100,9 @@ public class MarkV2Service {
                 throw new InputException(item.getName());
             }
         } else {
+            if (value < item.getStart()) {
+                throw new InputException(item.getName());
+            }
             float tmp = sumPoint(item, user, date) != null ? sumPoint(item, user, date) : 0;
             if (tmp >= item.getEnd()) {
                 return 0F;
@@ -150,6 +153,27 @@ public class MarkV2Service {
         }
     }
 
+    private void deleteMarkRuleYear(Item item, User user, LocalDate date) {
+        Mark mark = getMark(item, user, date);
+        float tmp = mark.getPoint();
+        markRepository.delete(mark);
+        List<Mark> marks = markRepository.findMarksByUserAndItemInYear(item, user, date.getYear());
+        for (Mark m : marks) {
+            if (tmp > 0) {
+                float value = Float.parseFloat(m.getValue());
+                if (m.getPoint() < value && sumPoint(item, user, date) < item.getEnd()) {
+                    float newPoint =  Math.min(tmp, value - m.getPoint());
+                    tmp -= newPoint;
+                    m.setPoint(newPoint + m.getPoint());
+                    markRepository.save(m);
+                } else {
+                    break;
+                }
+            }
+
+        }
+    }
+
     private Mark createOrReplaceOrDeleteMark(Item item, Float value, User user, LocalDate date) {
         Mark mark = getMark(item, user, date);
         if (value == null && mark == null) {
@@ -157,7 +181,10 @@ public class MarkV2Service {
         } else if (mark == null) {
             return new Mark();
         } else if (value == null){
-            markRepository.delete(mark);
+            if (item.getPointRule().equals(PointRule.YEAR)) {
+                deleteMarkRuleYear(item, user, date);
+            } else
+                markRepository.delete(mark);
             return null;
         } else {
             mark.setValue(String.valueOf(value));
