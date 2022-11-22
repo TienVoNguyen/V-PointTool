@@ -1,7 +1,9 @@
 package com.vpoint.vpointtool.models.entity;
 
 public enum Type {
-    DECIMAL,
+    DECIMALBIGGER,
+    DECIMALBIGGEREQUAL,
+    DECIMALLOWEREQUAL,
     TEXT,
     POINT,
     BOOLEAN

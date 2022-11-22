@@ -33,5 +33,8 @@ public class Item extends BaseEntity{
     @OneToMany(mappedBy = "item")
     private Set<Symbol> symbols;
 
-    private Double pointRule;
+    private PointRule pointRule;
+
+    private Float start;
+    private Float end;
 }
