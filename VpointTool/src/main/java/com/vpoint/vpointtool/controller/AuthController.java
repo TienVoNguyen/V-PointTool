@@ -10,6 +10,7 @@ import com.vpoint.vpointtool.models.login.User;
 import com.vpoint.vpointtool.payload.request.SignUpForm;
 import com.vpoint.vpointtool.services.appRole.IAppRoleService;
 import com.vpoint.vpointtool.services.appUser.AppUserService;
+import com.vpoint.vpointtool.services.appUser.IAppUserService;
 import com.vpoint.vpointtool.services.department.IDepartmentService;
 import com.vpoint.vpointtool.services.jwt.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +86,24 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@Valid @ModelAttribute SignUpForm user, BindingResult result) {
+        User[] users = appUserService.findAll().toArray(new User[0]);
+        boolean checkStaff = true;
+        boolean checkEmail = true;
+        for (int i = 0; i < users.length; i++) {
+            if (users[i].getStaffId().equals(user.getStaffId())){
+                checkStaff = false;
+                break;
+            }
+        }
+        for (int i = 0; i < users.length; i++) {
+            if (users[i].getEmail().equals(user.getEmail())){
+                checkEmail = false;
+                break;
+            }
+        }
+        if (!checkEmail || !checkStaff) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
         if (result.hasErrors()) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
@@ -117,10 +136,14 @@ public class AuthController {
         return new ResponseEntity<>(user.get(), HttpStatus.OK);
     }
 
+    @Autowired
+    private IAppUserService appUserService;
+
     @PutMapping("/update/{userId}")
     public ResponseEntity<User> updateProfile(@Valid @PathVariable Long userId, @ModelAttribute SignUpForm signUpForm
             , BindingResult result) {
         Optional<User> user = userService.findById(userId);
+
         if (!user.isPresent()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

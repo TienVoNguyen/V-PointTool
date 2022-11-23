@@ -20,6 +20,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAll(Pageable pageable);
 
+    @Query(nativeQuery = true, value = "select * from user where user.department_id = ? and full_name like '%'  ?  '%' order by full_name;")
+    List<User> userList(int idCate, String name);
+
     @Query(nativeQuery = true, value = "select * from user where full_name like '%'  ?  '%' order by full_name;")
     List<User> listUser(String fullName);
 
