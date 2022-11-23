@@ -8,6 +8,7 @@ import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.User;
 import com.vpoint.vpointtool.payload.response.ReportAllMark;
 import com.vpoint.vpointtool.payload.response.ReportResponse;
+import com.vpoint.vpointtool.payload.response.Rule;
 import com.vpoint.vpointtool.repositories.ItemRepository;
 import com.vpoint.vpointtool.repositories.MarkRepository;
 import com.vpoint.vpointtool.repositories.UserRepository;
@@ -746,4 +747,5 @@ public class MarkService implements IMarkService {
     public List<Integer> findAllYear() {
         return markRepository.findAllYear();
     }
+
 }
