@@ -40,6 +40,7 @@ public class MarkV2Service {
         }
         Symbol symbol = getSymbol(value, item);
         mark.setPoint(this.getPointDecimal(value, symbol));
+        mark.setValue(String.valueOf(value));
         return this.saveMark(mark, symbol, item, user, date).getPoint();
     }
 
