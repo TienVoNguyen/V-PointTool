@@ -23,4 +23,9 @@ public class ItemService implements IItemService {
     public Item findById(long id) {
         return itemRepository.findById(id);
     }
+
+    @Override
+    public Item save(Item item) {
+        return itemRepository.save(item);
+    }
 }
