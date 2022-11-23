@@ -9,10 +9,6 @@ public class VpointToolApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(VpointToolApplication.class, args);
-        String a = "qwer";
-        String b = "Qwer";
-        System.out.println(a.equals(b));
-        System.out.println(a==b);
     }
 
 }

@@ -65,6 +65,12 @@ public class AppUserService implements IAppUserService{
         return appUserRepo.findByStaffId(name);
     }
 
+    @Override
+    public User saveUser(User user) {
+        user.setPassword(user.getPassword());
+        return appUserRepo.save(user);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
