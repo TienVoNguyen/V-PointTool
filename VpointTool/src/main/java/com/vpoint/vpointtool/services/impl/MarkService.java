@@ -151,6 +151,73 @@ public class MarkService implements IMarkService {
         }
     }
 
+//    @Override
+//    public float saveBestDepartment(long id, String value, User user, LocalDate date) {
+//        Item item = itemRepository.findById(id);
+//        Mark checkMark = markRepository.findByItemAndDateAndUserAndSign(item, date, user, value);
+//        if (checkMark != null) {
+//            return 0;
+//        }
+//        float point = 0;
+//        if (value.equals("T")) {
+//            point = 10;
+//            Mark mark = new Mark();
+//            mark.setValue(value);
+//            mark.setItem(item);
+//            mark.setUser(user);
+//            mark.setPoint(point);
+//            mark.setSign(value);
+//            mark.setDate(date);
+//            markRepository.save(mark);
+//        } else {
+//            List<Mark> marks = markRepository.findAllByItemAndDateAndUserAndSignIsNotIgnoreCase(item, date, user, "T");
+//            if (marks.size() == 0) {
+//                Mark mark = new Mark();
+//                point = bestDepartment(value);
+//                mark.setUser(user);
+//                mark.setItem(item);
+//                mark.setValue(value);
+//                mark.setPoint(point);
+//                mark.setSign(value);
+//                mark.setDate(date);
+//                markRepository.save(mark);
+//            } else if (marks.size() == 1) {
+//                    if (convertBestDepartment(value) ==  convertBestDepartment(marks.get(0).getSign())) {
+//                        point = bestDepartment(value);
+//                        marks.get(0).setPoint(point);
+//                        marks.get(0).setSign(value);
+//                        marks.get(0).setValue(value);
+//                        markRepository.save(marks.get(0));
+//                    } else {
+//                        point = bestDepartment(value);
+//                        Mark mark1 = new Mark();
+//                        mark1.setUser(user);
+//                        mark1.setValue(value);
+//                        mark1.setItem(item);
+//                        mark1.setPoint(point);
+//                        mark1.setSign(value);
+//                        mark1.setDate(date);
+//                        markRepository.save(mark1);
+//                    }
+//                } else {
+//                    for (Mark mark : marks) {
+//                        if (convertBestDepartment(value) ==  convertBestDepartment(mark.getSign())) {
+//                            point = bestDepartment(value);
+//                            mark.setPoint(point);
+//                            mark.setSign(value);
+//                            mark.setValue(value);
+//                            markRepository.save(mark);
+//                            break;
+//                        } else {
+//                            point = mark.getPoint();
+//                        }
+//                    }
+//                }
+//            }
+//        return point;
+//    }
+
+
     @Override
     public float saveDisciplineViolate(long id, Float value, User user, LocalDate date) {
         System.out.println("saveDisciplineViolate");
