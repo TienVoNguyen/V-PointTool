@@ -1,6 +1,7 @@
 package com.vpoint.vpointtool.services.impl;
 
 import com.vpoint.vpointtool.models.entity.Item;
+import com.vpoint.vpointtool.payload.response.Rule;
 import com.vpoint.vpointtool.repositories.ItemRepository;
 import com.vpoint.vpointtool.services.IItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,12 @@ public class ItemService implements IItemService {
 
     @Override
     public Item save(Item item) {
-        return itemRepository.save(item);
+//        return itemRepository.save(item);
+        return null;
+    }
+
+    @Override
+    public List<Item> getAllRule() {
+        return itemRepository.findAll();
     }
 }

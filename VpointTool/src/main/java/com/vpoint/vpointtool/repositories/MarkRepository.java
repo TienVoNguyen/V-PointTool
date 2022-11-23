@@ -5,6 +5,7 @@ import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.User;
 import com.vpoint.vpointtool.payload.response.ReportResponse;
+import com.vpoint.vpointtool.payload.response.Rule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

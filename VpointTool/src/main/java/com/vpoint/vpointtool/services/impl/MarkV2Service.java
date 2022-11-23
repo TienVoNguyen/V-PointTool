@@ -40,6 +40,7 @@ public class MarkV2Service {
         }
         Symbol symbol = getSymbol(value, item);
         mark.setPoint(this.getPointDecimal(value, symbol));
+        mark.setValue(String.valueOf(value));
         return this.saveMark(mark, symbol, item, user, date).getPoint();
     }
 
@@ -51,6 +52,7 @@ public class MarkV2Service {
         }
         Symbol symbol = getSymbolText(value, item);
         mark.setPoint(symbol.getPoint());
+        mark.setValue(value);
         return this.saveMark(mark, symbol, item, user, date).getPoint();
     }
 
@@ -144,7 +146,7 @@ public class MarkV2Service {
             return null;
         } else if (mark == null) {
             return new Mark();
-        } else if (value == null){
+        } else if (value == null || value.equals("")){
             markRepository.delete(mark);
             return null;
         } else {
@@ -181,7 +183,7 @@ public class MarkV2Service {
         } else if (mark == null) {
             return new Mark();
         } else if (value == null){
-            if (item.getPointRule().equals(PointRule.YEAR)) {
+            if (item.getPointRule() != null && item.getPointRule().equals(PointRule.YEAR)) {
                 deleteMarkRuleYear(item, user, date);
             } else
                 markRepository.delete(mark);

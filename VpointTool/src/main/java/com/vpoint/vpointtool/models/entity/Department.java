@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 
 @Builder
@@ -23,4 +24,13 @@ public class Department extends BaseEntity{
     @JsonIgnore
     @OneToMany(mappedBy = "department")
     private List<User> users;
+
+    public Department(Long id, String createBy, String createDate, Date modifiedDate, String modifiedBy, String name) {
+        super(id, createBy, createDate, modifiedDate, modifiedBy);
+        this.name = name;
+    }
+
+    public Department(String name) {
+        this.name = name;
+    }
 }
