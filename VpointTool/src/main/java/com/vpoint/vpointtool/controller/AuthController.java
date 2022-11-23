@@ -7,10 +7,9 @@ import com.vpoint.vpointtool.models.entity.Department;
 import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.Role;
 import com.vpoint.vpointtool.models.login.User;
-import com.vpoint.vpointtool.models.request.SignUpForm;
+import com.vpoint.vpointtool.payload.request.SignUpForm;
 import com.vpoint.vpointtool.services.appRole.IAppRoleService;
 import com.vpoint.vpointtool.services.appUser.AppUserService;
-import com.vpoint.vpointtool.services.appUser.IAppUserService;
 import com.vpoint.vpointtool.services.department.IDepartmentService;
 import com.vpoint.vpointtool.services.jwt.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @RestController
