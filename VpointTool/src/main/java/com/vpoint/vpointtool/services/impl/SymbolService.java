@@ -1,5 +1,6 @@
 package com.vpoint.vpointtool.services.impl;
 
+import com.vpoint.vpointtool.exception.DataNotFoundException;
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Symbol;
 import com.vpoint.vpointtool.repositories.SymbolRepository;
@@ -18,6 +19,17 @@ public class SymbolService implements ISymbolService {
 
     @Override
     public List<Symbol> findAllByItem(Item item) {
-        return symbolRepository.findAllByItem(item);
+        return symbolRepository.findAllByItemOrderByPoint(item);
+    }
+
+    @Override
+    public Symbol findSymbolById(Long id) {
+        return symbolRepository.findById(id)
+                .orElseThrow(() -> new DataNotFoundException("Symbol id: " + id));
+    }
+
+    @Override
+    public Symbol saveSymbol(Symbol symbol) {
+        return symbolRepository.save(symbol);
     }
 }
