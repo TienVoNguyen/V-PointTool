@@ -5,6 +5,7 @@ import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.User;
 import com.vpoint.vpointtool.payload.response.ReportResponse;
+import com.vpoint.vpointtool.payload.response.Rule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -32,7 +33,7 @@ public interface MarkRepository extends JpaRepository<Mark, Long> {
             "and m.user = :user " +
             "and year(m.date) = :year " +
             "group by year(m.date)")
-    Integer getPointImprove(@Param("user") User user, @Param("item") Item item, @Param("year") int year);
+    Float getPointImproveYear(@Param("user") User user, @Param("item") Item item, @Param("year") int year);
 
     @Query(nativeQuery = true, value = "select sum(point) as sum, mark.date as date from mark where user_id = ? and year(date) = (year(current_date)) group by month(date);")
     List<ResponseMark> getMarkByIdUser(Long idUser);

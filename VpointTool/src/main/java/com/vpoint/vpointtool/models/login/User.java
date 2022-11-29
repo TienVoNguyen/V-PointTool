@@ -68,6 +68,36 @@ public class User extends BaseEntity {
 
     private Gender gender;
 
+
+    private boolean status;
+
+    public User(Long id, String createBy, String createDate, Date modifiedDate, String modifiedBy, String staffId, String fullName, String password, String email, Department department, Set<Role> role, List<Mark> marks, String phone, Gender gender, boolean status) {
+        super(id, createBy, createDate, modifiedDate, modifiedBy);
+        this.staffId = staffId;
+        this.fullName = fullName;
+        this.password = password;
+        this.email = email;
+        this.department = department;
+        this.role = role;
+        this.marks = marks;
+        this.phone = phone;
+        this.gender = gender;
+        this.status = status;
+    }
+
+    public User(String staffId, String fullName, String password, String email, Department department, Set<Role> role, List<Mark> marks, String phone, Gender gender, boolean status) {
+        this.staffId = staffId;
+        this.fullName = fullName;
+        this.password = password;
+        this.email = email;
+        this.department = department;
+        this.role = role;
+        this.marks = marks;
+        this.phone = phone;
+        this.gender = gender;
+        this.status = status;
+    }
+
     public User(String staffId, String fullName, String password, String email, Department department, Set<Role> role) {
         this.staffId = staffId;
         this.fullName = fullName;

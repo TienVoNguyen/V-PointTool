@@ -17,5 +17,7 @@ public interface IAppUserService extends IGeneralService<User>, UserDetailsServi
 
     Optional<User> findByStaffId1(String name);
 
+    User saveUser(User user);
+
 
 }

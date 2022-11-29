@@ -8,6 +8,7 @@ import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.User;
 import com.vpoint.vpointtool.payload.response.ReportAllMark;
 import com.vpoint.vpointtool.payload.response.ReportResponse;
+import com.vpoint.vpointtool.payload.response.Rule;
 import com.vpoint.vpointtool.repositories.ItemRepository;
 import com.vpoint.vpointtool.repositories.MarkRepository;
 import com.vpoint.vpointtool.repositories.UserRepository;
@@ -493,56 +494,61 @@ public class MarkService implements IMarkService {
 
     @Override
     public float saveImprove(long id, Boolean value, User user, LocalDate date) {
-        Item item = itemRepository.findById(id);
-        Mark mark = new Mark();
-        Optional<Mark> mark1 = markRepository.findByItemAndDateAndUser(item, date, user);
-        if (mark1.isPresent()) {
-            mark = mark1.get();
-            float tmp = mark.getPoint();
-            if (!value) {
-                markRepository.delete(mark);
-                List<Mark> marks = markRepository.findMarksByUserAndItemInYear(item, user, date.getYear());
-                for (Mark m : marks) {
-                    if (tmp > 0 &&
-                            markRepository.getPointImprove(user, item, date.getYear()) < 35 &&
-                            m.getPoint() < 10) {
-                        if (m.getPoint() == 5) {
-                            tmp = tmp - 5;
-                            m.setPoint(10F);
-                        } else {
-                            m.setPoint(tmp);
-                        }
-                        markRepository.save(m);
-                    }
-                }
-                return 0;
-            }
-            return mark.getPoint();
-        } else {
-            if (!value) {
-                return 0;
-            }
-            int currentPoint = 0;
-            if (markRepository.getPointImprove(user, item, date.getYear()) != null) {
-                currentPoint = markRepository.getPointImprove(user, item, date.getYear());
-            }
-            float point;
-            if (currentPoint >= 35) {
-                point = 0;
-            } else if (currentPoint + 10 >= 35) {
-                point = 35 - currentPoint;
-            } else {
-                point = 10;
-            }
-            mark.setPoint(point);
-            mark.setItem(item);
-            mark.setUser(user);
-            mark.setDate(date);
-            mark.setValue(String.valueOf(true));
-            markRepository.save(mark);
-            return mark.getPoint();
-        }
+        return 0;
     }
+
+//    @Override
+//    public float saveImprove(long id, Boolean value, User user, LocalDate date) {
+//        Item item = itemRepository.findById(id);
+//        Mark mark = new Mark();
+//        Optional<Mark> mark1 = markRepository.findByItemAndDateAndUser(item, date, user);
+//        if (mark1.isPresent()) {
+//            mark = mark1.get();
+//            float tmp = mark.getPoint();
+//            if (!value) {
+//                markRepository.delete(mark);
+//                List<Mark> marks = markRepository.findMarksByUserAndItemInYear(item, user, date.getYear());
+//                for (Mark m : marks) {
+//                    if (tmp > 0 &&
+//                            markRepository.getPointImprove(user, item, date.getYear()) < 35 &&
+//                            m.getPoint() < 10) {
+//                        if (m.getPoint() == 5) {
+//                            tmp = tmp - 5;
+//                            m.setPoint(10F);
+//                        } else {
+//                            m.setPoint(tmp);
+//                        }
+//                        markRepository.save(m);
+//                    }
+//                }
+//                return 0;
+//            }
+//            return mark.getPoint();
+//        } else {
+//            if (!value) {
+//                return 0;
+//            }
+//            int currentPoint = 0;
+//            if (markRepository.getPointImprove(user, item, date.getYear()) != null) {
+//                currentPoint = markRepository.getPointImprove(user, item, date.getYear());
+//            }
+//            float point;
+//            if (currentPoint >= 35) {
+//                point = 0;
+//            } else if (currentPoint + 10 >= 35) {
+//                point = 35 - currentPoint;
+//            } else {
+//                point = 10;
+//            }
+//            mark.setPoint(point);
+//            mark.setItem(item);
+//            mark.setUser(user);
+//            mark.setDate(date);
+//            mark.setValue(String.valueOf(true));
+//            markRepository.save(mark);
+//            return mark.getPoint();
+//        }
+//    }
 
     @Override
     public float saveExcellentDepartmentYear(long id, Boolean value, User user, LocalDate date) {
@@ -741,4 +747,5 @@ public class MarkService implements IMarkService {
     public List<Integer> findAllYear() {
         return markRepository.findAllYear();
     }
+
 }

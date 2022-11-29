@@ -42,8 +42,6 @@ public class AddMarkUser {
     private Long bcsDepartmentID = 3L;
 
     //    ID: 4
-    @DecimalMin(value = "-0.5")
-    @Max(4)
     private Float jointActivities;
     private Long jointActivitiesID = 4L;
 
@@ -56,8 +54,6 @@ public class AddMarkUser {
     private Long trainStaffID = 11L;
 
     //    ID: 12
-    @Max(50)
-    @Min(0)
     private Float trainVmg;
     private Long trainVmgID = 12L;
 
@@ -65,9 +61,10 @@ public class AddMarkUser {
     private Boolean improve;
     private Long improveID = 6L;
 
+    private Long improveYearId = 19L;
+    private Float improveYear;
+
     //    ID: 7
-    @DecimalMin(value = "0")
-    @DecimalMax(value = "100")
     private Float loveVmg;
     private Long loveVmgID = 7L;
 

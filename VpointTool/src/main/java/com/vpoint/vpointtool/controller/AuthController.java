@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -50,14 +51,17 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
         Optional<User> user1 = userService.findByEmail(user.getEmail());
-        if (user1.isPresent()){
+        if (user1.isPresent() && user1.get().isStatus() == true){
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(user1.get().getStaffId(), user.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = jwtService.generateTokenLogin(authentication);
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             User currentUser = userService.findByStaffId1(user1.get().getStaffId()).get();
-            return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(),user1.get().getFullName() , userDetails.getAuthorities()));
+            return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(),user1.get().getFullName(), currentUser.isStatus() , userDetails.getAuthorities()));
+        }
+        else if (user1.isPresent() && user1.get().isStatus() == false) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User has locked");
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -75,7 +79,7 @@ public class AuthController {
 
     @GetMapping("/getAllDepartment")
     public ResponseEntity<List<Department>> getDepartment(){
-        return new ResponseEntity<>(departmentService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(departmentService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/getAllUser")
@@ -113,14 +117,34 @@ public class AuthController {
         User user1 = new User(user.getStaffId(), user.getFullname(), user.getPassword(), user.getEmail(), user.getDepartment(), user.getRole(), user.getPhone(), user.getGender());
         List<Mark> listMark = new ArrayList<>();
         user1.setMarks(listMark);
+        user1.setStatus(true);
         userService.save(user1);
         return new ResponseEntity<>( HttpStatus.CREATED);
+    }
+
+    @PutMapping("/lockUser/{userId}")
+    public ResponseEntity<User> LockUser(@PathVariable Long userId){
+        User user = userService.findById(userId).get();
+        user.setStatus(false);
+        userService.saveUser(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PutMapping("/unlockUser/{userId}")
+    public ResponseEntity<User> unlockUser(@PathVariable Long userId){
+        User user = userService.findById(userId).get();
+        user.setStatus(true);
+        userService.saveUser(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping("/findByIdUser/{userId}")
     public ResponseEntity<User> findByIdUser(@PathVariable Long userId){
         Optional<User> user = userService.findById(userId);
-        List<Role> roleSet = new ArrayList<>(user.get().getRole());
+        if (!user.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        List<Role> roleSet = user.get().getRole().stream().collect(Collectors.toList());
         String name = null;
         for (int i = 0; i < roleSet.size(); i++) {
             if (roleSet.get(0).getName().equals("ROLE_ADMIN")){
@@ -130,9 +154,6 @@ public class AuthController {
             }
         }
         user.get().setCreateBy(name);
-        if (!user.isPresent()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(user.get(), HttpStatus.OK);
     }
 
