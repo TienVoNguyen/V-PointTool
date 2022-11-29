@@ -14,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 import java.util.Optional;
 
 @Service
@@ -22,6 +21,12 @@ public class UserService implements IUserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Override
+    public List<User> userList(int idCate, String name) {
+        return userRepository.userList(idCate, name);
+    }
+
     @Override
     public User findById(Long id) {
         return userRepository.findById(id)
@@ -59,8 +64,6 @@ public class UserService implements IUserService {
     public User getUserProfile(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("UserId" + id));
-        user.setGender(Gender.MALE);
-        userRepository.save(user);
         return user;
     }
 }

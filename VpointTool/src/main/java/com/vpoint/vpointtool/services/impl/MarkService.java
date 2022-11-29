@@ -1,19 +1,24 @@
 package com.vpoint.vpointtool.services.impl;
 
 import com.vpoint.vpointtool.exception.DataNotFoundException;
-import com.vpoint.vpointtool.models.dto.*;
 import com.vpoint.vpointtool.exception.InputException;
+import com.vpoint.vpointtool.models.dto.*;
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.User;
+import com.vpoint.vpointtool.payload.response.ReportAllMark;
+import com.vpoint.vpointtool.payload.response.ReportResponse;
+import com.vpoint.vpointtool.payload.response.Rule;
 import com.vpoint.vpointtool.repositories.ItemRepository;
 import com.vpoint.vpointtool.repositories.MarkRepository;
+import com.vpoint.vpointtool.repositories.UserRepository;
 import com.vpoint.vpointtool.services.IItemService;
 import com.vpoint.vpointtool.services.IMarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +33,9 @@ public class MarkService implements IMarkService {
 
     @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Mark save(Mark mark) {
@@ -211,7 +219,6 @@ public class MarkService implements IMarkService {
 //    }
 
 
-
     @Override
     public float saveDisciplineViolate(long id, Float value, User user, LocalDate date) {
         System.out.println("saveDisciplineViolate");
@@ -312,7 +319,7 @@ public class MarkService implements IMarkService {
         if (value == null) {
             return 0;
         }
-        if ( value < 70 ) {
+        if (value < 70) {
             pointKPI = -25;
         } else if (70 <= value && value < 95) {
             pointKPI = (value - 70) * -1;
@@ -409,8 +416,7 @@ public class MarkService implements IMarkService {
         float point = 0;
         if (value < 4) {
             point = 0;
-        }
-        else if (4 <= value && value < 4.5) {
+        } else if (4 <= value && value < 4.5) {
             point = 2;
         } else if (4.5 <= value &&
                 value < 5) {
@@ -487,57 +493,62 @@ public class MarkService implements IMarkService {
     }
 
     @Override
-    public float saveImprove(long id, Boolean value,User user, LocalDate date) {
-        Item item = itemRepository.findById(id);
-        Mark mark = new Mark();
-        Optional<Mark> mark1 = markRepository.findByItemAndDateAndUser(item, date, user);
-        if (mark1.isPresent()) {
-            mark = mark1.get();
-            float tmp = mark.getPoint();
-            if (!value) {
-                markRepository.delete(mark);
-                List<Mark> marks = markRepository.findMarksByUserAndItemInYear(item, user, date.getYear());
-                for (Mark m: marks) {
-                    if (tmp > 0 &&
-                        markRepository.getPointImprove(user, item, date.getYear()) < 35 &&
-                        m.getPoint() < 10) {
-                        if (m.getPoint() == 5) {
-                            tmp = tmp - 5;
-                            m.setPoint(10F);
-                        } else {
-                            m.setPoint(tmp);
-                        }
-                        markRepository.save(m);
-                    }
-                }
-                return 0;
-            }
-            return mark.getPoint();
-        } else {
-            if (!value) {
-                return 0;
-            }
-            int currentPoint = 0;
-            if (markRepository.getPointImprove(user, item, date.getYear()) != null){
-                currentPoint = markRepository.getPointImprove(user, item, date.getYear());
-            }
-            float point;
-            if (currentPoint >= 35) {
-                point = 0;
-            } else if (currentPoint + 10 >= 35) {
-                point = 35 - currentPoint;
-            } else {
-                point = 10;
-            }
-            mark.setPoint(point);
-            mark.setItem(item);
-            mark.setUser(user);
-            mark.setDate(date);
-            mark.setValue(String.valueOf(true));
-            markRepository.save(mark);
-            return mark.getPoint();
-        }
+    public float saveImprove(long id, Boolean value, User user, LocalDate date) {
+        return 0;
     }
+
+//    @Override
+//    public float saveImprove(long id, Boolean value, User user, LocalDate date) {
+//        Item item = itemRepository.findById(id);
+//        Mark mark = new Mark();
+//        Optional<Mark> mark1 = markRepository.findByItemAndDateAndUser(item, date, user);
+//        if (mark1.isPresent()) {
+//            mark = mark1.get();
+//            float tmp = mark.getPoint();
+//            if (!value) {
+//                markRepository.delete(mark);
+//                List<Mark> marks = markRepository.findMarksByUserAndItemInYear(item, user, date.getYear());
+//                for (Mark m : marks) {
+//                    if (tmp > 0 &&
+//                            markRepository.getPointImprove(user, item, date.getYear()) < 35 &&
+//                            m.getPoint() < 10) {
+//                        if (m.getPoint() == 5) {
+//                            tmp = tmp - 5;
+//                            m.setPoint(10F);
+//                        } else {
+//                            m.setPoint(tmp);
+//                        }
+//                        markRepository.save(m);
+//                    }
+//                }
+//                return 0;
+//            }
+//            return mark.getPoint();
+//        } else {
+//            if (!value) {
+//                return 0;
+//            }
+//            int currentPoint = 0;
+//            if (markRepository.getPointImprove(user, item, date.getYear()) != null) {
+//                currentPoint = markRepository.getPointImprove(user, item, date.getYear());
+//            }
+//            float point;
+//            if (currentPoint >= 35) {
+//                point = 0;
+//            } else if (currentPoint + 10 >= 35) {
+//                point = 35 - currentPoint;
+//            } else {
+//                point = 10;
+//            }
+//            mark.setPoint(point);
+//            mark.setItem(item);
+//            mark.setUser(user);
+//            mark.setDate(date);
+//            mark.setValue(String.valueOf(true));
+//            markRepository.save(mark);
+//            return mark.getPoint();
+//        }
+//    }
 
     @Override
     public float saveExcellentDepartmentYear(long id, Boolean value, User user, LocalDate date) {
@@ -564,7 +575,7 @@ public class MarkService implements IMarkService {
     }
 
     @Override
-    public float saveExcellentDepartmentMonth(long id, Boolean value,User user, LocalDate date) {
+    public float saveExcellentDepartmentMonth(long id, Boolean value, User user, LocalDate date) {
         Item item = itemRepository.findById(id);
         Mark mark = new Mark();
         Optional<Mark> mark1 = markRepository.findByItemAndDateAndUser(item, date, user);
@@ -658,4 +669,83 @@ public class MarkService implements IMarkService {
     public List<Integer> getSumByIdUser(Long idUser) {
         return markRepository.getSumByIdUser(idUser);
     }
+
+    @Override
+    public List<ReportAllMark> reportMark(int month, int year, String department) {
+        List<ReportAllMark> reportAllMarks = new ArrayList<>();
+        List<ReportResponse> reportResponses = markRepository.reportMark(month, year, department);
+        List<User> users = userRepository.findAllByDepartment_NameAnd(department);
+        List<User> list = new ArrayList<>();
+        for (int i = 0; i < users.size(); i++) {
+            User user = users.get(i);
+            for(ReportResponse mark : reportResponses) {
+                if (mark.getStaffId().equals(user.getStaffId())) {
+                    ReportAllMark reportAllMark = new ReportAllMark();
+                    reportAllMark.setFullName(mark.getFullName());
+                    reportAllMark.setDepartment(mark.getDepartment());
+                    reportAllMark.setStaffId(mark.getStaffId());
+                    reportAllMark.setTotal(mark.getTotal());
+                    reportAllMark.setMonth(mark.getMonth());
+                    reportAllMark.setYear(mark.getYear());
+                    User user1 = userRepository.findUserByStaffId(mark.getStaffId()).get();
+                    List<Mark> marks = markRepository.findMarkByUserIdAndYearAndMonth(user1.getId(), mark.getYear(), mark.getMonth());
+                    float excellentDepartAndStaff = 0;
+                    float train = 0;
+                    for (Mark mark1 : marks) {
+                        if (mark1.getItem().getId() == 1) {
+                            reportAllMark.setKpi(mark1.getPoint());
+                        }
+                        if (mark1.getItem().getId() == 2 || mark1.getItem().getId() == 9 || mark1.getItem().getId() == 10
+                                || mark1.getItem().getId() == 16 || mark1.getItem().getId() == 17) {
+                            excellentDepartAndStaff += mark1.getPoint();
+                        }
+                        if (mark1.getItem().getId() == 3) {
+                            reportAllMark.setBsc(mark1.getPoint());
+                        }
+                        if (mark1.getItem().getId() == 4) {
+                            reportAllMark.setJointActivities(mark1.getPoint());
+                        }
+                        if (mark1.getItem().getId() == 5 || mark1.getItem().getId() == 11 || mark1.getItem().getId() == 12) {
+                            train += mark1.getPoint();
+                        }
+                        if (mark1.getItem().getId() == 6) {
+                            reportAllMark.setImprove(mark1.getPoint());
+                        }
+                        if (mark1.getItem().getId() == 7) {
+                            reportAllMark.setLoveVMG(mark1.getPoint());
+                        }
+                        if (mark1.getItem().getId() == 8) {
+                            reportAllMark.setDiscipline(mark1.getPoint());
+                        }
+                        if (mark1.getItem().getId() == 13) {
+                            reportAllMark.setBonus(mark1.getPoint());
+                        }
+                    }
+                    reportAllMark.setTrain(train);
+                    reportAllMark.setExcellentStaffAndDepartment(excellentDepartAndStaff);
+                    reportAllMarks.add(reportAllMark);
+                    list.add(user);
+                }
+            }
+
+        }
+        users.removeAll(list);
+        users.forEach(user1 -> {
+            ReportAllMark reportAllMark = new ReportAllMark();
+            reportAllMark.setFullName(user1.getFullName());
+            reportAllMark.setDepartment(user1.getDepartment().getName());
+            reportAllMark.setStaffId(user1.getStaffId());
+            reportAllMark.setMonth(month);
+            reportAllMark.setYear(year);
+            reportAllMarks.add(reportAllMark);
+        });
+
+        return reportAllMarks;
+    }
+
+    @Override
+    public List<Integer> findAllYear() {
+        return markRepository.findAllYear();
+    }
+
 }

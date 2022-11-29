@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 
 @Builder
@@ -23,4 +24,13 @@ public class Category extends BaseEntity{
     @OneToMany(mappedBy = "category")
     @JsonIgnore
     private List<Item> items;
+
+    public Category(Long id, String createBy, String createDate, Date modifiedDate, String modifiedBy, String name) {
+        super(id, createBy, createDate, modifiedDate, modifiedBy);
+        this.name = name;
+    }
+
+    public Category(String name) {
+        this.name = name;
+    }
 }

@@ -126,8 +126,24 @@
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.14</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>4.1.2</version>
+            <version>3.14</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jett</groupId>
+            <artifactId>jett-core</artifactId>
+            <version>0.11.0</version>
+        </dependency>
+        <!-- JavaMailSender -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -135,8 +151,6 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-
-
 
         <dependency>
             <groupId>mysql</groupId>
@@ -178,6 +192,14 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
         </plugins>

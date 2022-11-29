@@ -21,13 +21,22 @@ public class Item extends BaseEntity{
     @Column(name = "name", length = 100)
     private String name;
 
-
     @ManyToOne
+    @JsonIgnore
     private Category category;
 
     @OneToMany(mappedBy = "item")
     @JsonIgnore
     private List<Mark> marks;
 
+    private Type type;
 
+    @OneToMany(mappedBy = "item")
+    @JsonIgnore
+    private Set<Symbol> symbols;
+
+    private PointRule pointRule;
+
+    private Float start;
+    private Float end;
 }

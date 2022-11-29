@@ -14,7 +14,37 @@ public class JwtResponse {
 
     private String username;
 
+    private boolean status;
+
     private String name;
+
+    public JwtResponse() {
+    }
+
+    public JwtResponse(String accessToken, Long id, String username, String name, boolean status, Collection<? extends GrantedAuthority> roles) {
+        this.id = id;
+        this.token = accessToken;
+        this.username = username;
+        this.name = name;
+        this.status = status;
+        this.roles = roles;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
     private Collection<? extends GrantedAuthority> roles;
 

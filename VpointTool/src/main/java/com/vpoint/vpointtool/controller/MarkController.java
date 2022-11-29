@@ -11,13 +11,18 @@ import com.vpoint.vpointtool.payload.request.AddMarkUser;
 import com.vpoint.vpointtool.payload.request.MarkUserDate;
 import com.vpoint.vpointtool.payload.response.MarkResponse;
 import com.vpoint.vpointtool.payload.response.MessageResponse;
+import com.vpoint.vpointtool.payload.response.ReportResponse;
 import com.vpoint.vpointtool.services.IItemService;
 import com.vpoint.vpointtool.services.IMarkService;
 import com.vpoint.vpointtool.services.IUserService;
+import com.vpoint.vpointtool.services.impl.ItemService;
+import com.vpoint.vpointtool.services.impl.MarkV2Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -25,9 +30,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "/api/mark")
@@ -38,13 +41,16 @@ public class MarkController {
     private IUserService userService;
 
     @Autowired
-    private IItemService itemService;
-
-    @Autowired
     private IMarkService markService;
 
     @Autowired
     private MessageSource messageSource;
+
+    @Autowired
+    private MarkV2Service markV2Service;
+
+    @Autowired
+    private ItemService itemService;
 
     @GetMapping("/test")
     public String index() {
@@ -52,6 +58,7 @@ public class MarkController {
     }
 
     @PostMapping("/add")
+//    @PreAuthorize("hasAuthority('ADMIN')")
     @Transactional
     public ResponseEntity<?> addMarkUser(@Valid @RequestBody AddMarkUser markUser,
                                                     BindingResult result) {
@@ -62,77 +69,86 @@ public class MarkController {
         }
         MarkResponse markResponse = new MarkResponse();
         User user = userService.findByStaffId(markUser.getStaff_id());
+        markResponse.setStaff_id(user.getStaffId());
+        markResponse.setDepartment(user.getDepartment().getName());
+        markResponse.setFullName(user.getFullName());
+        markResponse.setId(user.getId());
+
         LocalDate localDate = LocalDate.of(markUser.getYear(), markUser.getMonth(), 1);
 
         if (markUser.getKpiID() != null) {
-            System.out.println("KPI" + markUser.getKpi());
-            float pointKpi = markService.saveKPI(markUser.getKpiID(), markUser.getKpi(), user, localDate);
+            float pointKpi = markV2Service.saveDecimal(markUser.getKpiID(),markUser.getKpi(), user , localDate);
             markResponse.setPointKPI(pointKpi);
         }
-        if (markUser.getBestDepartmentMonthID() != null && markUser.getBestDepartmentMonth() != null) {
-            float pointBestDepartment = markService.saveBestDepartmentMonth(
+        if (markUser.getBestDepartmentMonthID() != null) {
+            float pointBestDepartment = markV2Service.saveBoolean(
                     markUser.getBestDepartmentMonthID(), markUser.getBestDepartmentMonth(), user, localDate);
             markResponse.setPointBestDepartmentMonth(pointBestDepartment);
         }
-        if (markUser.getBestDepartmentQuarter() != null && markUser.getBestDepartmentQuarter() != null) {
-            float pointBestDepartment = markService.saveBestDepartmentQuarter(markUser.getBestDepartmentQuarterID(),
+        if (markUser.getImproveYearId() != null) {
+            float pointImproveYear = markV2Service.savePoint(
+                    markUser.getImproveYearId(), markUser.getImproveYear(),user, localDate);
+            markResponse.setPointImproveYear(pointImproveYear);
+        }
+        if (markUser.getBestDepartmentQuarterID() != null) {
+            float pointBestDepartment = markV2Service.saveText(markUser.getBestDepartmentQuarterID(),
                     markUser.getBestDepartmentQuarter(), user, localDate);
             markResponse.setPointBestDepartmentQuarter(pointBestDepartment);
         }
-        if (markUser.getBestDepartmentYearID() != null && markUser.getBestDepartmentYear() != null) {
-            float pointBestDepartment = markService.saveBestDepartmentYear(markUser.getBestDepartmentYearID(),
+        if (markUser.getBestDepartmentYearID() != null) {
+            float pointBestDepartment = markV2Service.saveText(markUser.getBestDepartmentYearID(),
                     markUser.getBestDepartmentYear(), user, localDate);
             markResponse.setPointBestDepartmentYear(pointBestDepartment);
         }
         if (markUser.getBcsDepartmentID() != null ) {
-            float pointBCSDepartment = markService.saveBCSDepartment(markUser.getBcsDepartmentID(),
+            float pointBCSDepartment = markV2Service.saveDecimal(markUser.getBcsDepartmentID(),
                     markUser.getBcsDepartment(), user, localDate);
             markResponse.setPointBCSDepartment(pointBCSDepartment);
         }
         if (markUser.getJointActivitiesID() != null ) {
-            float pointJoint = markService.saveJointActivities(markUser.getJointActivitiesID(),
+            float pointJoint = markV2Service.savePoint(markUser.getJointActivitiesID(),
                     markUser.getJointActivities(), user, localDate);
             markResponse.setPointJointActivities(pointJoint);
         }
         if (markUser.getTrainID() != null ) {
-            float pointTrain = markService.saveTrain(markUser.getTrainID(), markUser.getTrain(), user, localDate);
+            float pointTrain = markV2Service.saveDecimal(markUser.getTrainID(), markUser.getTrain(), user, localDate);
             markResponse.setPointTrain(pointTrain);
         }
         if (markUser.getTrainStaffID() != null ) {
-            float pointTrainStaff = markService.saveTrainStaff(markUser.getTrainStaffID(),
+            float pointTrainStaff = markV2Service.saveDecimal(markUser.getTrainStaffID(),
                     markUser.getTrainStaff(), user, localDate);
             markResponse.setPointTrainStaff(pointTrainStaff);
         }
         if (markUser.getTrainVmgID() != null ) {
-            float pointTrainVmg = markService.saveTrainVmg(markUser.getTrainVmgID(), markUser.getTrainVmg(), user,
+            float pointTrainVmg = markV2Service.savePoint(markUser.getTrainVmgID(), markUser.getTrainVmg(), user,
                     localDate);
             markResponse.setPointTrainVmg(pointTrainVmg);
         }
         if (markUser.getLoveVmgID() != null ) {
-            float pointLoveVmg = markService.saveLoveVmg(markUser.getLoveVmgID(), markUser.getLoveVmg(), user, localDate);
+            float pointLoveVmg = markV2Service.saveDecimal(markUser.getLoveVmgID(), markUser.getLoveVmg(), user, localDate);
             markResponse.setPointLoveVmg(pointLoveVmg);
         }
         if (markUser.getDisciplineBonusID() != null ) {
-            float pointDisciplineBonus = markService.saveDisciplineBonus(markUser.getDisciplineBonusID(),
+            float pointDisciplineBonus = markV2Service.savePoint(markUser.getDisciplineBonusID(),
                     markUser.getDisciplineBonus(), user, localDate);
             markResponse.setPointDisciplineBonus(pointDisciplineBonus);
         }
         if (markUser.getDisciplineViolateID() != null ) {
-            float pointDisciplineViolate = markService.saveDisciplineViolate(markUser.getDisciplineViolateID(),
+            float pointDisciplineViolate = markV2Service.savePoint(markUser.getDisciplineViolateID(),
                     markUser.getDisciplineViolate(), user, localDate);
             markResponse.setPointDisciplineViolate(pointDisciplineViolate);
         }
-        if (markUser.getImproveID() != null && markUser.getImprove() != null) {
-            float pointImprove = markService.saveImprove(markUser.getImproveID(), markUser.getImprove(),user, localDate);
+        if (markUser.getImproveID() != null) {
+            float pointImprove = markV2Service.saveBoolean(markUser.getImproveID(), markUser.getImprove(),user, localDate);
             markResponse.setPointImprove(pointImprove);
         }
-        if (markUser.getExcellentDepartmentMonthID() != null && markUser.getExcellentDepartmentMonth() != null) {
-            float pointExcellentMonth = markService.saveExcellentDepartmentMonth(
+        if (markUser.getExcellentDepartmentMonthID() != null) {
+            float pointExcellentMonth = markV2Service.saveBoolean(
                     markUser.getExcellentDepartmentMonthID(), markUser.getExcellentDepartmentMonth(),user, localDate);
             markResponse.setPointExcellentDepartmentMonth(pointExcellentMonth);
         }
-        if (markUser.getExcellentDepartmentYearID() != null && markUser.getExcellentDepartmentYear() != null) {
-            float pointExcellentDepartmentYear = markService.saveExcellentDepartmentYear(
+        if (markUser.getExcellentDepartmentYearID() != null) {
+            float pointExcellentDepartmentYear = markV2Service.saveBoolean(
                     markUser.getExcellentDepartmentYearID(), markUser.getExcellentDepartmentYear(), user, localDate);
             markResponse.setPointExcellentDepartmentYear(pointExcellentDepartmentYear);
         }
@@ -235,13 +251,32 @@ public class MarkController {
         return messageResponses;
     }
 
-
-
     @GetMapping("/{idUser}")
     public ResponseEntity<List<Mark>> getMarkByTime(@PathVariable Long idUser,
                                                     @RequestParam("year") int year,
                                                     @RequestParam("month") int month){
-
         return new ResponseEntity<>(markService.getMarkByTime(idUser, year, month), HttpStatus.OK);
+    }
+
+    @GetMapping("reportmark")
+    public ResponseEntity<?> getReportMark(@RequestParam("month") Optional<Integer> month, @RequestParam("year") Optional<Integer> year
+            , @RequestParam("department") Optional<String> department) {
+        if (month.isPresent() && year.isPresent() ) {
+            return new ResponseEntity<>(markService.reportMark(month.get(), year.get(), department.get()), HttpStatus.OK);
+        }else {
+            int year1 = Calendar.getInstance().get(Calendar.YEAR);
+            int month1 = Calendar.getInstance().get(Calendar.MONTH);
+            return new ResponseEntity<>(markService.reportMark(month1, year1, ""), HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("getallyear")
+    public ResponseEntity<?> getAllYear() {
+        return new ResponseEntity<>(markService.findAllYear(), HttpStatus.OK);
+    }
+
+    @GetMapping("/getRules")
+    public ResponseEntity<?> getRules() {
+        return new ResponseEntity<>(itemService.getAllRule(), HttpStatus.OK);
     }
 }
