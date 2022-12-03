@@ -7,8 +7,8 @@ import com.vpoint.vpointtool.models.entity.Department;
 import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.Role;
 import com.vpoint.vpointtool.models.login.User;
-import com.vpoint.vpointtool.models.request.SignUpForm;
 import com.vpoint.vpointtool.payload.response.MessageResponse;
+import com.vpoint.vpointtool.payload.request.SignUpForm;
 import com.vpoint.vpointtool.services.appRole.IAppRoleService;
 import com.vpoint.vpointtool.services.appUser.AppUserService;
 import com.vpoint.vpointtool.services.appUser.IAppUserService;
@@ -32,9 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
-import java.util.*;
-
 import java.util.stream.Collectors;
 
 

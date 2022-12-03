@@ -235,6 +235,10 @@ public class MarkController {
         if (violate != null) {
             markUser.setDisciplineViolate(Float.valueOf(violate));
         }
+        String improveYear = markService.getValue(markUser.getImproveYearId(), user, date);
+        if (improveYear != null) {
+            markUser.setImproveYear(Float.valueOf(improveYear));
+        }
         return markUser;
     }
 
