@@ -1,4 +1,4 @@
-package com.vpoint.vpointtool.models.request;
+package com.vpoint.vpointtool.payload.request;
 
 public class CategoryForm {
     String name;
