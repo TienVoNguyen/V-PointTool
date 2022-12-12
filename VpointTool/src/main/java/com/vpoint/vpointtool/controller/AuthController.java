@@ -7,6 +7,9 @@ import com.vpoint.vpointtool.models.entity.Department;
 import com.vpoint.vpointtool.models.entity.Mark;
 import com.vpoint.vpointtool.models.login.Role;
 import com.vpoint.vpointtool.models.login.User;
+
+import com.vpoint.vpointtool.payload.response.MessageResponse;
+
 import com.vpoint.vpointtool.payload.request.SignUpForm;
 import com.vpoint.vpointtool.services.appRole.IAppRoleService;
 import com.vpoint.vpointtool.services.appUser.AppUserService;
@@ -61,6 +64,7 @@ public class AuthController {
             return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(),user1.get().getFullName(), currentUser.isStatus() , userDetails.getAuthorities()));
         }
         else if (user1.isPresent() && user1.get().isStatus() == false) {
+            SecurityContextHolder.getContext().setAuthentication(null);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User has locked");
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

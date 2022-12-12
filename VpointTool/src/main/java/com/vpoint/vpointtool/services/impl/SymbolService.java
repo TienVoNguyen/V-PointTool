@@ -20,4 +20,9 @@ public class SymbolService implements ISymbolService {
     public List<Symbol> findAllByItem(Item item) {
         return symbolRepository.findAllByItem(item);
     }
+
+    @Override
+    public List<Symbol> findAll() {
+        return symbolRepository.findAll();
+    }
 }
