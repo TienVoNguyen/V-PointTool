@@ -63,6 +63,7 @@ public class AuthController {
             return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(),user1.get().getFullName(), currentUser.isStatus() , userDetails.getAuthorities()));
         }
         else if (user1.isPresent() && user1.get().isStatus() == false) {
+            SecurityContextHolder.getContext().setAuthentication(null);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User has locked");
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
