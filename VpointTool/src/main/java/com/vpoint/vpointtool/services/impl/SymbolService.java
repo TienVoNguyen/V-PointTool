@@ -32,4 +32,9 @@ public class SymbolService implements ISymbolService {
     public Symbol saveSymbol(Symbol symbol) {
         return symbolRepository.save(symbol);
     }
+
+    @Override
+    public List<Symbol> findAll() {
+        return symbolRepository.findAll();
+    }
 }

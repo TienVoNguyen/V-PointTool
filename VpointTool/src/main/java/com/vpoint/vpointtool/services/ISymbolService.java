@@ -11,4 +11,5 @@ public interface ISymbolService {
     Symbol findSymbolById(Long id);
 
     Symbol saveSymbol(Symbol symbol);
+    List<Symbol> findAll();
 }
