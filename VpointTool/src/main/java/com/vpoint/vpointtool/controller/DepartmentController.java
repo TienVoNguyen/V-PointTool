@@ -3,7 +3,7 @@ package com.vpoint.vpointtool.controller;
 import com.vpoint.vpointtool.models.entity.Category;
 import com.vpoint.vpointtool.models.entity.Department;
 import com.vpoint.vpointtool.models.login.User;
-import com.vpoint.vpointtool.models.request.CategoryForm;
+import com.vpoint.vpointtool.payload.request.CategoryForm;
 import com.vpoint.vpointtool.payload.response.ResponseCate;
 import com.vpoint.vpointtool.services.ICategoriesService;
 import com.vpoint.vpointtool.services.department.IDepartmentService;

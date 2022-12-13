@@ -289,5 +289,4 @@ public class MarkV2Service {
             return (value > symbol.getStart() && value < symbol.getEnd());
         }
     }
-
 }
