@@ -15,6 +15,8 @@ public interface IItemService {
 
     List<Item> getAllRule();
 
+    void editMark(Item item, List<MarkDecimal> markDecimals);
+
     void editMarkDecimal(Item item, List<MarkDecimal> markDecimals);
 
     void editMarkText(Item item, List<MarkDecimal> markDecimals);

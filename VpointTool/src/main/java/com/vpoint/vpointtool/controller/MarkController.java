@@ -286,13 +286,7 @@ public class MarkController {
     public ResponseEntity<?> editMarkDecimal(@PathVariable("id") Long id,
             @RequestBody List<MarkDecimal> markDecimals) {
         Item item = itemService.findById(id);
-        if (item.getType().equals(Type.DECIMALBIGGER) ||
-            item.getType().equals(Type.DECIMALBIGGEREQUAL) ||
-            item.getType().equals(Type.DECIMALLOWEREQUAL)) {
-            itemService.editMarkDecimal(item, markDecimals);
-        } else if (item.getType().equals(Type.TEXT)) {
-            itemService.editMarkText(item, markDecimals);
-        }
+        itemService.editMark(item, markDecimals);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
