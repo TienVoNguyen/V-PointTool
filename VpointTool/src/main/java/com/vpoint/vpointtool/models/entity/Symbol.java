@@ -1,16 +1,17 @@
 package com.vpoint.vpointtool.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
-public class Symbol {
-    @Id
-    private Long id;
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Symbol extends BaseEntity{
 
     private String description;
 

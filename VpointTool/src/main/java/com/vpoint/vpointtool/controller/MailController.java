@@ -36,12 +36,8 @@ public class MailController {
             User user = userRepository.findUserByStaffId(mark.getStaffId()).get();
             mailer.queue(user.getEmail(), subject, body);
 
-                    "</br></br>Vui lòng truy cập <a href='http://localhost:8081/login'>hệ thống quản lý điểm Vpoint</a> để xem chi tiết.";
-            User user = userRepository.findUserByStaffId(mark.getStaffId()).get();
-            mailer.queue("nguyentienvo.97@gmail.com", subject, body);
-
         });
-            mailInfoList.forEach(mailer::queue);
+//            mailInfoList.forEach(mailer::queue);
             return new ResponseEntity<>("success", HttpStatus.OK);
     }
 }
