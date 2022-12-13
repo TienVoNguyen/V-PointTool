@@ -1,17 +1,16 @@
 package com.vpoint.vpointtool.controller;
 
-import com.vpoint.vpointtool.models.beans.MailInfo;
 import com.vpoint.vpointtool.models.login.User;
 import com.vpoint.vpointtool.payload.request.MarkDetail;
 import com.vpoint.vpointtool.repositories.UserRepository;
 import com.vpoint.vpointtool.services.MailerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.mail.MessagingException;
 import java.util.List;
 
 @RestController
