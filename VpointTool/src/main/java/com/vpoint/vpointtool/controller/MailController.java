@@ -31,9 +31,15 @@ public class MailController {
         markDetailList.forEach(mark -> {
             String subject = "Thông báo điểm VPoint VMG Media tháng " + mark.getMonth() + " năm " + mark.getYear();
             String body = "Tổng điểm Vpoint tháng " + mark.getMonth() + " năm " + mark.getYear() + " của bạn là " + "<strong>" + mark.getTotalPoint() + "</strong>"+
+
                     "<br> <br>Vui lòng truy cập <a href='http://localhost:8081/login'>hệ thống quản lý điểm Vpoint</a> để xem chi tiết.";
             User user = userRepository.findUserByStaffId(mark.getStaffId()).get();
             mailer.queue(user.getEmail(), subject, body);
+//
+//                    "</br></br>Vui lòng truy cập <a href='http://localhost:8081/login'>hệ thống quản lý điểm Vpoint</a> để xem chi tiết.";
+//            User user = userRepository.findUserByStaffId(mark.getStaffId()).get();
+//            mailer.queue("nguyentienvo.97@gmail.com", subject, body);
+
         });
 //            mailInfoList.forEach(mailer::queue);
             return new ResponseEntity<>("success", HttpStatus.OK);
