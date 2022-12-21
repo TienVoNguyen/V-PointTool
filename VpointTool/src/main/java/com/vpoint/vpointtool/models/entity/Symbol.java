@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Symbol {
+public class Symbol extends BaseEntity{
     @Id
     private Long id;
 

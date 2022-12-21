@@ -1,37 +1,37 @@
--- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
---
--- Host: localhost    Database: vpoint
--- ------------------------------------------------------
--- Server version	8.0.31
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Dumping data for table `symbol`
---
-
-LOCK TABLES `symbol` WRITE;
-/*!40000 ALTER TABLE `symbol` DISABLE KEYS */;
-INSERT INTO `symbol` VALUES (1,NULL,NULL,'KPI CÁ NHÂN HÀNG THÁNG',70,-25,NULL,NULL,1),(2,1,NULL,'KPI CÁ NHÂN HÀNG THÁNG',95,-1,NULL,70,1),(3,NULL,_binary '','KPI CÁ NHÂN HÀNG THÁNG',NULL,0,NULL,95,1),(4,1,NULL,'KPI CÁ NHÂN HÀNG THÁNG',130,1,NULL,95,1),(5,NULL,NULL,'KPI CÁ NHÂN HÀNG THÁNG',NULL,35,NULL,130,1),(6,NULL,NULL,'NHÂN VIÊN XUẤT SẮC THÁNG',NULL,10,'TRUE',NULL,2),(7,NULL,NULL,'ĐỀ CỬ QUÝ',NULL,10,'DCQ',NULL,16),(8,NULL,NULL,'XUẤT SẮC QUÝ CÁC HẠNG MỤC',NULL,30,'Q',NULL,16),(9,NULL,NULL,'XUẤT SẮC QUÝ',NULL,40,'NSQ',NULL,16),(10,NULL,NULL,'ĐỀ CỬ GIẢI NGÔI SAO NĂM',NULL,30,'DCN',NULL,17),(11,NULL,NULL,'NGÔI SAO NĂM CÁC HẠNG MỤC',NULL,60,'N',NULL,17),(12,NULL,NULL,'NGÔI SAO NĂM CỦA CÔNG TY',NULL,100,'NSN',NULL,17),(13,NULL,NULL,'BỘ PHÂN XUẤT SẮC THÁNG',NULL,10,NULL,NULL,9),(14,NULL,NULL,'BỘ PHẬN XUẤT SẮC NĂM',NULL,20,NULL,NULL,10),(15,NULL,NULL,'ĐIỂM BSC BỘ PHẬN',NULL,10,NULL,110,3),(16,NULL,NULL,'ĐIỂM BSC BỘ PHẬN',110,5,NULL,105,3),(17,NULL,NULL,'ĐIỂM BSC BỘ PHẬN',105,2,NULL,100,3),(18,NULL,NULL,'ĐIỂM BSC BỘ PHẬN',100,0,NULL,NULL,3),(19,NULL,NULL,'HOẠT ĐỘNG CHUNG',4,NULL,NULL,-0.5,4),(26,NULL,_binary '','NGƯỜI ĐÀO TẠO',NULL,6,NULL,5,5),(27,NULL,NULL,'NGƯỜI ĐÀO TẠO',5,4,NULL,4.5,5),(28,NULL,NULL,'NGƯỜI ĐÀO TẠO',4.5,2,NULL,4,5),(29,NULL,NULL,'NGƯỜI ĐÀO TẠO',4,0,NULL,NULL,5),(30,NULL,NULL,'ĐIỂM THAM GIA ĐÀO TẠO',NULL,2,NULL,105,11),(31,NULL,NULL,'ĐIỂM THAM GIA ĐÀO TẠO',105,1.5,NULL,103,11),(32,NULL,NULL,'ĐIỂM THAM GIA ĐÀO TẠO',103,1,NULL,100,11),(33,NULL,NULL,'ĐIỂM THAM GIA ĐÀO TẠO',100,0,NULL,90,11),(34,NULL,NULL,'ĐIỂM THAM GIA ĐÀO TẠO',90,-1,NULL,NULL,11),(35,NULL,NULL,'PHÁT TRIỂN CÙNG VMG',50,NULL,NULL,0,12),(36,NULL,NULL,'NHÂN SỰ CÓ CẢI TIẾN ĐỔI MỚI THÁNG',NULL,10,'1',NULL,6),(37,NULL,NULL,'ĐIỂM CẢI TIẾN ĐỔI MỚI NĂM',35,NULL,NULL,0,19),(38,NULL,NULL,'TÔI YÊU VMG',100,20,NULL,85,7),(39,NULL,NULL,'TÔI YÊU VMG',85,10,NULL,75,7),(40,NULL,NULL,'TÔI YÊU VMG',75,5,NULL,65,7),(41,NULL,NULL,'TÔI YÊU VMG',65,0,NULL,NULL,7),(42,NULL,NULL,'KỶ LUẬT',NULL,NULL,NULL,NULL,8),(43,NULL,NULL,'KHEN THƯỞNG NÓNG',NULL,NULL,NULL,NULL,13);
-/*!40000 ALTER TABLE `symbol` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2022-12-14 10:57:37
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (1, null, null, 'KPI CÁ NHÂN HÀNG THÁNG', 70, -25, null, null, 1, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (2, 1, null, 'KPI CÁ NHÂN HÀNG THÁNG', 95, -1, null, 70, 1, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (3, null, true, 'KPI CÁ NHÂN HÀNG THÁNG', null, 0, null, 95, 1, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (4, 1, null, 'KPI CÁ NHÂN HÀNG THÁNG', 130, 1, null, 95, 1, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (5, null, null, 'KPI CÁ NHÂN HÀNG THÁNG', null, 35, null, 130, 1, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (6, null, null, 'NHÂN VIÊN XUẤT SẮC THÁNG', null, 10, 'TRUE', null, 2, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (7, null, null, 'ĐỀ CỬ QUÝ', null, 10, 'DCQ', null, 16, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (8, null, null, 'XUẤT SẮC QUÝ CÁC HẠNG MỤC', null, 30, 'Q', null, 16, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (9, null, null, 'XUẤT SẮC QUÝ', null, 40, 'NSQ', null, 16, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (10, null, null, 'ĐỀ CỬ GIẢI NGÔI SAO NĂM', null, 30, 'DCN', null, 17, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (11, null, null, 'NGÔI SAO NĂM CÁC HẠNG MỤC', null, 60, 'N', null, 17, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (12, null, null, 'NGÔI SAO NĂM CỦA CÔNG TY', null, 100, 'NSN', null, 17, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (13, null, null, 'BỘ PHÂN XUẤT SẮC THÁNG', null, 10, null, null, 9, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (14, null, null, 'BỘ PHẬN XUẤT SẮC NĂM', null, 20, null, null, 10, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (15, null, null, 'ĐIỂM BSC BỘ PHẬN', null, 10, null, 110, 3, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (16, null, null, 'ĐIỂM BSC BỘ PHẬN', 110, 5, null, 105, 3, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (17, null, null, 'ĐIỂM BSC BỘ PHẬN', 105, 2, null, 100, 3, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (18, null, null, 'ĐIỂM BSC BỘ PHẬN', 100, 0, null, null, 3, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (19, null, null, 'HOẠT ĐỘNG CHUNG', 4, null, null, -0.5, 4, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (26, null, true, 'NGƯỜI ĐÀO TẠO', null, 6, null, 5, 5, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (27, null, null, 'NGƯỜI ĐÀO TẠO', 5, 4, null, 4.5, 5, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (28, null, null, 'NGƯỜI ĐÀO TẠO', 4.5, 2, null, 4, 5, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (29, null, null, 'NGƯỜI ĐÀO TẠO', 4, 0, null, null, 5, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (30, null, null, 'ĐIỂM THAM GIA ĐÀO TẠO', null, 2, null, 105, 11, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (31, null, null, 'ĐIỂM THAM GIA ĐÀO TẠO', 105, 1.5, null, 103, 11, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (32, null, null, 'ĐIỂM THAM GIA ĐÀO TẠO', 103, 1, null, 100, 11, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (33, null, null, 'ĐIỂM THAM GIA ĐÀO TẠO', 100, 0, null, 90, 11, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (34, null, null, 'ĐIỂM THAM GIA ĐÀO TẠO', 90, -1, null, null, 11, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (35, null, null, 'PHÁT TRIỂN CÙNG VMG', 50, null, null, 0, 12, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (36, null, null, 'NHÂN SỰ CÓ CẢI TIẾN ĐỔI MỚI THÁNG', null, 10, 'TRUE', null, 6, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (37, null, null, 'ĐIỂM CẢI TIẾN ĐỔI MỚI NĂM', 37, null, null, 0, 19, null, null, 'VMG_0000', '2022-12-21 14:31:17.879000');
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (38, null, null, 'TÔI YÊU VMG', 100, 20, null, 85, 7, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (39, null, null, 'TÔI YÊU VMG', 85, 10, null, 75, 7, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (40, null, null, 'TÔI YÊU VMG', 75, 5, null, 65, 7, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (41, null, null, 'TÔI YÊU VMG', 65, 0, null, null, 7, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (42, null, null, 'KỶ LUẬT', null, null, null, null, 8, null, null, null, null);
+INSERT INTO vpoint.symbol (id, calculation, compare, description, end, point, sign, start, item_id, create_by, create_date, modified_by, modified_date) VALUES (43, null, null, 'KHEN THƯỞNG NÓNG', null, null, null, null, 13, null, null, null, null);
