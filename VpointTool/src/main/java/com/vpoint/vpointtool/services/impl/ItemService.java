@@ -1,7 +1,9 @@
 package com.vpoint.vpointtool.services.impl;
 
 import com.vpoint.vpointtool.exception.DataNotFoundException;
+import com.vpoint.vpointtool.exception.InputException;
 import com.vpoint.vpointtool.models.entity.Item;
+import com.vpoint.vpointtool.models.entity.PointRule;
 import com.vpoint.vpointtool.models.entity.Symbol;
 import com.vpoint.vpointtool.models.entity.Type;
 import com.vpoint.vpointtool.payload.request.MarkDecimal;
@@ -83,10 +85,16 @@ public class ItemService implements IItemService {
                 symbol.setStart(markDecimal.getStart());
             }
 
-            if (markDecimal.getPoint() != null) {
+            if (item.getPointRule().equals(PointRule.YEAR) && markDecimal.getEnd() != null) {
+                item.setEnd(markDecimal.getEnd());
+                itemRepository.save(item);
+                break;
+            }
+
+            if (markDecimal.getPoint() != null && symbol.getPoint() != null) {
                 symbol.setPoint(markDecimal.getPoint());
-            } else {
-                throw new DataNotFoundException("Symbol point point");
+            } else if (symbol.getPoint() != null && markDecimal.getPoint() == null) {
+                throw new InputException("Symbol point");
             }
             symbolService.saveSymbol(symbol);
         }
