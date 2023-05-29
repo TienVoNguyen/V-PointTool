@@ -7,4 +7,9 @@ import java.util.List;
 
 public interface ISymbolService {
     List<Symbol> findAllByItem(Item item);
+
+    Symbol findSymbolById(Long id);
+
+    Symbol saveSymbol(Symbol symbol);
+    List<Symbol> findAll();
 }

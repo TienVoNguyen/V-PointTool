@@ -17,5 +17,4 @@ import java.util.Set;
 public class Role extends BaseEntity {
     @Column(length = 20)
     private String name;
-
 }

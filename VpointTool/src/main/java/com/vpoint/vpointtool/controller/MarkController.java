@@ -6,8 +6,10 @@ import com.vpoint.vpointtool.models.dto.ResponseMark;
 import com.vpoint.vpointtool.models.dto.UserYear;
 import com.vpoint.vpointtool.models.entity.Item;
 import com.vpoint.vpointtool.models.entity.Mark;
+import com.vpoint.vpointtool.models.entity.Type;
 import com.vpoint.vpointtool.models.login.User;
 import com.vpoint.vpointtool.payload.request.AddMarkUser;
+import com.vpoint.vpointtool.payload.request.MarkDecimal;
 import com.vpoint.vpointtool.payload.request.MarkUserDate;
 import com.vpoint.vpointtool.payload.response.MarkResponse;
 import com.vpoint.vpointtool.payload.response.MessageResponse;
@@ -235,6 +237,10 @@ public class MarkController {
         if (violate != null) {
             markUser.setDisciplineViolate(Float.valueOf(violate));
         }
+        String improveYear = markService.getValue(markUser.getImproveYearId(), user, date);
+        if (improveYear != null) {
+            markUser.setImproveYear(Float.valueOf(improveYear));
+        }
         return markUser;
     }
 
@@ -279,4 +285,13 @@ public class MarkController {
     public ResponseEntity<?> getRules() {
         return new ResponseEntity<>(itemService.getAllRule(), HttpStatus.OK);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> editMarkDecimal(@PathVariable("id") Long id,
+            @RequestBody List<MarkDecimal> markDecimals) {
+        Item item = itemService.findById(id);
+        itemService.editMark(item, markDecimals);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
 }

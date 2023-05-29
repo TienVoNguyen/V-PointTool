@@ -105,6 +105,11 @@ public class MarkV2Service {
             if (value < item.getStart()) {
                 throw new InputException(item.getName());
             }
+            Optional<Mark> mark = markRepository.findByItemAndDateAndUser(item, date, user);
+            if (mark.isPresent()) {
+                mark.get().setPoint(0F);
+                markRepository.save(mark.get());
+            }
             float tmp = sumPoint(item, user, date) != null ? sumPoint(item, user, date) : 0;
             if (tmp >= item.getEnd()) {
                 return 0F;
@@ -289,5 +294,4 @@ public class MarkV2Service {
             return (value > symbol.getStart() && value < symbol.getEnd());
         }
     }
-
 }
